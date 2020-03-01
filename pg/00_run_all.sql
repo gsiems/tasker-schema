@@ -1,0 +1,10 @@
+\i 01_drop_database.sql
+\i 02_drop_roles.sql
+\i 03_create_roles.sql
+\i 04_create_database.sql
+\i 05_create_schema.sql
+\i 06_create_types.sql
+\i 07_create_sequences.sql
+\i 08_create_tables.sql
+\i 09_create_views.sql
+\i 10_create_functions.sql
