@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION user__select (
     a_username varchar,
     a_session_username varchar )
 RETURNS TABLE (
-        ctid text,
+        edition integer,
         user_id integer,
         reports_to integer,
         bosses text,
@@ -42,7 +42,7 @@ BEGIN
     l_is_admin := user_is_admin ( a_session_username ) ;
 
     RETURN QUERY
-    SELECT du.ctid,
+    SELECT du.edition,
             du.user_id,
             du.reports_to,
             array_to_string ( du.bosses, ',' ) AS bosses,

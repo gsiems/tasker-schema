@@ -2,7 +2,7 @@ SET search_path = tasker, pg_catalog ;
 
 CREATE VIEW dv_task_file
 AS
-SELECT dtf.ctid::text AS ctid,
+SELECT dtf.edition,
         dtf.id AS file_id,
         dtf.task_id,
         dt.task_outln,

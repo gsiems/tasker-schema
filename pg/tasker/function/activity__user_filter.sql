@@ -3,7 +3,7 @@ SET search_path = tasker, pg_catalog ;
 CREATE OR REPLACE FUNCTION activity__user_filter (
     a_username varchar )
 RETURNS TABLE (
-    ctid text,
+    edition integer,
     activity_id integer,
     parent_id integer,
     parents text,
@@ -43,7 +43,7 @@ BEGIN
     l_user_id := user_id ( a_username ) ;
 
     RETURN QUERY
-    SELECT da.ctid,
+    SELECT da.edition,
             da.activity_id,
             da.parent_id,
             array_to_string ( da.parents, ',' ) AS parents,

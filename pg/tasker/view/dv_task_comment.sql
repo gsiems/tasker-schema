@@ -2,7 +2,7 @@ SET search_path = tasker, pg_catalog ;
 
 CREATE VIEW dv_task_comment
 AS
-SELECT dtc.ctid::text AS ctid,
+SELECT dtc.edition,
         dtc.id AS comment_id,
         dtc.parent_id,
         toc.comment_depth,

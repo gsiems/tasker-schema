@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION task_journal__select (
     a_journal_id integer,
     a_username varchar )
 RETURNS TABLE (
-        ctid text,
+        edition integer,
         journal_id integer,
         task_id integer,
         task_outln text,
@@ -40,7 +40,7 @@ BEGIN
     l_user_id := user_id ( a_username ) ;
 
     RETURN QUERY
-    SELECT dtj.ctid,
+    SELECT dtj.edition,
             dtj.journal_id,
             dtj.task_id,
             dtj.task_outln,

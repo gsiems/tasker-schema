@@ -2,7 +2,7 @@ SET search_path = tasker, pg_catalog ;
 
 CREATE VIEW dv_meeting
 AS
-SELECT dv.ctid,
+SELECT dv.edition,
         dv.task_id,
         dv.activity_id,
         dv.parent_id,

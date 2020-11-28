@@ -2,7 +2,7 @@ SET search_path = tasker, pg_catalog ;
 
 CREATE VIEW dv_user
 AS
-SELECT du.ctid::text AS ctid,
+SELECT du.edition,
         du.id AS user_id,
         du.reports_to,
         cc.bosses,

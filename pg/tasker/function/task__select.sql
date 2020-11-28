@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION task__select (
     a_task_id integer,
     a_session_username varchar )
 RETURNS TABLE (
-    ctid text,
+    edition integer,
     task_id integer,
     activity_id integer,
     parent_id integer,
@@ -60,7 +60,7 @@ BEGIN
             AND user_id = l_session_user_id ;
 
     RETURN QUERY
-    SELECT dt.ctid,
+    SELECT dt.edition,
             dt.task_id,
             dt.activity_id,
             dt.parent_id,
