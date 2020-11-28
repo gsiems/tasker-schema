@@ -1,7 +1,7 @@
 set search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_activity (
-    id serial NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     parent_id integer,
     visibility_id integer NOT NULL,
     category_id integer,

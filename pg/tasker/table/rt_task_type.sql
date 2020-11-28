@@ -1,7 +1,7 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE rt_task_type (
-    id serial NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     category_id integer NOT NULL default 1,
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),

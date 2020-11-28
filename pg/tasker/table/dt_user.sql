@@ -7,7 +7,7 @@ possible to support users changing their usernames.
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_user (
-    id serial NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     reports_to integer,
     username character varying ( 32 ) NOT NULL,
     full_name character varying ( 128 ) NOT NULL,

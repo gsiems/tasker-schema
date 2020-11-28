@@ -1,7 +1,7 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_activity_attribute (
-    id serial NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     activity_id integer NOT NULL,
     attribute_type_id integer NOT NULL,
     attribute_text text,

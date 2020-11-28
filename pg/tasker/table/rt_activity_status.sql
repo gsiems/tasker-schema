@@ -1,7 +1,7 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE rt_activity_status (
-    id serial NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
     open_status integer default 0,
