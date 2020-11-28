@@ -10,11 +10,11 @@ ALTER TABLE st_ranking OWNER TO tasker_owner ;
 
 COMMENT ON TABLE st_ranking IS 'Reference table. Ranking values for attributes such as priority, urgency, reversibility, etc.' ;
 
-COMMENT ON column st_ranking.id IS 'Unique ID/value for the ranking.' ;
+COMMENT ON COLUMN st_ranking.id IS 'Unique ID/value for the ranking.' ;
 
-COMMENT ON column st_ranking.name IS 'Display name for the ranking.' ;
+COMMENT ON COLUMN st_ranking.name IS 'Display name for the ranking.' ;
 
-REVOKE ALL ON table st_ranking FROM public ;
+REVOKE ALL ON TABLE st_ranking FROM public ;
 
 INSERT INTO st_ranking (id, name) VALUES (1, 'None/Not') ;
 INSERT INTO st_ranking (id, name) VALUES (2, 'Very Low') ;

@@ -19,29 +19,29 @@ ALTER TABLE dt_task_journal OWNER TO tasker_owner ;
 
 COMMENT ON TABLE dt_task_journal IS 'Journal entries for tasks.' ;
 
-COMMENT ON column dt_task_journal.id IS 'The unique ID for a journal entry.' ;
+COMMENT ON COLUMN dt_task_journal.id IS 'The unique ID for a journal entry.' ;
 
-COMMENT ON column dt_task_journal.task_id IS 'The ID of the task.' ;
+COMMENT ON COLUMN dt_task_journal.task_id IS 'The ID of the task.' ;
 
-COMMENT ON column dt_task_journal.user_id IS 'The ID of owner of the journal entry.' ;
+COMMENT ON COLUMN dt_task_journal.user_id IS 'The ID of owner of the journal entry.' ;
 
-COMMENT ON column dt_task_journal.markup_type_id IS 'The ID of the markup format used for the journal entry.' ;
+COMMENT ON COLUMN dt_task_journal.markup_type_id IS 'The ID of the markup format used for the journal entry.' ;
 
-COMMENT ON column dt_task_journal.journal_date IS 'The date that the journal entry covers.' ;
+COMMENT ON COLUMN dt_task_journal.journal_date IS 'The date that the journal entry covers.' ;
 
-COMMENT ON column dt_task_journal.time_spent IS 'The amount of time spent in minutes.' ;
+COMMENT ON COLUMN dt_task_journal.time_spent IS 'The amount of time spent in minutes.' ;
 
-COMMENT ON column dt_task_journal.journal_markup IS 'The markup text of the journal entry.' ;
+COMMENT ON COLUMN dt_task_journal.journal_markup IS 'The markup text of the journal entry.' ;
 
-COMMENT ON column dt_task_journal.journal_html IS 'The HTML form of a journal entry.' ;
+COMMENT ON COLUMN dt_task_journal.journal_html IS 'The HTML form of a journal entry.' ;
 
-COMMENT ON column dt_task_journal.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_journal.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_journal.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_task_journal.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column dt_task_journal.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_journal.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_journal.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_task_journal.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 ALTER TABLE dt_task_journal
     ADD CONSTRAINT dt_task_journal_fk01
@@ -58,4 +58,4 @@ ALTER TABLE dt_task_journal
     FOREIGN KEY ( markup_type_id )
     REFERENCES st_markup_type ( id ) ;
 
-REVOKE ALL ON table dt_task_journal FROM public ;
+REVOKE ALL ON TABLE dt_task_journal FROM public ;

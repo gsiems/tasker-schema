@@ -18,25 +18,25 @@ ALTER TABLE rt_activity_status OWNER TO tasker_owner ;
 
 COMMENT ON TABLE rt_activity_status IS 'Reference table. Status values for activities.' ;
 
-COMMENT ON column rt_activity_status.id IS 'Unique ID for a status' ;
+COMMENT ON COLUMN rt_activity_status.id IS 'Unique ID for a status' ;
 
-COMMENT ON column rt_activity_status.name IS 'The name for a status.' ;
+COMMENT ON COLUMN rt_activity_status.name IS 'The name for a status.' ;
 
-COMMENT ON column rt_activity_status.description IS 'The description of the status.' ;
+COMMENT ON COLUMN rt_activity_status.description IS 'The description of the status.' ;
 
-COMMENT ON column rt_activity_status.open_status IS 'Indicates whether or not the status is open (0), closed(2), neither open or closed (1).' ;
+COMMENT ON COLUMN rt_activity_status.open_status IS 'Indicates whether or not the status is open (0), closed(2), neither open or closed (1).' ;
 
-COMMENT ON column rt_activity_status.is_enabled IS 'Indicates whether or not the status is available for use.' ;
+COMMENT ON COLUMN rt_activity_status.is_enabled IS 'Indicates whether or not the status is available for use.' ;
 
-COMMENT ON column rt_activity_status.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN rt_activity_status.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column rt_activity_status.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN rt_activity_status.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column rt_activity_status.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN rt_activity_status.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column rt_activity_status.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN rt_activity_status.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
-REVOKE ALL ON table rt_activity_status FROM public ;
+REVOKE ALL ON TABLE rt_activity_status FROM public ;
 
 INSERT INTO rt_activity_status (open_status, name) VALUES (2, 'Closed - Finished') ;
 INSERT INTO rt_activity_status (open_status, name) VALUES (2, 'Closed - No longer needed') ;

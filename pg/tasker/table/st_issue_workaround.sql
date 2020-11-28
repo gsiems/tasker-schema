@@ -11,13 +11,13 @@ ALTER TABLE st_issue_workaround OWNER TO tasker_owner ;
 
 COMMENT ON TABLE st_issue_workaround IS 'Reference table. The type of workarounds available for an issue.' ;
 
-COMMENT ON column st_issue_workaround.id IS 'Unique ID/value for the issue_workaround.' ;
+COMMENT ON COLUMN st_issue_workaround.id IS 'Unique ID/value for the issue_workaround.' ;
 
-COMMENT ON column st_issue_workaround.priority_id IS 'The priority associated with the workaround.' ;
+COMMENT ON COLUMN st_issue_workaround.priority_id IS 'The priority associated with the workaround.' ;
 
-COMMENT ON column st_issue_workaround.name IS 'Display name for the issue_workaround.' ;
+COMMENT ON COLUMN st_issue_workaround.name IS 'Display name for the issue_workaround.' ;
 
-REVOKE ALL ON table st_issue_workaround FROM public ;
+REVOKE ALL ON TABLE st_issue_workaround FROM public ;
 
 ALTER TABLE st_issue_workaround
     ADD CONSTRAINT st_issue_workaround_fk01

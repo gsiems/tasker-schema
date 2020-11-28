@@ -22,31 +22,31 @@ ALTER TABLE dt_activity OWNER TO tasker_owner ;
 
 COMMENT ON TABLE dt_activity IS 'Activities that act as containers for tasks.' ;
 
-COMMENT ON column dt_activity.id IS 'The unique ID for the activity.' ;
+COMMENT ON COLUMN dt_activity.id IS 'The unique ID for the activity.' ;
 
-COMMENT ON column dt_activity.parent_id IS 'The ID of the parent activity (if any).' ;
+COMMENT ON COLUMN dt_activity.parent_id IS 'The ID of the parent activity (if any).' ;
 
-COMMENT ON column dt_activity.visibility_id IS 'Indicates the "visibility" of the activity.';
+COMMENT ON COLUMN dt_activity.visibility_id IS 'Indicates the "visibility" of the activity.';
 
-COMMENT ON column dt_activity.category_id IS 'Indicates the category of activity.';
+COMMENT ON COLUMN dt_activity.category_id IS 'Indicates the category of activity.';
 
-COMMENT ON column dt_activity.status_id IS 'The status of the activity.' ;
+COMMENT ON COLUMN dt_activity.status_id IS 'The status of the activity.' ;
 
-COMMENT ON column dt_activity.priority_id IS 'The priority of the activity.' ;
+COMMENT ON COLUMN dt_activity.priority_id IS 'The priority of the activity.' ;
 
-COMMENT ON column dt_activity.markup_type_id IS 'The ID of the markup format used for the description_markup column.' ;
+COMMENT ON COLUMN dt_activity.markup_type_id IS 'The ID of the markup format used for the description_markup column.' ;
 
-COMMENT ON column dt_activity.description_markup IS 'A description of the activity and/or the purpose of the activity.' ;
+COMMENT ON COLUMN dt_activity.description_markup IS 'A description of the activity and/or the purpose of the activity.' ;
 
-COMMENT ON column dt_activity.description_html IS 'The description in HTML format.' ;
+COMMENT ON COLUMN dt_activity.description_html IS 'The description in HTML format.' ;
 
-COMMENT ON column dt_activity.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_activity.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_activity.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_activity.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column dt_activity.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_activity.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_activity.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_activity.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 CREATE INDEX dt_activity_idx1 ON dt_activity ( parent_id ) ;
 
@@ -80,4 +80,4 @@ ALTER TABLE dt_activity
     FOREIGN KEY ( markup_type_id )
     REFERENCES st_markup_type ( id ) ;
 
-REVOKE ALL ON table dt_activity FROM public ;
+REVOKE ALL ON TABLE dt_activity FROM public ;

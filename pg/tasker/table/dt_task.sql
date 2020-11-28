@@ -27,37 +27,37 @@ ALTER TABLE dt_task OWNER TO tasker_owner ;
 
 COMMENT ON TABLE dt_task IS 'Tasks.' ;
 
-COMMENT ON column dt_task.id IS 'The unique ID for the task.' ;
+COMMENT ON COLUMN dt_task.id IS 'The unique ID for the task.' ;
 
-COMMENT ON column dt_task.parent_id IS 'The ID of the parent task (if any).' ;
+COMMENT ON COLUMN dt_task.parent_id IS 'The ID of the parent task (if any).' ;
 
-COMMENT ON column dt_task.task_type_id IS 'Indicates the type of task.' ;
+COMMENT ON COLUMN dt_task.task_type_id IS 'Indicates the type of task.' ;
 
-COMMENT ON column dt_task.status_id IS 'The status of the task.' ;
+COMMENT ON COLUMN dt_task.status_id IS 'The status of the task.' ;
 
-COMMENT ON column dt_task.priority_id IS 'The priority of the task.' ;
+COMMENT ON COLUMN dt_task.priority_id IS 'The priority of the task.' ;
 
-COMMENT ON column dt_task.markup_type_id IS 'The ID of the markup format used for the description_markup column.' ;
+COMMENT ON COLUMN dt_task.markup_type_id IS 'The ID of the markup format used for the description_markup column.' ;
 
-COMMENT ON column dt_task.task_name IS 'The name for the task.' ;
+COMMENT ON COLUMN dt_task.task_name IS 'The name for the task.' ;
 
-COMMENT ON column dt_task.actual_start IS 'The actual date that work on the task was started.' ;
+COMMENT ON COLUMN dt_task.actual_start IS 'The actual date that work on the task was started.' ;
 
-COMMENT ON column dt_task.actual_end IS 'The actual date that the task was finished.' ;
+COMMENT ON COLUMN dt_task.actual_end IS 'The actual date that the task was finished.' ;
 
-COMMENT ON column dt_task.time_estimate IS 'The estimated time that it should take to implement the task.' ;
+COMMENT ON COLUMN dt_task.time_estimate IS 'The estimated time that it should take to implement the task.' ;
 
-COMMENT ON column dt_task.description_markup IS 'A description of the task and/or the purpose of the task.' ;
+COMMENT ON COLUMN dt_task.description_markup IS 'A description of the task and/or the purpose of the task.' ;
 
-COMMENT ON column dt_task.description_html IS 'The description in HTML format.' ;
+COMMENT ON COLUMN dt_task.description_html IS 'The description in HTML format.' ;
 
-COMMENT ON column dt_task.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_task.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_task.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column dt_task.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_task.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_task.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 CREATE INDEX dt_task_idx1 ON dt_task ( parent_id ) ;
 
@@ -97,4 +97,4 @@ ALTER TABLE dt_task
     FOREIGN KEY ( markup_type_id )
     REFERENCES st_markup_type ( id ) ;
 
-REVOKE ALL ON table dt_task FROM public ;
+REVOKE ALL ON TABLE dt_task FROM public ;

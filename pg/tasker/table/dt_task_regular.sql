@@ -20,27 +20,27 @@ ALTER TABLE dt_task_regular OWNER TO tasker_owner ;
 
 COMMENT ON TABLE dt_task_regular IS '"Regular" task specific data.' ;
 
-COMMENT ON column dt_task_regular.task_id IS 'The unique ID for the task.' ;
+COMMENT ON COLUMN dt_task_regular.task_id IS 'The unique ID for the task.' ;
 
-COMMENT ON column dt_task_regular.desired_start IS 'The desired date (if any) that work on the task should start.' ;
+COMMENT ON COLUMN dt_task_regular.desired_start IS 'The desired date (if any) that work on the task should start.' ;
 
-COMMENT ON column dt_task_regular.desired_start_severity_id IS 'The severity of not making the desired start date.' ;
+COMMENT ON COLUMN dt_task_regular.desired_start_severity_id IS 'The severity of not making the desired start date.' ;
 
-COMMENT ON column dt_task_regular.desired_end IS 'The desired date (if any) for the completion for the task.' ;
+COMMENT ON COLUMN dt_task_regular.desired_end IS 'The desired date (if any) for the completion for the task.' ;
 
-COMMENT ON column dt_task_regular.desired_end_severity_id IS 'The severity of not making the desired end date.' ;
+COMMENT ON COLUMN dt_task_regular.desired_end_severity_id IS 'The severity of not making the desired end date.' ;
 
-COMMENT ON column dt_task_regular.estimated_start IS 'The estimated date (if any) that work on the task should start.' ;
+COMMENT ON COLUMN dt_task_regular.estimated_start IS 'The estimated date (if any) that work on the task should start.' ;
 
-COMMENT ON column dt_task_regular.estimated_end IS 'The estimated date (if any) for the completion for the task.' ;
+COMMENT ON COLUMN dt_task_regular.estimated_end IS 'The estimated date (if any) for the completion for the task.' ;
 
-COMMENT ON column dt_task_regular.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_regular.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_regular.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_task_regular.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column dt_task_regular.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_regular.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_regular.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_task_regular.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 ALTER TABLE dt_task_regular
     ADD CONSTRAINT dt_task_regular_fk01
@@ -57,4 +57,4 @@ ALTER TABLE dt_task_regular
     FOREIGN KEY ( desired_end_severity_id )
     REFERENCES st_date_severity ( id ) ;
 
-REVOKE ALL ON table dt_task_regular FROM public ;
+REVOKE ALL ON TABLE dt_task_regular FROM public ;

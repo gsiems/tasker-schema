@@ -15,22 +15,22 @@ ALTER TABLE rt_activity_category OWNER TO tasker_owner ;
 
 COMMENT ON TABLE rt_activity_category IS 'Reference table. Categories for activities.' ;
 
-COMMENT ON column rt_activity_category.id IS 'Unique ID for a category' ;
+COMMENT ON COLUMN rt_activity_category.id IS 'Unique ID for a category' ;
 
-COMMENT ON column rt_activity_category.name IS 'The name for a category.' ;
+COMMENT ON COLUMN rt_activity_category.name IS 'The name for a category.' ;
 
-COMMENT ON column rt_activity_category.description IS 'The description of the category.' ;
+COMMENT ON COLUMN rt_activity_category.description IS 'The description of the category.' ;
 
-COMMENT ON column rt_activity_category.is_enabled IS 'Indicates whether or not the category is available for use.' ;
+COMMENT ON COLUMN rt_activity_category.is_enabled IS 'Indicates whether or not the category is available for use.' ;
 
-COMMENT ON column rt_activity_category.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN rt_activity_category.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column rt_activity_category.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN rt_activity_category.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column rt_activity_category.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN rt_activity_category.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column rt_activity_category.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN rt_activity_category.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
-REVOKE ALL ON table rt_activity_category FROM public ;
+REVOKE ALL ON TABLE rt_activity_category FROM public ;
 
 INSERT INTO rt_activity_category (name, is_enabled) VALUES ('Default', true) ;

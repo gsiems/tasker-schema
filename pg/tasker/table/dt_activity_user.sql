@@ -20,9 +20,9 @@ COMMENT ON COLUMN dt_activity_user.user_id IS 'The ID of the assigned user.' ;
 
 COMMENT ON COLUMN dt_activity_user.role_id IS 'The ID of the role that the user fulfills on the activity team.' ;
 
-COMMENT ON column dt_activity.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_activity.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_activity.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_activity.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 COMMENT ON COLUMN dt_activity_user.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
@@ -43,4 +43,4 @@ ALTER TABLE dt_activity_user
     FOREIGN KEY ( role_id )
     REFERENCES st_role ( id ) ;
 
-REVOKE ALL ON table dt_activity_user FROM public ;
+REVOKE ALL ON TABLE dt_activity_user FROM public ;

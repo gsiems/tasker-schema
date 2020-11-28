@@ -24,21 +24,21 @@ ALTER TABLE dt_task_issue OWNER TO tasker_owner ;
 
 COMMENT ON TABLE dt_task_issue IS 'Issue specific data.' ;
 
-COMMENT ON column dt_task_issue.task_id IS 'The ID of the task.' ;
+COMMENT ON COLUMN dt_task_issue.task_id IS 'The ID of the task.' ;
 
-COMMENT ON column dt_task_issue.probability_id IS 'The ID for the probability of triggering the issue.' ;
+COMMENT ON COLUMN dt_task_issue.probability_id IS 'The ID for the probability of triggering the issue.' ;
 
-COMMENT ON column dt_task_issue.severity_id IS 'The ID for severity of the issue.' ;
+COMMENT ON COLUMN dt_task_issue.severity_id IS 'The ID for severity of the issue.' ;
 
-COMMENT ON column dt_task_issue.workaround_id IS 'The ID for the ability to work around the issue.' ;
+COMMENT ON COLUMN dt_task_issue.workaround_id IS 'The ID for the ability to work around the issue.' ;
 
-COMMENT ON column dt_task_issue.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_issue.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_issue.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_task_issue.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column dt_task_issue.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_issue.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_issue.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_task_issue.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 ALTER TABLE dt_task_issue
     ADD CONSTRAINT dt_task_issue_fk01
@@ -60,4 +60,4 @@ ALTER TABLE dt_task_issue
     FOREIGN KEY ( workaround_id )
     REFERENCES st_issue_workaround ( id ) ;
 
-REVOKE ALL ON table dt_task_issue FROM public ;
+REVOKE ALL ON TABLE dt_task_issue FROM public ;

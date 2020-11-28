@@ -18,27 +18,27 @@ ALTER TABLE dt_task_comment OWNER TO tasker_owner ;
 
 COMMENT ON TABLE dt_task_comment IS 'Comment on tasks.' ;
 
-COMMENT ON column dt_task_comment.id IS 'The unique ID for a comment entry.' ;
+COMMENT ON COLUMN dt_task_comment.id IS 'The unique ID for a comment entry.' ;
 
-COMMENT ON column dt_task_comment.parent_id IS 'The ID of the parent comment (should there be one).' ;
+COMMENT ON COLUMN dt_task_comment.parent_id IS 'The ID of the parent comment (should there be one).' ;
 
-COMMENT ON column dt_task_comment.task_id IS 'The ID of the task.' ;
+COMMENT ON COLUMN dt_task_comment.task_id IS 'The ID of the task.' ;
 
-COMMENT ON column dt_task_comment.user_id IS 'The ID of owner of the comment entry.' ;
+COMMENT ON COLUMN dt_task_comment.user_id IS 'The ID of owner of the comment entry.' ;
 
-COMMENT ON column dt_task_comment.markup_type_id IS 'The ID of the markup format used for the comment entry.' ;
+COMMENT ON COLUMN dt_task_comment.markup_type_id IS 'The ID of the markup format used for the comment entry.' ;
 
-COMMENT ON column dt_task_comment.comment_markup IS 'The markup text of the comment entry.' ;
+COMMENT ON COLUMN dt_task_comment.comment_markup IS 'The markup text of the comment entry.' ;
 
-COMMENT ON column dt_task_comment.comment_html IS 'The HTML form of a comment entry.' ;
+COMMENT ON COLUMN dt_task_comment.comment_html IS 'The HTML form of a comment entry.' ;
 
-COMMENT ON column dt_task_comment.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_comment.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_comment.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_task_comment.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column dt_task_comment.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_comment.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_comment.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_task_comment.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 ALTER TABLE dt_task_comment
     ADD CONSTRAINT dt_task_comment_fk01
@@ -50,4 +50,4 @@ ALTER TABLE dt_task_comment
     FOREIGN KEY ( markup_type_id )
     REFERENCES st_markup_type ( id ) ;
 
-REVOKE ALL ON table dt_task_comment FROM public ;
+REVOKE ALL ON TABLE dt_task_comment FROM public ;

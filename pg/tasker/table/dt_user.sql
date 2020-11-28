@@ -27,30 +27,30 @@ ALTER TABLE dt_user OWNER TO tasker_owner ;
 
 COMMENT ON TABLE dt_user IS 'Tasker user accounts.' ;
 
-COMMENT ON column dt_user.id IS 'Unique ID for the user account.' ;
+COMMENT ON COLUMN dt_user.id IS 'Unique ID for the user account.' ;
 
-COMMENT ON column dt_user.reports_to IS 'The ID of the supervisor user (if any). If the user has multiple bosses then choose the best one.' ;
+COMMENT ON COLUMN dt_user.reports_to IS 'The ID of the supervisor user (if any). If the user has multiple bosses then choose the best one.' ;
 
-COMMENT ON column dt_user.username IS 'The username associated with the account.' ;
+COMMENT ON COLUMN dt_user.username IS 'The username associated with the account.' ;
 
-COMMENT ON column dt_user.full_name IS 'The name of the account user.' ;
+COMMENT ON COLUMN dt_user.full_name IS 'The name of the account user.' ;
 
-COMMENT ON column dt_user.email_address IS 'The email address for the account user.' ;
+COMMENT ON COLUMN dt_user.email_address IS 'The email address for the account user.' ;
 
-COMMENT ON column dt_user.email_is_enabled IS 'Indicates if the user wants to be notified (by email) when there is a change to an item that is associated with their account.' ;
+COMMENT ON COLUMN dt_user.email_is_enabled IS 'Indicates if the user wants to be notified (by email) when there is a change to an item that is associated with their account.' ;
 
-COMMENT ON column dt_user.is_enabled IS 'Indicates if the account is enabled (may log in) or not.' ;
+COMMENT ON COLUMN dt_user.is_enabled IS 'Indicates if the account is enabled (may log in) or not.' ;
 
-COMMENT ON column dt_user.is_admin IS 'Indicates if the account has admin privs or not.' ;
+COMMENT ON COLUMN dt_user.is_admin IS 'Indicates if the account has admin privs or not.' ;
 
-COMMENT ON column dt_user.last_login IS 'The most recent time that the user has logged in.' ;
+COMMENT ON COLUMN dt_user.last_login IS 'The most recent time that the user has logged in.' ;
 
-COMMENT ON column dt_user.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_user.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_user.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_user.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column dt_user.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_user.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_user.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_user.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
-REVOKE ALL ON table dt_user FROM public ;
+REVOKE ALL ON TABLE dt_user FROM public ;

@@ -11,13 +11,13 @@ ALTER TABLE st_issue_probability OWNER TO tasker_owner ;
 
 COMMENT ON TABLE st_issue_probability IS 'Reference table. Probability/repeatability of triggering the issue.' ;
 
-COMMENT ON column st_issue_probability.id IS 'Unique ID/value for the issue_probability.' ;
+COMMENT ON COLUMN st_issue_probability.id IS 'Unique ID/value for the issue_probability.' ;
 
-COMMENT ON column st_issue_probability.priority_id IS 'The priority associated with the probability.' ;
+COMMENT ON COLUMN st_issue_probability.priority_id IS 'The priority associated with the probability.' ;
 
-COMMENT ON column st_issue_probability.name IS 'Display name for the issue_probability.' ;
+COMMENT ON COLUMN st_issue_probability.name IS 'Display name for the issue_probability.' ;
 
-REVOKE ALL ON table st_issue_probability FROM public ;
+REVOKE ALL ON TABLE st_issue_probability FROM public ;
 
 ALTER TABLE st_issue_probability
     ADD CONSTRAINT st_issue_probability_fk01

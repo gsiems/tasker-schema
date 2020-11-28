@@ -29,37 +29,37 @@ ALTER TABLE dt_task_requirement OWNER TO tasker_owner ;
 
 COMMENT ON TABLE dt_task_requirement IS 'Requirement Tasks.' ;
 
-COMMENT ON column dt_task_requirement.task_id IS 'The unique ID for the task.' ;
+COMMENT ON COLUMN dt_task_requirement.task_id IS 'The unique ID for the task.' ;
 
---COMMENT ON column dt_task_requirement.desired_start IS 'The desired date (if any) that work on the task should start.' ;
+--COMMENT ON COLUMN dt_task_requirement.desired_start IS 'The desired date (if any) that work on the task should start.' ;
 --
---COMMENT ON column dt_task_requirement.desired_end IS 'The desired date (if any) for the completion for the task.' ;
+--COMMENT ON COLUMN dt_task_requirement.desired_end IS 'The desired date (if any) for the completion for the task.' ;
 --
---COMMENT ON column dt_task_requirement.estimated_start IS 'The estimated date (if any) that work on the task should start.' ;
+--COMMENT ON COLUMN dt_task_requirement.estimated_start IS 'The estimated date (if any) that work on the task should start.' ;
 --
---COMMENT ON column dt_task_requirement.estimated_end IS 'The estimated date (if any) for the completion for the task.' ;
+--COMMENT ON COLUMN dt_task_requirement.estimated_end IS 'The estimated date (if any) for the completion for the task.' ;
 --
---COMMENT ON column dt_task_requirement.actual_start IS 'The actual date that work on the task was started.' ;
+--COMMENT ON COLUMN dt_task_requirement.actual_start IS 'The actual date that work on the task was started.' ;
 --
---COMMENT ON column dt_task_requirement.actual_end IS 'The actual date that the task was finished.' ;
+--COMMENT ON COLUMN dt_task_requirement.actual_end IS 'The actual date that the task was finished.' ;
 --
---COMMENT ON column dt_task_requirement.time_estimate IS 'The estimated time that it should take to implement the task.' ;
+--COMMENT ON COLUMN dt_task_requirement.time_estimate IS 'The estimated time that it should take to implement the task.' ;
 --
---COMMENT ON column dt_task_requirement.description_markup IS 'A description of the task and/or the purpose of the task.' ;
+--COMMENT ON COLUMN dt_task_requirement.description_markup IS 'A description of the task and/or the purpose of the task.' ;
 --
---COMMENT ON column dt_task_requirement.description_html IS 'The description in HTML format.' ;
+--COMMENT ON COLUMN dt_task_requirement.description_html IS 'The description in HTML format.' ;
 
-COMMENT ON column dt_task_requirement.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_requirement.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_requirement.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_task_requirement.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column dt_task_requirement.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_requirement.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_requirement.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_task_requirement.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 ALTER TABLE dt_task_requirement
     ADD CONSTRAINT dt_task_regular_fk01
     FOREIGN KEY ( task_id )
     REFERENCES dt_task ( id ) ;
 
-REVOKE ALL ON table dt_task_requirement FROM public ;
+REVOKE ALL ON TABLE dt_task_requirement FROM public ;

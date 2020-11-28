@@ -17,27 +17,27 @@ ALTER TABLE rt_activity_attribute_type OWNER TO tasker_owner ;
 
 COMMENT ON TABLE rt_activity_attribute_type IS 'Reference table. Custom attributes for activities.' ;
 
-COMMENT ON column rt_activity_attribute_type.id IS 'Unique ID for a attribute' ;
+COMMENT ON COLUMN rt_activity_attribute_type.id IS 'Unique ID for a attribute' ;
 
-COMMENT ON column rt_activity_attribute_type.category_id IS 'The activity category to which the attribute belongs' ;
+COMMENT ON COLUMN rt_activity_attribute_type.category_id IS 'The activity category to which the attribute belongs' ;
 
-COMMENT ON column rt_activity_attribute_type.name IS 'The name for a attribute.' ;
+COMMENT ON COLUMN rt_activity_attribute_type.name IS 'The name for a attribute.' ;
 
-COMMENT ON column rt_activity_attribute_type.description IS 'The description of the attribute.' ;
+COMMENT ON COLUMN rt_activity_attribute_type.description IS 'The description of the attribute.' ;
 
-COMMENT ON column rt_activity_attribute_type.is_enabled IS 'Indicates whether or not the attribute is available for use.' ;
+COMMENT ON COLUMN rt_activity_attribute_type.is_enabled IS 'Indicates whether or not the attribute is available for use.' ;
 
-COMMENT ON column rt_activity_attribute_type.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN rt_activity_attribute_type.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column rt_activity_attribute_type.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN rt_activity_attribute_type.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column rt_activity_attribute_type.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN rt_activity_attribute_type.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column rt_activity_attribute_type.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN rt_activity_attribute_type.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 ALTER TABLE rt_activity_attribute_type
     ADD CONSTRAINT rt_activity_attribute_type_fk01
     FOREIGN KEY ( category_id )
     REFERENCES rt_activity_category ( id ) ;
 
-REVOKE ALL ON table rt_activity_attribute_type FROM public ;
+REVOKE ALL ON TABLE rt_activity_attribute_type FROM public ;

@@ -16,21 +16,21 @@ ALTER TABLE dt_activity_attribute OWNER TO tasker_owner ;
 
 COMMENT ON TABLE dt_activity_attribute IS 'Custom attributes for activitys.' ;
 
-COMMENT ON column dt_activity_attribute.id IS 'The unique ID for an attribute entry.' ;
+COMMENT ON COLUMN dt_activity_attribute.id IS 'The unique ID for an attribute entry.' ;
 
-COMMENT ON column dt_activity_attribute.activity_id IS 'The ID of the activity.' ;
+COMMENT ON COLUMN dt_activity_attribute.activity_id IS 'The ID of the activity.' ;
 
-COMMENT ON column dt_activity_attribute.attribute_type_id IS 'The ID of attribute type.' ;
+COMMENT ON COLUMN dt_activity_attribute.attribute_type_id IS 'The ID of attribute type.' ;
 
-COMMENT ON column dt_activity_attribute.attribute_text IS 'The text of the attribute.' ;
+COMMENT ON COLUMN dt_activity_attribute.attribute_text IS 'The text of the attribute.' ;
 
-COMMENT ON column dt_activity_attribute.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_activity_attribute.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_activity_attribute.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_activity_attribute.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column dt_activity_attribute.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_activity_attribute.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_activity_attribute.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_activity_attribute.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 ALTER TABLE dt_activity_attribute
     ADD CONSTRAINT dt_activity_attribute_fk01
@@ -42,4 +42,4 @@ ALTER TABLE dt_activity_attribute
     FOREIGN KEY ( attribute_type_id )
     REFERENCES rt_activity_attribute_type ( id ) ;
 
-REVOKE ALL ON table dt_activity_attribute FROM public ;
+REVOKE ALL ON TABLE dt_activity_attribute FROM public ;

@@ -6,8 +6,8 @@ CREATE TABLE dt_task_file (
     comment_id integer,
     journal_id integer,
     filesize integer,
-    filename character varying(100),
-    content_type character varying(100),
+    filename character varying ( 100 ),
+    content_type character varying ( 100 ),
     content bytea,
     created_by integer,
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
@@ -36,13 +36,13 @@ COMMENT ON COLUMN dt_task_file.content_type IS 'The MIME Content-Type of the fil
 
 COMMENT ON COLUMN dt_task_file.content IS 'The content of the file.';
 
-COMMENT ON column dt_task_file.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_file.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_file.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_task_file.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column dt_task_file.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_task_file.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column dt_task_file.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN dt_task_file.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 ALTER TABLE dt_task_file
     ADD CONSTRAINT dt_task_file_fk01
@@ -59,4 +59,4 @@ ALTER TABLE dt_task_file
     FOREIGN KEY ( journal_id )
     REFERENCES dt_task_journal ( id ) ;
 
-REVOKE ALL ON table dt_task FROM public ;
+REVOKE ALL ON TABLE dt_task FROM public ;

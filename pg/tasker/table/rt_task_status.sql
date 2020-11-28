@@ -19,27 +19,27 @@ ALTER TABLE rt_task_status OWNER TO tasker_owner ;
 
 COMMENT ON TABLE rt_task_status IS 'Reference table. Status values for tasks.' ;
 
-COMMENT ON column rt_task_status.id IS 'Unique ID for a status' ;
+COMMENT ON COLUMN rt_task_status.id IS 'Unique ID for a status' ;
 
-COMMENT ON column rt_task_status.name IS 'The name for a status.' ;
+COMMENT ON COLUMN rt_task_status.name IS 'The name for a status.' ;
 
-COMMENT ON column rt_task_status.description IS 'The description of the status.' ;
+COMMENT ON COLUMN rt_task_status.description IS 'The description of the status.' ;
 
-COMMENT ON column rt_task_status.category_id IS 'Indicates category of task that the status is for.' ;
+COMMENT ON COLUMN rt_task_status.category_id IS 'Indicates category of task that the status is for.' ;
 
-COMMENT ON column rt_task_status.open_status IS 'Indicates whether or not the status is open (0), closed(2), neither open or closed (1).' ;
+COMMENT ON COLUMN rt_task_status.open_status IS 'Indicates whether or not the status is open (0), closed(2), neither open or closed (1).' ;
 
-COMMENT ON column rt_task_status.is_enabled IS 'Indicates whether or not the status is available for use.' ;
+COMMENT ON COLUMN rt_task_status.is_enabled IS 'Indicates whether or not the status is available for use.' ;
 
-COMMENT ON column rt_task_status.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN rt_task_status.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column rt_task_status.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN rt_task_status.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column rt_task_status.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN rt_task_status.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
-COMMENT ON column rt_task_status.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN rt_task_status.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
-REVOKE ALL ON table rt_task_status FROM public ;
+REVOKE ALL ON TABLE rt_task_status FROM public ;
 
 -- "Regular" tasks
 INSERT INTO rt_task_status (category_id, open_status, name) VALUES (1, 2, 'Closed - Cannot implement') ;

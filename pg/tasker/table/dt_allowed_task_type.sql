@@ -12,13 +12,13 @@ ALTER TABLE dt_allowed_task_type OWNER TO tasker_owner ;
 
 COMMENT ON TABLE dt_allowed_task_type IS 'Allowed tasks for specific activities (for those activities that restrict the available task types).' ;
 
-COMMENT ON column dt_allowed_task_type.activity_id IS 'The ID of the activity.' ;
+COMMENT ON COLUMN dt_allowed_task_type.activity_id IS 'The ID of the activity.' ;
 
-COMMENT ON column dt_allowed_task_type.task_type_id IS 'The ID of the type of task.' ;
+COMMENT ON COLUMN dt_allowed_task_type.task_type_id IS 'The ID of the type of task.' ;
 
-COMMENT ON column dt_allowed_task_type.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN dt_allowed_task_type.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
-COMMENT ON column dt_allowed_task_type.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN dt_allowed_task_type.created_dt IS 'The timestamp when the row was created.' ;
 
 CREATE INDEX dt_activity_task_template_idx1 ON dt_allowed_task_type ( activity_id ) ;
 
@@ -34,4 +34,4 @@ ALTER TABLE dt_allowed_task_type
     FOREIGN KEY ( task_type_id )
     REFERENCES rt_task_type ( id ) ;
 
-REVOKE ALL ON table dt_allowed_task_type FROM public ;
+REVOKE ALL ON TABLE dt_allowed_task_type FROM public ;

@@ -14,19 +14,19 @@ ALTER TABLE st_role OWNER TO tasker_owner ;
 
 COMMENT ON TABLE st_role IS 'User roles.' ;
 
-COMMENT ON column st_role.id IS 'Unique ID for a role.' ;
+COMMENT ON COLUMN st_role.id IS 'Unique ID for a role.' ;
 
-COMMENT ON column st_role.name IS 'The name of the role.' ;
+COMMENT ON COLUMN st_role.name IS 'The name of the role.' ;
 
-COMMENT ON column st_role.description IS 'The description of the role.' ;
+COMMENT ON COLUMN st_role.description IS 'The description of the role.' ;
 
-COMMENT ON column st_role.is_activity_owner IS 'Indicates whether or not the role has ownerhip of the activity.' ;
+COMMENT ON COLUMN st_role.is_activity_owner IS 'Indicates whether or not the role has ownerhip of the activity.' ;
 
-COMMENT ON column st_role.can_create_task IS 'Indicates whether or not the role is allowed to create sub-tasks.' ;
+COMMENT ON COLUMN st_role.can_create_task IS 'Indicates whether or not the role is allowed to create sub-tasks.' ;
 
-COMMENT ON column st_role.can_update_task IS 'Indicates whether or not the role is allowed to update a task.' ;
+COMMENT ON COLUMN st_role.can_update_task IS 'Indicates whether or not the role is allowed to update a task.' ;
 
-REVOKE ALL ON table st_role FROM public ;
+REVOKE ALL ON TABLE st_role FROM public ;
 
 INSERT INTO st_role (id, name, is_activity_owner, can_create_task, can_update_task) VALUES (1, 'Activity Owner', true, true, true) ;
 INSERT INTO st_role (id, name, is_activity_owner, can_create_task, can_update_task) VALUES (2, 'Task Manager', false, true, true) ;

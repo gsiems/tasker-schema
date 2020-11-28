@@ -20,31 +20,31 @@ ALTER TABLE rt_task_type OWNER TO tasker_owner ;
 
 COMMENT ON TABLE rt_task_type IS 'Reference table. Types of tasks.' ;
 
-COMMENT ON column rt_task_type.id IS 'Unique ID for a task type' ;
+COMMENT ON COLUMN rt_task_type.id IS 'Unique ID for a task type' ;
 
-COMMENT ON column rt_task_type.name IS 'The name for a task type.' ;
+COMMENT ON COLUMN rt_task_type.name IS 'The name for a task type.' ;
 
-COMMENT ON column rt_task_type.description IS 'The description of a task type.' ;
+COMMENT ON COLUMN rt_task_type.description IS 'The description of a task type.' ;
 
-COMMENT ON column rt_task_type.category_id IS 'The category that the task type belongs to.' ;
+COMMENT ON COLUMN rt_task_type.category_id IS 'The category that the task type belongs to.' ;
 
-COMMENT ON column rt_task_type.markup_type_id IS 'The ID of the markup format used for the template_markup column.' ;
+COMMENT ON COLUMN rt_task_type.markup_type_id IS 'The ID of the markup format used for the template_markup column.' ;
 
-COMMENT ON column rt_task_type.template_markup IS 'The optional template to use when creating a new task.' ;
+COMMENT ON COLUMN rt_task_type.template_markup IS 'The optional template to use when creating a new task.' ;
 
-COMMENT ON column rt_task_type.template_html IS 'The template in HTML format.' ;
+COMMENT ON COLUMN rt_task_type.template_html IS 'The template in HTML format.' ;
 
-COMMENT ON column rt_task_type.is_enabled IS 'Indicates whether or not the task type is available for use.' ;
+COMMENT ON COLUMN rt_task_type.is_enabled IS 'Indicates whether or not the task type is available for use.' ;
 
-COMMENT ON column rt_task_type.created_by IS 'The ID of the individual that created the row (ref pt_user).' ;
+COMMENT ON COLUMN rt_task_type.created_by IS 'The ID of the individual that created the row (ref pt_user).' ;
 
-COMMENT ON column rt_task_type.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN rt_task_type.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON column rt_task_type.updated_by IS 'The ID of the individual that most recently updated the row (ref pt_user).' ;
+COMMENT ON COLUMN rt_task_type.updated_by IS 'The ID of the individual that most recently updated the row (ref pt_user).' ;
 
-COMMENT ON column rt_task_type.updated_dt IS 'The timestamp when the row was most recently updated.' ;
+COMMENT ON COLUMN rt_task_type.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
-REVOKE ALL ON table rt_task_type FROM public ;
+REVOKE ALL ON TABLE rt_task_type FROM public ;
 
 ALTER TABLE rt_task_type
     ADD CONSTRAINT rt_task_type_fk01

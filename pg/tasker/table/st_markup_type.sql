@@ -19,15 +19,15 @@ ALTER TABLE st_markup_type OWNER TO tasker_owner ;
 
 COMMENT ON TABLE st_markup_type IS 'Reference table. Types of markup schemes that are supported.' ;
 
-COMMENT ON column st_markup_type.id IS 'Unique ID for a markup type.' ;
+COMMENT ON COLUMN st_markup_type.id IS 'Unique ID for a markup type.' ;
 
-COMMENT ON column st_markup_type.name IS 'Display name for the markup type.' ;
+COMMENT ON COLUMN st_markup_type.name IS 'Display name for the markup type.' ;
 
-COMMENT ON column st_markup_type.description IS 'Optional description for a markup type.' ;
+COMMENT ON COLUMN st_markup_type.description IS 'Optional description for a markup type.' ;
 
-COMMENT ON column st_markup_type.is_enabled IS 'Indicates whether or not the markup type is available for use.' ;
+COMMENT ON COLUMN st_markup_type.is_enabled IS 'Indicates whether or not the markup type is available for use.' ;
 
-REVOKE ALL ON table st_markup_type FROM public ;
+REVOKE ALL ON TABLE st_markup_type FROM public ;
 
 INSERT INTO st_markup_type (id, name, description, is_enabled) VALUES (1, 'Plaintext', NULL, true) ;
 INSERT INTO st_markup_type (id, name, description, is_enabled) VALUES (2, 'Markdown', NULL, true) ;

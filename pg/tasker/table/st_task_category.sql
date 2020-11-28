@@ -11,13 +11,13 @@ ALTER TABLE st_task_category OWNER TO tasker_owner ;
 
 COMMENT ON TABLE st_task_category IS 'Reference table. Broad categories that tasks fall into.' ;
 
-COMMENT ON column st_task_category.id IS 'Unique ID for a task category.' ;
+COMMENT ON COLUMN st_task_category.id IS 'Unique ID for a task category.' ;
 
-COMMENT ON column st_task_category.name IS 'The name for a task category.' ;
+COMMENT ON COLUMN st_task_category.name IS 'The name for a task category.' ;
 
-COMMENT ON column st_task_category.description IS 'The description of a task category.' ;
+COMMENT ON COLUMN st_task_category.description IS 'The description of a task category.' ;
 
-REVOKE ALL ON table st_task_category FROM public ;
+REVOKE ALL ON TABLE st_task_category FROM public ;
 
 INSERT INTO st_task_category (id, name, description) VALUES (1, 'Task', 'Task category for tasks that do not fall in any other category.');
 INSERT INTO st_task_category (id, name, description) VALUES (2, 'Requirement', 'Special task category for requirements.');
