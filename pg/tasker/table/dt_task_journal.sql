@@ -5,7 +5,7 @@ CREATE TABLE dt_task_journal (
     task_id integer NOT NULL,
     edition integer DEFAULT 0 NOT NULL,
     user_id integer NOT NULL,
-    markup_type_id integer,
+    markup_type_id integer NOT NULL default 1,
     journal_date date,
     time_spent integer,
     journal_markup text,

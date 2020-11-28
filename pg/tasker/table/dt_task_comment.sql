@@ -6,7 +6,7 @@ CREATE TABLE dt_task_comment (
     task_id integer NOT NULL,
     edition integer DEFAULT 0 NOT NULL,
     user_id integer NOT NULL,
-    markup_type_id integer,
+    markup_type_id integer NOT NULL default 1,
     comment_markup text,
     comment_html text,
     created_by integer,

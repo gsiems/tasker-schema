@@ -3,9 +3,9 @@ SET search_path = tasker, pg_catalog ;
 CREATE TABLE rt_task_type (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     category_id integer NOT NULL default 1,
+    markup_type_id integer NOT NULL default 1,
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
-    markup_type_id integer,
     template_markup text,
     template_html text,
     is_enabled boolean DEFAULT true NOT NULL,
@@ -22,13 +22,13 @@ COMMENT ON TABLE rt_task_type IS 'Reference table. Types of tasks.' ;
 
 COMMENT ON COLUMN rt_task_type.id IS 'Unique ID for a task type' ;
 
-COMMENT ON COLUMN rt_task_type.name IS 'The name for a task type.' ;
-
-COMMENT ON COLUMN rt_task_type.description IS 'The description of a task type.' ;
-
 COMMENT ON COLUMN rt_task_type.category_id IS 'The category that the task type belongs to.' ;
 
 COMMENT ON COLUMN rt_task_type.markup_type_id IS 'The ID of the markup format used for the template_markup column.' ;
+
+COMMENT ON COLUMN rt_task_type.name IS 'The name for a task type.' ;
+
+COMMENT ON COLUMN rt_task_type.description IS 'The description of a task type.' ;
 
 COMMENT ON COLUMN rt_task_type.template_markup IS 'The optional template to use when creating a new task.' ;
 

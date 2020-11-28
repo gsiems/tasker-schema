@@ -9,7 +9,7 @@ CREATE TABLE dt_task (
     edition integer DEFAULT 0 NOT NULL,
     status_id integer,
     priority_id integer,
-    markup_type_id integer,
+    markup_type_id integer NOT NULL default 1,
     task_name character varying ( 200 ) NOT NULL,
     actual_start date,
     actual_end date,
