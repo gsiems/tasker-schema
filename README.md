@@ -6,11 +6,11 @@ might look like.
 
 ## Activities and Tasks
 
-There are two main organizing objects being considered-- the activity
-and the task.
+There is only one main organizing object being considered-- the task.
 
 ### Activity
 
+* An activity is a form of task.
 * An activity is a collection of, or context under which, tasks are tracked/performed.
 * A project is an activity. All projects are activities but not all activities are projects.
 * Activities may also contain sub-activities.
