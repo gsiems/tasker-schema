@@ -59,7 +59,7 @@ INSERT INTO rt_task_type (category_id, name, description) VALUES (1, 'Event', 'T
 INSERT INTO rt_task_type (category_id, name, description) VALUES (1, 'Issue management', 'Task type for evaluating/managing issues');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (1, 'Maintenance', 'Task type for performing maintenance tasks');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (1, 'Meeting preparation', 'Task type for setting up/preparing for meetings');
-INSERT INTO rt_task_type (category_id, name, description) VALUES (1, 'Other', NULL);
+INSERT INTO rt_task_type (category_id, name, description) VALUES (1, 'Other', '');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (1, 'Personal Project', 'Task type for a personal project');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (1, 'Project management', 'Task type for overhead of actually managing projects');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (1, 'Requirement development', 'Task type for developing requirements.');
@@ -75,15 +75,23 @@ INSERT INTO rt_task_type (category_id, name, description) VALUES (2, 'Style', 'T
 INSERT INTO rt_task_type (category_id, name, description) VALUES (2, 'Technical', 'Task type for technical requirements');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (2, 'Other', 'Task type for other kinds of requirements');
 
-INSERT INTO rt_task_type (category_id, name, description) VALUES (3, 'Support request', 'Task type for support request issues');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (3, 'Defect', 'A problem that prevents or impaires current, or required, functionality.');
-INSERT INTO rt_task_type (category_id, name, description) VALUES (3, 'Risk', 'A potential problem that may prevent or impair current, or required, functionality or that may otherwise endanger the activity.');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (3, 'Enhancement', 'Task type for requesting an improvement to the current functionality.');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (3, 'New feature', 'Task type for requesting a new feature or capability.');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (3, 'Other', 'Task type for other kinds of issues.');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (3, 'Risk', 'A potential problem that may prevent or impair current, or required, functionality or that may otherwise endanger the activity.');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (3, 'Support request', 'Task type for support request issues');
 
 INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Meeting', 'Task type for conducting/attending meetings.');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Pre-meeting meeting', 'Task type for conducting/attending meetings prior to/in preparation for a larger meeting.');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Event', 'Task type for an event.');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Ad hoc', 'Special purpose meeting (not specified)');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Kickoff', 'Activity start');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Management', '');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Staff', 'Meeting between a manager and their staff');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'One-on-one', 'Meeting between two indviduals');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Stand-up', '');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Status', '');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Team', '');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Work', 'Meeting (not otherwise specified) which produces a product or result.');
 
---INSERT INTO rt_task_type (category_id, name, description) VALUES (5, 'Administration', 'Task type for administrative actions.');
---INSERT INTO rt_task_type (category_id, name, description) VALUES (5, 'Maintenance', 'Task type for performing maintenance tasks');
---INSERT INTO rt_task_type (category_id, name, description) VALUES (5, 'Testing', 'Task type for performing tests');
