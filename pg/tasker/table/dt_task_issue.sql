@@ -14,6 +14,8 @@ CREATE TABLE dt_task_issue (
     probability_id integer,
     severity_id integer,
     workaround_id integer,
+    workaround_markup text,
+    workaround_html text,
     created_by integer,
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     updated_by integer,
@@ -31,6 +33,10 @@ COMMENT ON COLUMN dt_task_issue.probability_id IS 'The ID for the probability of
 COMMENT ON COLUMN dt_task_issue.severity_id IS 'The ID for severity of the issue.' ;
 
 COMMENT ON COLUMN dt_task_issue.workaround_id IS 'The ID for the ability to work around the issue.' ;
+
+COMMENT ON COLUMN dt_task_issue.workaround_markup IS 'A description of the workaround.' ;
+
+COMMENT ON COLUMN dt_task_issue.workaround_html IS 'The workaround in HTML format.' ;
 
 COMMENT ON COLUMN dt_task_issue.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
 
