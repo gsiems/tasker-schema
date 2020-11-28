@@ -1,19 +1,37 @@
 
 set search_path = tasker, pg_catalog ;
 
+/*
+task is not THE fundamental base unit
+activity is a top-level task
+activity can have sub-activities
+activity "contains" tasks
+activity_id is required
+    -- for activity tasks: id == activity_id
+
+*/
+
 CREATE TABLE dt_task (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     parent_id integer,
     activity_id integer NOT NULL,
+    owner_id integer NOT NULL,
     task_type_id integer NOT NULL,
     edition integer DEFAULT 0 NOT NULL,
+    visibility_id integer NOT NULL,
     status_id integer,
     priority_id integer,
     markup_type_id integer NOT NULL default 1,
-    task_name character varying ( 200 ) NOT NULL,
+    desired_start_severity_id integer,
+    desired_end_severity_id integer,
+    desired_start date,
+    desired_end date,
+    estimated_start date,
+    estimated_end date,
     actual_start date,
     actual_end date,
     time_estimate interval,
+    task_name character varying ( 200 ) NOT NULL,
     description_markup text,
     description_html text,
     created_by integer,
@@ -32,9 +50,15 @@ COMMENT ON COLUMN dt_task.id IS 'The unique ID for the task.' ;
 
 COMMENT ON COLUMN dt_task.parent_id IS 'The ID of the parent task (if any).' ;
 
-COMMENT ON COLUMN dt_task.task_type_id IS 'Indicates the type of task.' ;
+COMMENT ON COLUMN dt_task.activity_id IS 'The ID of the activity that the task belongs to.' ;
+
+COMMENT ON COLUMN dt_task.owner_id IS 'The ID of the user that owns the task.' ;
 
 COMMENT ON COLUMN dt_task.edition IS 'Indicates the number of edits made to the task. Intended for use in determining if a task has been edited between select and update.' ;
+
+COMMENT ON COLUMN dt_task.task_type_id IS 'Indicates the type of task.' ;
+
+COMMENT ON COLUMN dt_task.visibility_id IS 'Indicates the visibility of the task.' ;
 
 COMMENT ON COLUMN dt_task.status_id IS 'The status of the task.' ;
 
@@ -42,7 +66,19 @@ COMMENT ON COLUMN dt_task.priority_id IS 'The priority of the task.' ;
 
 COMMENT ON COLUMN dt_task.markup_type_id IS 'The ID of the markup format used for the description_markup column.' ;
 
+COMMENT ON COLUMN dt_task.desired_start_severity_id IS 'The severity of not making the desired start date.' ;
+
+COMMENT ON COLUMN dt_task.desired_end_severity_id IS 'The severity of not making the desired end date.' ;
+
 COMMENT ON COLUMN dt_task.task_name IS 'The name for the task.' ;
+
+COMMENT ON COLUMN dt_task.desired_start IS 'The desired date (if any) that work on the task should start.' ;
+
+COMMENT ON COLUMN dt_task.desired_end IS 'The desired date (if any) for the completion for the task.' ;
+
+COMMENT ON COLUMN dt_task.estimated_start IS 'The estimated date (if any) that work on the task should start.' ;
+
+COMMENT ON COLUMN dt_task.estimated_end IS 'The estimated date (if any) for the completion for the task.' ;
 
 COMMENT ON COLUMN dt_task.actual_start IS 'The actual date that work on the task was started.' ;
 
@@ -78,26 +114,46 @@ ALTER TABLE dt_task
 ALTER TABLE dt_task
     ADD CONSTRAINT dt_task_fk03
     FOREIGN KEY ( activity_id )
-    REFERENCES dt_activity ( id ) ;
+    REFERENCES dt_task ( id ) ;
 
 ALTER TABLE dt_task
     ADD CONSTRAINT dt_task_fk04
+    FOREIGN KEY ( owner_id )
+    REFERENCES dt_user ( id ) ;
+
+ALTER TABLE dt_task
+    ADD CONSTRAINT dt_task_fk05
     FOREIGN KEY ( task_type_id )
     REFERENCES rt_task_type ( id ) ;
 
 ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk05
+    ADD CONSTRAINT dt_task_fk06
+    FOREIGN KEY ( visibility_id )
+    REFERENCES st_visibility ( id ) ;
+
+ALTER TABLE dt_task
+    ADD CONSTRAINT dt_task_fk07
     FOREIGN KEY ( status_id )
     REFERENCES rt_task_status ( id ) ;
 
 ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk06
+    ADD CONSTRAINT dt_task_fk08
     FOREIGN KEY ( priority_id )
     REFERENCES st_ranking ( id ) ;
 
 ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk07
+    ADD CONSTRAINT dt_task_fk09
     FOREIGN KEY ( markup_type_id )
     REFERENCES st_markup_type ( id ) ;
+
+ALTER TABLE dt_task
+    ADD CONSTRAINT dt_task_fk10
+    FOREIGN KEY ( desired_start_severity_id )
+    REFERENCES st_date_severity ( id ) ;
+
+ALTER TABLE dt_task
+    ADD CONSTRAINT dt_task_fk11
+    FOREIGN KEY ( desired_end_severity_id )
+    REFERENCES st_date_severity ( id ) ;
 
 REVOKE ALL ON TABLE dt_task FROM public ;

@@ -95,3 +95,8 @@ INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Status', '
 INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Team', '');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (4, 'Work', 'Meeting (not otherwise specified) which produces a product or result.');
 
+INSERT INTO rt_task_type (category_id, name, description) VALUES (5, 'Default', 'Default activity type.');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (5, 'Project', 'Activity type for projects.');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (5, 'Research project', 'Activity type for research projects.');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (5, 'Support', 'Activity type for support activities.');
+

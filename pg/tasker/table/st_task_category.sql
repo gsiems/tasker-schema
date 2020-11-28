@@ -23,4 +23,5 @@ INSERT INTO st_task_category (id, name, description) VALUES (1, 'Task', 'Task ca
 INSERT INTO st_task_category (id, name, description) VALUES (2, 'Requirement', 'Special task category for requirements.');
 INSERT INTO st_task_category (id, name, description) VALUES (3, 'Issue', 'Special task category for issues.');
 INSERT INTO st_task_category (id, name, description) VALUES (4, 'Meeting', 'Special task category for meetings.');
---INSERT INTO st_task_category (id, name, description) VALUES (5, 'Recurring Task', 'Special task category for tasks that are recurring.');
+INSERT INTO st_task_category (id, name, description) VALUES (5, 'Activity', 'Special task category for activities.');
+
