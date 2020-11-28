@@ -6,8 +6,8 @@ CREATE TABLE dt_task_journal (
     edition integer DEFAULT 0 NOT NULL,
     user_id integer NOT NULL,
     markup_type_id integer NOT NULL default 1,
-    journal_date date,
     time_spent integer,
+    journal_date date,
     journal_markup text,
     journal_html text,
     created_by integer,
@@ -30,9 +30,9 @@ COMMENT ON COLUMN dt_task_journal.user_id IS 'The ID of owner of the journal ent
 
 COMMENT ON COLUMN dt_task_journal.markup_type_id IS 'The ID of the markup format used for the journal entry.' ;
 
-COMMENT ON COLUMN dt_task_journal.journal_date IS 'The date that the journal entry covers.' ;
-
 COMMENT ON COLUMN dt_task_journal.time_spent IS 'The amount of time spent in minutes.' ;
+
+COMMENT ON COLUMN dt_task_journal.journal_date IS 'The date that the journal entry covers.' ;
 
 COMMENT ON COLUMN dt_task_journal.journal_markup IS 'The markup text of the journal entry.' ;
 
