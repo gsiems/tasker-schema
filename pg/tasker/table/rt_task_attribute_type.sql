@@ -1,5 +1,11 @@
 SET search_path = tasker, pg_catalog ;
 
+/*
+multiples_allowed boolean ???
+is_required boolean ???
+
+*/
+
 CREATE TABLE rt_task_attribute_type (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     category_id integer NOT NULL,
