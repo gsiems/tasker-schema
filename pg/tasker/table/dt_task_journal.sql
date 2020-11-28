@@ -3,6 +3,7 @@ SET search_path = tasker, pg_catalog ;
 CREATE TABLE dt_task_journal (
     id serial NOT NULL,
     task_id integer NOT NULL,
+    edition integer DEFAULT 0 NOT NULL,
     user_id integer NOT NULL,
     markup_type_id integer,
     journal_date date,
@@ -22,6 +23,8 @@ COMMENT ON TABLE dt_task_journal IS 'Journal entries for tasks.' ;
 COMMENT ON COLUMN dt_task_journal.id IS 'The unique ID for a journal entry.' ;
 
 COMMENT ON COLUMN dt_task_journal.task_id IS 'The ID of the task.' ;
+
+COMMENT ON COLUMN dt_task_journal.edition IS 'Indicates the number of edits made to the journal entry. Intended for use in determining if an entry has been edited between select and update.' ;
 
 COMMENT ON COLUMN dt_task_journal.user_id IS 'The ID of owner of the journal entry.' ;
 

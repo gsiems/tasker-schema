@@ -3,6 +3,7 @@ SET search_path = tasker, pg_catalog ;
 CREATE TABLE dt_task_file (
     id integer NOT NULL,
     task_id integer NOT NULL,
+    edition integer DEFAULT 0 NOT NULL,
     comment_id integer,
     journal_id integer,
     filesize integer,
@@ -23,6 +24,8 @@ COMMENT ON TABLE dt_task_file IS 'Files that have been uploaded as either attach
 COMMENT ON COLUMN dt_task_file.id IS 'Unique ID for a file.';
 
 COMMENT ON COLUMN dt_task_file.task_id IS 'The task that the file is attached to.';
+
+COMMENT ON COLUMN dt_task_file.edition IS 'Indicates the number of edits made to the file. Intended for use in determining if a file record has been edited between select and update.' ;
 
 COMMENT ON COLUMN dt_task_file.comment_id IS 'The task comment (if any) that the file is attached to.';
 

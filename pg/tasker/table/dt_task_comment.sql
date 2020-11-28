@@ -4,6 +4,7 @@ CREATE TABLE dt_task_comment (
     id serial NOT NULL,
     parent_id integer,
     task_id integer NOT NULL,
+    edition integer DEFAULT 0 NOT NULL,
     user_id integer NOT NULL,
     markup_type_id integer,
     comment_markup text,
@@ -23,6 +24,8 @@ COMMENT ON COLUMN dt_task_comment.id IS 'The unique ID for a comment entry.' ;
 COMMENT ON COLUMN dt_task_comment.parent_id IS 'The ID of the parent comment (should there be one).' ;
 
 COMMENT ON COLUMN dt_task_comment.task_id IS 'The ID of the task.' ;
+
+COMMENT ON COLUMN dt_task_comment.edition IS 'Indicates the number of edits made to the comment. Intended for use in determining if a comment has been edited between select and update.' ;
 
 COMMENT ON COLUMN dt_task_comment.user_id IS 'The ID of owner of the comment entry.' ;
 

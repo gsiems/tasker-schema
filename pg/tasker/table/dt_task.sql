@@ -6,6 +6,7 @@ CREATE TABLE dt_task (
     parent_id integer,
     activity_id integer NOT NULL,
     task_type_id integer NOT NULL,
+    edition integer DEFAULT 0 NOT NULL,
     status_id integer,
     priority_id integer,
     markup_type_id integer,
@@ -32,6 +33,8 @@ COMMENT ON COLUMN dt_task.id IS 'The unique ID for the task.' ;
 COMMENT ON COLUMN dt_task.parent_id IS 'The ID of the parent task (if any).' ;
 
 COMMENT ON COLUMN dt_task.task_type_id IS 'Indicates the type of task.' ;
+
+COMMENT ON COLUMN dt_task.edition IS 'Indicates the number of edits made to the task. Intended for use in determining if a task has been edited between select and update.' ;
 
 COMMENT ON COLUMN dt_task.status_id IS 'The status of the task.' ;
 
