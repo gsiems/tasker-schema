@@ -1,7 +1,7 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_task_file (
-    id integer NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     task_id integer NOT NULL,
     edition integer DEFAULT 0 NOT NULL,
     comment_id integer,
