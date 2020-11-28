@@ -50,7 +50,17 @@ ALTER TABLE dt_task_comment
 
 ALTER TABLE dt_task_comment
     ADD CONSTRAINT dt_task_comment_fk02
+    FOREIGN KEY ( parent_id )
+    REFERENCES dt_task_comment ( id ) ;
+
+ALTER TABLE dt_task_comment
+    ADD CONSTRAINT dt_task_comment_fk03
     FOREIGN KEY ( markup_type_id )
     REFERENCES st_markup_type ( id ) ;
+
+ALTER TABLE dt_task_comment
+    ADD CONSTRAINT dt_task_comment_fk04
+    FOREIGN KEY ( user_id )
+    REFERENCES dt_user ( id ) ;
 
 REVOKE ALL ON TABLE dt_task_comment FROM public ;
