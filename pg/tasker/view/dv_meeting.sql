@@ -2,12 +2,15 @@ SET search_path = tasker, pg_catalog ;
 
 CREATE VIEW dv_meeting
 AS
-SELECT dv.edition,
-        dv.task_id,
+SELECT dv.task_id,
         dv.activity_id,
         dv.parent_id,
+        dv.edition,
         dv.task_outln,
         dv.task_name,
+        dv.owner_id,
+        dv.owner_username,
+        dv.owner_full_name,
         dv.task_type_id,
         dv.task_type,
         dv.status_id,
@@ -17,7 +20,7 @@ SELECT dv.edition,
         dv.markup_type_id,
         dv.markup_type,
         dtm.meeting_location,
-        dtm.scheduled_start,
+        dv.estimated_start AS scheduled_start,
         dv.time_estimate AS scheduled_duration,
         dtm.agenda_markup,
         dtm.agenda_html,
@@ -32,7 +35,7 @@ SELECT dv.edition,
         dv.updated_username,
         dv.updated_full_name
     FROM tasker.dv_task dv
-    JOIN tasker.dt_task_meeting dtm
+    LEFT JOIN tasker.dt_task_meeting dtm
         ON ( dtm.task_id = dv.task_id )
     --LEFT JOIN tasker.st_markup_type smt
     --    ON ( smt.id = dtm.markup_type_id )
@@ -42,7 +45,7 @@ ALTER TABLE dv_meeting OWNER TO tasker_owner ;
 
 COMMENT ON VIEW dv_meeting IS 'Data view for meeting tasks.' ;
 
-REVOKE ALL ON table dv_meeting FROM public ;
+REVOKE ALL ON TABLE dv_meeting FROM public ;
 
 GRANT SELECT ON table dv_meeting TO tasker_owner ;
 

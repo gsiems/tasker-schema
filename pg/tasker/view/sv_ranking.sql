@@ -11,7 +11,7 @@ ALTER TABLE sv_ranking OWNER TO tasker_owner ;
 
 COMMENT ON VIEW sv_ranking IS 'System view for ranked parameters.' ;
 
-REVOKE ALL ON table sv_ranking FROM public ;
+REVOKE ALL ON TABLE sv_ranking FROM public ;
 
 GRANT SELECT ON table sv_ranking TO tasker_owner ;
 

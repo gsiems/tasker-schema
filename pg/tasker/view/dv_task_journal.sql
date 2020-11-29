@@ -2,9 +2,9 @@ SET search_path = tasker, pg_catalog ;
 
 CREATE VIEW dv_task_journal
 AS
-SELECT dtj.edition,
-        dtj.id AS journal_id,
+SELECT dtj.id AS journal_id,
         dtj.task_id,
+        dtj.edition,
         dt.task_outln,
         dt.task_name,
         dtj.user_id,
@@ -40,7 +40,7 @@ ALTER TABLE dv_task_journal OWNER TO tasker_owner ;
 
 COMMENT ON VIEW dv_task_journal IS 'Data view for task journal entries.' ;
 
-REVOKE ALL ON table dv_task_journal FROM public ;
+REVOKE ALL ON TABLE dv_task_journal FROM public ;
 
 GRANT SELECT ON table dv_task_journal TO tasker_owner ;
 

@@ -2,9 +2,9 @@ SET search_path = tasker, pg_catalog ;
 
 CREATE VIEW dv_user
 AS
-SELECT du.edition,
-        du.id AS user_id,
+SELECT du.id AS user_id,
         du.reports_to,
+        du.edition,
         cc.bosses,
         cc.user_depth,
         cc.user_outln,

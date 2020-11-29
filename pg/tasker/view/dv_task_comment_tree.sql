@@ -11,7 +11,7 @@ WITH RECURSIVE toc AS (
                 PARTITION BY p.task_id
                 ORDER BY p.id ) ] AS outln,
             ARRAY[p.id] AS comment_path
-        FROM dt_task_comment p
+        FROM tasker.dt_task_comment p
         WHERE ( p.parent_id IS NULL )
     UNION ALL
     SELECT s.id,
@@ -22,7 +22,7 @@ WITH RECURSIVE toc AS (
                     PARTITION BY  s.task_id, s.parent_id
                     ORDER BY s.id ) ),
             q.comment_path || s.id
-        FROM dt_task_comment s
+        FROM tasker.dt_task_comment s
         JOIN toc q
             ON ( s.parent_id = q.id
                 AND NOT s.id = any ( q.parents ) )
@@ -39,6 +39,6 @@ ALTER TABLE dv_task_comment_tree OWNER TO tasker_owner ;
 
 COMMENT ON VIEW dv_task_comment_tree IS 'Table of contents view for task comments.' ;
 
-REVOKE ALL ON table dv_task_comment_tree FROM public ;
+REVOKE ALL ON TABLE dv_task_comment_tree FROM public ;
 
 GRANT SELECT ON table dv_task_comment_tree TO tasker_owner ;

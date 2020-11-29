@@ -2,9 +2,9 @@ SET search_path = tasker, pg_catalog ;
 
 CREATE VIEW dv_task_comment
 AS
-SELECT dtc.edition,
-        dtc.id AS comment_id,
+SELECT dtc.id AS comment_id,
         dtc.parent_id,
+        dtc.edition,
         toc.comment_depth,
         toc.comment_path,
         toc.comment_outln,
@@ -44,7 +44,7 @@ ALTER TABLE dv_task_comment OWNER TO tasker_owner ;
 
 COMMENT ON VIEW dv_task_comment IS 'Data view for task comments.' ;
 
-REVOKE ALL ON table dv_task_comment FROM public ;
+REVOKE ALL ON TABLE dv_task_comment FROM public ;
 
 GRANT SELECT ON table dv_task_comment TO tasker_owner ;
 

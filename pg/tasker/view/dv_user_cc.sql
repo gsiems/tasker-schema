@@ -38,6 +38,6 @@ ALTER TABLE dv_user_cc OWNER TO tasker_owner ;
 
 COMMENT ON VIEW dv_user_cc IS 'Org chart (chain of command) for users.' ;
 
-REVOKE ALL ON table dv_user_cc FROM public ;
+REVOKE ALL ON TABLE dv_user_cc FROM public ;
 
 GRANT SELECT ON table dv_user_cc TO tasker_owner ;

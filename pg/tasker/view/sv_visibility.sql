@@ -12,7 +12,7 @@ ALTER TABLE sv_visibility OWNER TO tasker_owner ;
 
 COMMENT ON VIEW sv_visibility IS 'System view for visibilities.' ;
 
-REVOKE ALL ON table sv_visibility FROM public ;
+REVOKE ALL ON TABLE sv_visibility FROM public ;
 
 GRANT SELECT ON table sv_visibility TO tasker_owner ;
 

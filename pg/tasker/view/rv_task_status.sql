@@ -3,8 +3,6 @@ SET search_path = tasker, pg_catalog ;
 CREATE VIEW rv_task_status
 AS
 SELECT ts.id AS task_status_id,
-        ts.category_id AS task_category_id,
-        tc.name AS task_category,
         ts.name,
         ts.description,
         ts.is_enabled,
@@ -26,8 +24,6 @@ SELECT ts.id AS task_status_id,
         uu.username AS updated_username,
         uu.full_name AS updated_full_name
     FROM tasker.rt_task_status ts
-    JOIN tasker.st_task_category tc
-        ON ( tc.id = ts.category_id )
     LEFT JOIN tasker.dt_user cu
         ON ( cu.id = ts.created_by )
     LEFT JOIN tasker.dt_user uu
@@ -36,9 +32,9 @@ SELECT ts.id AS task_status_id,
 
 ALTER TABLE rv_task_status OWNER TO tasker_owner ;
 
-COMMENT ON VIEW rv_task_status IS 'Reference view for task status.' ;
+COMMENT ON VIEW rv_task_status IS 'Reference view for task statuses.' ;
 
-REVOKE ALL ON table rv_task_status FROM public ;
+REVOKE ALL ON TABLE rv_task_status FROM public ;
 
 GRANT SELECT ON table rv_task_status TO tasker_owner ;
 

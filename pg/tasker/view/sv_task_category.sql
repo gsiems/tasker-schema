@@ -12,7 +12,7 @@ ALTER TABLE sv_task_category OWNER TO tasker_owner ;
 
 COMMENT ON VIEW sv_task_category IS 'System view for task categories.' ;
 
-REVOKE ALL ON table sv_task_category FROM public ;
+REVOKE ALL ON TABLE sv_task_category FROM public ;
 
 GRANT SELECT ON table sv_task_category TO tasker_owner ;
 

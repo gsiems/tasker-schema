@@ -2,12 +2,15 @@ SET search_path = tasker, pg_catalog ;
 
 CREATE VIEW dv_issue
 AS
-SELECT dv.edition,
-        dv.task_id,
+SELECT dv.task_id,
         dv.activity_id,
         dv.parent_id,
+        dv.edition,
         dv.task_outln,
         dv.task_name,
+        dv.owner_id,
+        dv.owner_username,
+        dv.owner_full_name,
         dv.task_type_id,
         dv.task_type,
         dv.status_id,
@@ -36,7 +39,7 @@ SELECT dv.edition,
         dv.updated_username,
         dv.updated_full_name
     FROM tasker.dv_task dv
-    JOIN tasker.dt_task_issue dti
+    LEFT JOIN tasker.dt_task_issue dti
         ON ( dti.task_id = dv.task_id )
     LEFT JOIN tasker.st_issue_probability sip
         ON ( sip.id = dti.probability_id )
@@ -50,7 +53,7 @@ ALTER TABLE dv_issue OWNER TO tasker_owner ;
 
 COMMENT ON VIEW dv_issue IS 'Data view for issue tasks.' ;
 
-REVOKE ALL ON table dv_issue FROM public ;
+REVOKE ALL ON TABLE dv_issue FROM public ;
 
 GRANT SELECT ON table dv_issue TO tasker_owner ;
 

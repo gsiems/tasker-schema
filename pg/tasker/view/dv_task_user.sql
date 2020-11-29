@@ -10,6 +10,12 @@ SELECT dtu.user_id,
         du.email_is_enabled,
         dtu.task_id,
         dt.activity_id,
+        dtu.permission_id,
+        sr.name AS permission_name,
+        sr.can_create_task,
+        sr.can_update_task,
+        -- role ??
+        dtu.last_viewed_dt,
         --dt.task_depth,
         dt.task_outln,
         dt.task_name,
@@ -43,6 +49,8 @@ SELECT dtu.user_id,
         ON ( tc.id = rtt.category_id )
     JOIN tasker.dt_user du
         ON ( du.id = dtu.user_id )
+    JOIN tasker.st_permission sr
+        ON ( sr.id = dtu.permission_id )
     LEFT JOIN tasker.dt_user cu
         ON ( cu.id = dtu.created_by ) ;
 
@@ -50,7 +58,7 @@ ALTER TABLE dv_task_user OWNER TO tasker_owner ;
 
 COMMENT ON VIEW dv_task_user IS 'Data view for task users.' ;
 
-REVOKE ALL ON table dv_task_user FROM public ;
+REVOKE ALL ON TABLE dv_task_user FROM public ;
 
 GRANT SELECT ON table dv_task_user TO tasker_owner ;
 

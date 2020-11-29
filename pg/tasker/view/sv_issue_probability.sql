@@ -11,7 +11,7 @@ ALTER TABLE sv_issue_probability OWNER TO tasker_owner ;
 
 COMMENT ON VIEW sv_issue_probability IS 'System view for probability/repeatability of triggering an issue.' ;
 
-REVOKE ALL ON table sv_issue_probability FROM public ;
+REVOKE ALL ON TABLE sv_issue_probability FROM public ;
 
 GRANT SELECT ON table sv_issue_probability TO tasker_owner ;
 

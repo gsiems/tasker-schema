@@ -11,7 +11,7 @@ ALTER TABLE sv_date_severity OWNER TO tasker_owner ;
 
 COMMENT ON VIEW sv_date_severity IS 'System view for date severities.' ;
 
-REVOKE ALL ON table sv_date_severity FROM public ;
+REVOKE ALL ON TABLE sv_date_severity FROM public ;
 
 GRANT SELECT ON table sv_date_severity TO tasker_owner ;
 

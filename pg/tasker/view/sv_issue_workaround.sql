@@ -11,7 +11,7 @@ ALTER TABLE sv_issue_workaround OWNER TO tasker_owner ;
 
 COMMENT ON VIEW sv_issue_workaround IS 'System view for workaround levels for issues.' ;
 
-REVOKE ALL ON table sv_issue_workaround FROM public ;
+REVOKE ALL ON TABLE sv_issue_workaround FROM public ;
 
 GRANT SELECT ON table sv_issue_workaround TO tasker_owner ;
 

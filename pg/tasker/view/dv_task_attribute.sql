@@ -28,7 +28,7 @@ ALTER TABLE dv_task_attribute OWNER TO tasker_owner ;
 
 COMMENT ON VIEW dv_task_attribute IS 'Data view for task attributes.' ;
 
-REVOKE ALL ON table dv_task_attribute FROM public ;
+REVOKE ALL ON TABLE dv_task_attribute FROM public ;
 
 GRANT SELECT ON table dv_task_attribute TO tasker_owner ;
 

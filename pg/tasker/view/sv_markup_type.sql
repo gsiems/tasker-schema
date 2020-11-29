@@ -13,7 +13,7 @@ ALTER TABLE sv_markup_type OWNER TO tasker_owner ;
 
 COMMENT ON VIEW sv_markup_type IS 'System view for supported markup types.' ;
 
-REVOKE ALL ON table sv_markup_type FROM public ;
+REVOKE ALL ON TABLE sv_markup_type FROM public ;
 
 GRANT SELECT ON table sv_markup_type TO tasker_owner ;
 
