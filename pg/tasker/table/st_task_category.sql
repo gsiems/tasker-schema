@@ -24,4 +24,4 @@ INSERT INTO st_task_category (id, name, description) VALUES (2, 'Requirement', '
 INSERT INTO st_task_category (id, name, description) VALUES (3, 'Issue', 'Special task category for issues.');
 INSERT INTO st_task_category (id, name, description) VALUES (4, 'Meeting', 'Special task category for meetings.');
 INSERT INTO st_task_category (id, name, description) VALUES (5, 'Activity', 'Special task category for activities.');
-
+INSERT INTO st_task_category (id, name, description) VALUES (6, 'PIP', 'Special task category for Points or Intervals of Progress.');

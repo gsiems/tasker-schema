@@ -100,3 +100,10 @@ INSERT INTO rt_task_type (category_id, name, description) VALUES (5, 'Project', 
 INSERT INTO rt_task_type (category_id, name, description) VALUES (5, 'Research project', 'Activity type for research projects.');
 INSERT INTO rt_task_type (category_id, name, description) VALUES (5, 'Support', 'Activity type for support activities.');
 
+INSERT INTO rt_task_type (category_id, name, description) VALUES (6, 'Milestone', '');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (6, 'Phase', '');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (6, 'Release', '');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (6, 'Revision', '');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (6, 'Scrum Spike', '');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (6, 'Scrum Sprint', '');
+INSERT INTO rt_task_type (category_id, name, description) VALUES (6, 'Version', '');

@@ -143,3 +143,21 @@ INSERT INTO rt_task_category_status (
             'Open',
             'Open - Review for closure'
         ) ;
+
+-- PIP tasks
+INSERT INTO rt_task_category_status (
+        category_id,
+        status_id
+    )
+    SELECT 6 AS category_id,
+            id AS status_id
+        FROM rt_task_status
+        WHERE name IN (
+            'Closed - Finished',
+            'Closed - Cancelled',
+            'Pending',
+            'On Hold',
+            'Deferred',
+            'Open',
+            'Open - Review for closure'
+        ) ;
