@@ -7,4 +7,5 @@
 \i 07_create_sequences.sql
 \i 08_create_tables.sql
 \i 09_create_views.sql
-\i 10_create_functions.sql
+--\i 10_create_functions.sql
+--\i 11_create_procedures.sql
