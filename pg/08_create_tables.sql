@@ -14,9 +14,9 @@
 --\i tasker/table/rt_activity_status.sql
 --\i tasker/table/rt_activity_category.sql
 --\i tasker/table/rt_activity_attribute_type.sql
-\i tasker/table/rt_task_category_status.sql
-\i tasker/table/rt_task_status.sql
 \i tasker/table/rt_task_type.sql
+\i tasker/table/rt_task_status.sql
+\i tasker/table/rt_task_category_status.sql
 \i tasker/table/rt_task_attribute_type.sql
 
 -- user data tables
