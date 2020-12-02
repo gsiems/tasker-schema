@@ -9,6 +9,7 @@ SET search_path = tasker, pg_catalog ;
 CREATE TABLE dt_user (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     reports_to integer,
+    edition integer DEFAULT 0 NOT NULL,
     username character varying ( 32 ) NOT NULL,
     full_name character varying ( 128 ) NOT NULL,
     email_address character varying ( 320 ),
@@ -30,6 +31,8 @@ COMMENT ON TABLE dt_user IS 'Tasker user accounts.' ;
 COMMENT ON COLUMN dt_user.id IS 'Unique ID for the user account.' ;
 
 COMMENT ON COLUMN dt_user.reports_to IS 'The ID of the supervisor user (if any). If the user has multiple bosses then choose the best one.' ;
+
+COMMENT ON COLUMN dt_user.edition IS 'Indicates the number of edits made to the user record. Intended for use in determining if a user has been edited between select and update.' ;
 
 COMMENT ON COLUMN dt_user.username IS 'The username associated with the account.' ;
 
