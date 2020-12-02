@@ -20,19 +20,25 @@ my %obj_types = (
     'table'    => '08_create_tables.sql',
     'view'     => '09_create_views.sql',
     'function' => '10_create_functions.sql',
+    'procedure' => '11_create_procedures.sql',
 );
 
 foreach my $type ( sort keys %obj_types ) {
     my $create_file = $obj_types{$type};
-    my $source      = "tasker/$type/*";
+    my $source      = "tasker/$type";
     reconcile_type( $create_file, $source );
 }
 
 sub reconcile_type {
-    my ( $create_file, $source ) = @_;
+    my ( $create_file, $source_dir ) = @_;
 
-    my @source_files = `ls $source`;
-    chomp @source_files;
+    return unless ( -d $source_dir ) ;
+
+    opendir(my $dh, $source_dir) || warn "Can't opendir $source_dir: $!\n";
+    return unless ( $dh ) ;
+
+    my @source_files = map { "$source_dir/$_" } grep { /\.sql$/ && -f "$source_dir/$_" } readdir($dh);
+    closedir $dh;
 
     my %avail = map { $_ => 'notseen' } @source_files;
     my $fh;
