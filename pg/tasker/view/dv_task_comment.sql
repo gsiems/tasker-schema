@@ -11,9 +11,9 @@ SELECT dtc.id AS comment_id,
         dtc.task_id,
         dt.task_outln,
         dt.task_name,
-        dtc.user_id,
-        du.username,
-        du.full_name,
+        dtc.owner_id,
+        ou.username AS owner_username,
+        ou.full_name AS owner_full_name,
         dtc.markup_type_id,
         smt.name AS markup_type,
         dtc.comment_markup,
@@ -29,8 +29,8 @@ SELECT dtc.id AS comment_id,
     FROM tasker.dt_task_comment dtc
     JOIN tasker.dv_task_comment_tree toc
         ON ( toc.comment_id = dtc.id )
-    JOIN tasker.dt_user du
-        ON ( du.id = dtc.user_id )
+    JOIN tasker.dt_user ou
+        ON ( ou.id = dtc.owner_id )
     JOIN tasker.dv_task dt
         ON ( dt.task_id = dtc.task_id )
     LEFT JOIN tasker.st_markup_type smt

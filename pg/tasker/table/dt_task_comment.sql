@@ -1,18 +1,18 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_task_comment (
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    updated_dt timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     parent_id integer,
     task_id integer NOT NULL,
     edition integer DEFAULT 0 NOT NULL,
-    user_id integer NOT NULL,
-    markup_type_id integer NOT NULL default 1,
+    owner_id integer NOT NULL,
+    created_by integer,
+    updated_by integer,
+    markup_type_id int2 NOT NULL default 1,
     comment_markup text,
     comment_html text,
-    created_by integer,
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_by integer,
-    updated_dt timestamp with time zone,
     CONSTRAINT dt_task_comment_pk PRIMARY KEY ( id ) ) ;
 
 ALTER TABLE dt_task_comment OWNER TO tasker_owner ;
@@ -27,7 +27,7 @@ COMMENT ON COLUMN dt_task_comment.task_id IS 'The ID of the task.' ;
 
 COMMENT ON COLUMN dt_task_comment.edition IS 'Indicates the number of edits made to the comment. Intended for use in determining if a comment has been edited between select and update.' ;
 
-COMMENT ON COLUMN dt_task_comment.user_id IS 'The ID of owner of the comment entry.' ;
+COMMENT ON COLUMN dt_task_comment.owner_id IS 'The ID of owner of the comment entry.' ;
 
 COMMENT ON COLUMN dt_task_comment.markup_type_id IS 'The ID of the markup format used for the comment entry.' ;
 
@@ -60,7 +60,7 @@ ALTER TABLE dt_task_comment
 
 ALTER TABLE dt_task_comment
     ADD CONSTRAINT dt_task_comment_fk04
-    FOREIGN KEY ( user_id )
+    FOREIGN KEY ( owner_id )
     REFERENCES dt_user ( id ) ;
 
 REVOKE ALL ON TABLE dt_task_comment FROM public ;
