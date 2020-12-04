@@ -2,7 +2,7 @@
 set search_path = tasker, pg_catalog ;
 
 /*
-task is not THE fundamental base unit
+task is THE fundamental base unit
 activity is a top-level task
 activity can have sub-activities
 activity "contains" tasks
