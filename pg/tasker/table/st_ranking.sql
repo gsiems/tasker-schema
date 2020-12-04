@@ -1,7 +1,7 @@
 set search_path = tasker, pg_catalog ;
 
 CREATE TABLE st_ranking (
-    id integer NOT NULL,
+    id int2 NOT NULL,
     name character varying ( 60 ) NOT NULL,
     CONSTRAINT st_ranking_pk PRIMARY KEY ( id ),
     CONSTRAINT st_ranking_ix1 UNIQUE ( name ) ) ;

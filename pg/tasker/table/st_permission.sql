@@ -1,7 +1,7 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE st_permission (
-    id integer NOT NULL,
+    id int2 NOT NULL,
     can_create_task boolean DEFAULT false NOT NULL,
     can_update_task boolean DEFAULT false NOT NULL,
     name character varying ( 60 ) NOT NULL,

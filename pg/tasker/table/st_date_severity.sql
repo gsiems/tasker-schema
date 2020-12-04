@@ -1,7 +1,7 @@
 set search_path = tasker, pg_catalog ;
 
 CREATE TABLE st_date_severity (
-    id integer NOT NULL,
+    id int2 NOT NULL,
     name character varying ( 60 ) NOT NULL,
     CONSTRAINT st_date_severity_pk PRIMARY KEY ( id ),
     CONSTRAINT st_date_severity_ix1 UNIQUE ( name ) ) ;

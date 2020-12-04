@@ -1,7 +1,7 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE st_task_category (
-    id integer NOT NULL,
+    id int2 NOT NULL,
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
     CONSTRAINT st_task_category_pk PRIMARY KEY ( id ),

@@ -7,20 +7,20 @@ possible to support users changing their usernames.
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_user (
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    updated_dt timestamp with time zone,
+    last_login timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     reports_to integer,
     edition integer DEFAULT 0 NOT NULL,
-    username character varying ( 32 ) NOT NULL,
-    full_name character varying ( 128 ) NOT NULL,
-    email_address character varying ( 320 ),
+    created_by integer,
+    updated_by integer,
     email_is_enabled boolean DEFAULT true,
     is_enabled boolean DEFAULT true NOT NULL,
     is_admin boolean DEFAULT false NOT NULL,
-    last_login timestamp with time zone,
-    created_by integer,
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_by integer,
-    updated_dt timestamp with time zone,
+    username character varying ( 32 ) NOT NULL,
+    full_name character varying ( 128 ) NOT NULL,
+    email_address character varying ( 320 ),
     CONSTRAINT dt_user_pk PRIMARY KEY ( id ),
     CONSTRAINT dt_user_ux01 UNIQUE ( username ) ) ;
 

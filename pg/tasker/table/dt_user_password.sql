@@ -1,12 +1,12 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_user_password (
-    user_id integer NOT NULL,
-    password_hash text,
-    created_by integer,
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_by integer,
     updated_dt timestamp with time zone,
+    user_id integer NOT NULL,
+    created_by integer,
+    updated_by integer,
+    password_hash text,
     CONSTRAINT dt_user_password_pk PRIMARY KEY ( user_id ) ) ;
 
 ALTER TABLE dt_user_password OWNER TO tasker_owner ;

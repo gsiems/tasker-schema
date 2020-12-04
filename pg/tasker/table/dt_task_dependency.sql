@@ -1,10 +1,10 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_task_dependency (
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     task_id integer NOT NULL,
     dependent_task_id integer NOT NULL,
     created_by integer,
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     CONSTRAINT dt_task_dependency_pk PRIMARY KEY ( task_id, dependent_task_id ),
     CONSTRAINT dt_task_dependency_ck1 CHECK ( ( task_id <> dependent_task_id ) ) ) ;
 

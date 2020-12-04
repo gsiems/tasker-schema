@@ -1,8 +1,8 @@
 set search_path = tasker, pg_catalog ;
 
 CREATE TABLE st_issue_workaround (
-    id integer NOT NULL,
-    priority_id integer NOT NULL,
+    id int2 NOT NULL,
+    priority_id int2 NOT NULL,
     name character varying ( 100 ) NOT NULL,
     CONSTRAINT st_issue_workaround_pk PRIMARY KEY ( id ),
     CONSTRAINT st_issue_workaround_ix1 UNIQUE ( name ) ) ;

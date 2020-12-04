@@ -10,16 +10,16 @@ What, if anything, would we want to track about issues that don't also apply to 
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_task_issue (
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    updated_dt timestamp with time zone,
     task_id integer NOT NULL,
-    probability_id integer,
-    severity_id integer,
-    workaround_id integer,
+    created_by integer,
+    updated_by integer,
+    probability_id int2,
+    severity_id int2,
+    workaround_id int2,
     workaround_markup text,
     workaround_html text,
-    created_by integer,
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_by integer,
-    updated_dt timestamp with time zone,
     CONSTRAINT dt_task_issue_pk PRIMARY KEY ( task_id ) ) ;
 
 ALTER TABLE dt_task_issue OWNER TO tasker_owner ;

@@ -1,15 +1,15 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE rt_task_status (
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    updated_dt timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
+    created_by integer,
+    updated_by integer,
+    open_status int2 default 0,
+    is_enabled boolean DEFAULT true NOT NULL,
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
-    open_status integer default 0,
-    is_enabled boolean DEFAULT true NOT NULL,
-    created_by integer,
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_by integer,
-    updated_dt timestamp with time zone,
     CONSTRAINT rt_task_status_pk PRIMARY KEY ( id ),
     CONSTRAINT dt_task_status_ix1 UNIQUE ( name ),
     CONSTRAINT rt_task_status_ck1 CHECK ( ( open_status IN (0, 1, 2) ) ) ) ;

@@ -1,19 +1,19 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_task_file (
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    updated_dt timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     task_id integer NOT NULL,
     edition integer DEFAULT 0 NOT NULL,
     comment_id integer,
     journal_id integer,
     filesize integer,
+    created_by integer,
+    updated_by integer,
     filename character varying ( 100 ),
     content_type character varying ( 100 ),
     content bytea,
-    created_by integer,
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_by integer,
-    updated_dt timestamp with time zone,
     CONSTRAINT dt_task_file_pk PRIMARY KEY ( id )
 );
 

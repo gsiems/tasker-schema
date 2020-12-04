@@ -1,18 +1,18 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE rt_task_type (
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    updated_dt timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-    category_id integer NOT NULL default 1,
-    markup_type_id integer NOT NULL default 1,
+    created_by integer,
+    updated_by integer,
+    category_id int2 NOT NULL default 1,
+    markup_type_id int2 NOT NULL default 1,
+    is_enabled boolean DEFAULT true NOT NULL,
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
     template_markup text,
     template_html text,
-    is_enabled boolean DEFAULT true NOT NULL,
-    created_by integer,
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_by integer,
-    updated_dt timestamp with time zone,
     CONSTRAINT rt_task_type_pk PRIMARY KEY ( id ),
     CONSTRAINT rt_task_type_ix1 UNIQUE ( category_id, name ) ) ;
 

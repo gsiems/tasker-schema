@@ -1,13 +1,13 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_task_user (
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    last_viewed_dt timestamp with time zone,
     task_id integer NOT NULL,
     user_id integer NOT NULL,
-    permission_id integer NOT NULL,
-    -- TODO: role ?? ( PM, BA, Developer, Tester, etc. )
-    last_viewed_dt timestamp with time zone,
     created_by integer,
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    permission_id int2 NOT NULL,
+    -- TODO: role ?? ( PM, BA, Developer, Tester, etc. )
     CONSTRAINT dt_task_user_pk PRIMARY KEY ( task_id, user_id ) ) ;
 
 ALTER TABLE dt_task_user OWNER TO tasker_owner ;

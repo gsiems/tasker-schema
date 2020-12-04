@@ -8,10 +8,10 @@ equation rendering, diagramming, etc.?
 set search_path = tasker, pg_catalog ;
 
 CREATE TABLE st_markup_type (
-    id integer NOT NULL,
+    id int2 NOT NULL,
+    is_enabled boolean DEFAULT true NOT NULL,
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
-    is_enabled boolean DEFAULT true NOT NULL,
     CONSTRAINT st_markup_type_pk PRIMARY KEY ( id ),
     CONSTRAINT st_markup_type_ix1 UNIQUE ( name ) ) ;
 
