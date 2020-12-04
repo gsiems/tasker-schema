@@ -35,7 +35,7 @@
 \i tasker/table/dt_task_attribute.sql
 \i tasker/table/dt_task_dependency.sql
 \i tasker/table/dt_task_user.sql
-\i tasker/table/dt_task_watcher.sql
+--\i tasker/table/dt_task_watcher.sql
 \i tasker/table/dt_task_comment.sql
 \i tasker/table/dt_task_journal.sql
 \i tasker/table/dt_task_file.sql
