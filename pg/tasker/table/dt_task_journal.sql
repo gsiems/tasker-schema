@@ -1,19 +1,19 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_task_journal (
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    updated_dt timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     task_id integer NOT NULL,
     edition integer DEFAULT 0 NOT NULL,
-    user_id integer NOT NULL,
-    markup_type_id integer NOT NULL default 1,
+    owner_id integer NOT NULL,
     time_spent integer,
     journal_date date,
+    created_by integer,
+    updated_by integer,
+    markup_type_id int2 NOT NULL default 1,
     journal_markup text,
     journal_html text,
-    created_by integer,
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_by integer,
-    updated_dt timestamp with time zone,
     CONSTRAINT dt_task_journal_pk PRIMARY KEY ( id ) ) ;
 
 ALTER TABLE dt_task_journal OWNER TO tasker_owner ;
@@ -26,7 +26,7 @@ COMMENT ON COLUMN dt_task_journal.task_id IS 'The ID of the task.' ;
 
 COMMENT ON COLUMN dt_task_journal.edition IS 'Indicates the number of edits made to the journal entry. Intended for use in determining if an entry has been edited between select and update.' ;
 
-COMMENT ON COLUMN dt_task_journal.user_id IS 'The ID of owner of the journal entry.' ;
+COMMENT ON COLUMN dt_task_journal.owner_id IS 'The ID of owner of the journal entry.' ;
 
 COMMENT ON COLUMN dt_task_journal.markup_type_id IS 'The ID of the markup format used for the journal entry.' ;
 
@@ -53,7 +53,7 @@ ALTER TABLE dt_task_journal
 
 ALTER TABLE dt_task_journal
     ADD CONSTRAINT dt_task_journal_fk02
-    FOREIGN KEY ( user_id )
+    FOREIGN KEY ( owner_id )
     REFERENCES dt_user ( id ) ;
 
 ALTER TABLE dt_task_journal

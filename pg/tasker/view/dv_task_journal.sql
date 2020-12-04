@@ -7,9 +7,9 @@ SELECT dtj.id AS journal_id,
         dtj.edition,
         dt.task_outln,
         dt.task_name,
-        dtj.user_id,
-        du.username,
-        du.full_name,
+        dtj.owner_id,
+        ou.username,
+        ou.full_name,
         dtj.journal_date,
         dtj.time_spent,
         dtj.markup_type_id,
@@ -27,8 +27,8 @@ SELECT dtj.id AS journal_id,
     FROM tasker.dt_task_journal dtj
     JOIN tasker.st_markup_type smt
         ON ( smt.id = dtj.markup_type_id )
-    JOIN tasker.dt_user du
-        ON ( du.id = dtj.user_id )
+    JOIN tasker.dt_user ou
+        ON ( ou.id = dtj.owner_id )
     JOIN tasker.dv_task dt
         ON ( dt.task_id = dtj.task_id )
     LEFT JOIN tasker.dt_user cu
