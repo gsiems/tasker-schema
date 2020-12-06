@@ -5,8 +5,11 @@ AS
 SELECT dta.id AS task_attribute_id,
         dta.task_id,
         dta.attribute_type_id,
-        rtat.name AS attribute_name,
+        reat.name AS attribute_type_name,
         dta.attribute_text,
+        rtat.max_allowed,
+        rtat.display_order,
+        rtat.is_required,
         dta.created_by,
         dta.created_dt,
         dta.updated_by,
@@ -16,13 +19,18 @@ SELECT dta.id AS task_attribute_id,
         uu.username AS updated_username,
         uu.full_name AS updated_full_name
     FROM tasker.dt_task_attribute dta
-    JOIN tasker.rt_task_attribute_type rtat
+    INNER JOIN tasker.rt_task_attribute_type rtat
         ON ( rtat.id = dta.attribute_type_id )
+    INNER JOIN tasker.rt_eav_attribute_type reat
+        ON ( reat.id = rtat.eav_attribute_type_id )
+    INNER JOIN tasker.st_eav_attribute_datatype sead
+        ON ( reat.datatype_id = sead.id )
     LEFT JOIN tasker.dt_user cu
         ON ( cu.id = dta.created_by )
     LEFT JOIN tasker.dt_user uu
         ON ( uu.id = dta.updated_by )
-    ORDER BY rtat.name ;
+    ORDER BY rtat.display_order,
+        reat.name ;
 
 ALTER TABLE dv_task_attribute OWNER TO tasker_owner ;
 

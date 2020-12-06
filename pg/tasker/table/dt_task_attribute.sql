@@ -1,15 +1,15 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE TABLE dt_task_attribute (
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    updated_dt timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     task_id integer NOT NULL,
     attribute_type_id integer NOT NULL,
+    created_by integer,
+    updated_by integer,
     attribute_text text,
     -- TODO: do we want attribute columns for other data types?
-    created_by integer,
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_by integer,
-    updated_dt timestamp with time zone,
     CONSTRAINT dt_task_attribute_pk PRIMARY KEY ( id ) ) ;
 
 ALTER TABLE dt_task_attribute OWNER TO tasker_owner ;
