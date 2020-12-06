@@ -12,15 +12,15 @@ activity_id is required
 */
 
 CREATE TABLE dt_task (
-    time_estimate interval,
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     updated_dt timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-    parent_id integer,
     activity_id integer NOT NULL,
     owner_id integer NOT NULL,
     task_type_id integer NOT NULL,
     edition integer DEFAULT 0 NOT NULL,
+    parent_id integer,
+    time_estimate integer,
     created_by integer,
     updated_by integer,
     desired_start date,
@@ -30,9 +30,9 @@ CREATE TABLE dt_task (
     actual_start date,
     actual_end date,
     visibility_id int2 NOT NULL,
+    markup_type_id int2 NOT NULL default 1,
     status_id int2,
     priority_id int2,
-    markup_type_id int2 NOT NULL default 1,
     desired_start_severity_id int2,
     desired_end_severity_id int2,
     task_name character varying ( 200 ) NOT NULL,
@@ -84,7 +84,7 @@ COMMENT ON COLUMN dt_task.actual_start IS 'The actual date that work on the task
 
 COMMENT ON COLUMN dt_task.actual_end IS 'The actual date that the task was finished.' ;
 
-COMMENT ON COLUMN dt_task.time_estimate IS 'The estimated time that it should take to implement the task.' ;
+COMMENT ON COLUMN dt_task.time_estimate IS 'The estimated time that it should take to implement the task in minutes.' ;
 
 COMMENT ON COLUMN dt_task.description_markup IS 'A description of the task and/or the purpose of the task.' ;
 
