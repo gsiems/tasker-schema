@@ -39,8 +39,7 @@ CREATE TABLE dt_task (
     description_markup text,
     description_html text,
     CONSTRAINT dt_task_pk PRIMARY KEY ( id ),
-    CONSTRAINT dt_task_ck1 CHECK ( ( id <> parent_id ) ),
-    CONSTRAINT dt_task_ix1 UNIQUE ( id, activity_id ) ) ;
+    CONSTRAINT dt_task_ck1 CHECK ( ( id <> parent_id ) ) ;
 
 ALTER TABLE dt_task OWNER TO tasker_owner ;
 
