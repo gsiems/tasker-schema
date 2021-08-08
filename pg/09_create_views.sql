@@ -24,11 +24,11 @@
 --\i tasker/view/dv_allowed_task_type.sql
 \i tasker/view/dv_task_tree.sql
 \i tasker/view/dv_task.sql
+\i tasker/view/dv_task_association.sql
 \i tasker/view/dv_task_attribute.sql
 \i tasker/view/dv_task_user.sql
 \i tasker/view/dv_task_comment_tree.sql
 \i tasker/view/dv_task_comment.sql
-\i tasker/view/dv_task_dependency.sql
 \i tasker/view/dv_task_file.sql
 \i tasker/view/dv_task_journal.sql
 

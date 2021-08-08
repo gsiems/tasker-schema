@@ -47,10 +47,12 @@ BEGIN
     END LOOP ;
 
     -- Ensure that no other tasks depend on the task
+    -- TODO
     FOR l_rec IN
         SELECT task_id
-            FROM tasker.dt_task_dependency
+            FROM tasker.dt_task_association
             WHERE task_id = a_task_id
+                AND association_type_id = 2
         LOOP
 
         RETURN false ;

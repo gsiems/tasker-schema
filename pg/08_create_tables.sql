@@ -3,6 +3,7 @@
 \i tasker/table/st_ranking.sql
 \i tasker/table/st_date_severity.sql
 \i tasker/table/st_eav_attribute_datatype.sql
+\i tasker/table/st_association_type.sql
 \i tasker/table/st_issue_probability.sql
 \i tasker/table/st_issue_severity.sql
 \i tasker/table/st_issue_workaround.sql
@@ -25,8 +26,8 @@
 
 -- task data tables
 \i tasker/table/dt_task.sql
+\i tasker/table/dt_task_association.sql
 \i tasker/table/dt_task_attribute.sql
-\i tasker/table/dt_task_dependency.sql
 \i tasker/table/dt_task_user.sql
 \i tasker/table/dt_task_comment.sql
 \i tasker/table/dt_task_journal.sql

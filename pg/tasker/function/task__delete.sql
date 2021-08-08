@@ -52,8 +52,9 @@ BEGIN
             -- Do not delete if other tasks depend on it?
             FOR l_rec IN
                 SELECT id
-                    FROM tasker.dt_task_dependency
+                    FROM tasker.dt_task_association
                     WHERE task_id = a_task_id
+                        AND association_type_id = 2
                     LIMIT 1
                 LOOP
 
@@ -75,8 +76,9 @@ BEGIN
             DELETE FROM tasker.dt_task_file
                 WHERE task_id = a_task_id ;
 
-            DELETE FROM tasker.dt_task_dependency
-                WHERE dependent_task_id = a_task_id ;
+            DELETE FROM tasker.dt_task_association
+                WHERE task_id = a_task_id
+                    OR associated_task_id = a_task_id ;
 
             DELETE FROM tasker.dt_task_regular
                 WHERE task_id = a_task_id ;

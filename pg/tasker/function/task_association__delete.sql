@@ -1,7 +1,8 @@
 SET search_path = tasker, pg_catalog ;
 
-CREATE OR REPLACE FUNCTION task_dependency__clear_list (
-    a_dependent_task_id integer,
+CREATE OR REPLACE FUNCTION task_association__delete (
+    a_task_id integer,
+    a_associated_task_id integer,
     a_session_username varchar )
 RETURNS dml_ret
 SECURITY DEFINER
@@ -18,11 +19,12 @@ BEGIN
 
     BEGIN
 
-        -- as specified from the dependent task perspective...
-        IF user_can_use_task ( a_dependent_task_id, a_session_username ) THEN
+        -- as specified from the associated task perspective...
+        IF user_can_use_task ( a_associated_task_id, a_session_username ) THEN
 
-            DELETE FROM tasker.dt_task_dependency
-                WHERE dependent_task_id = a_dependent_task_id ;
+            DELETE FROM tasker.dt_task_association
+                WHERE task_id = a_task_id
+                    AND associated_task_id = a_associated_task_id ;
 
             get diagnostics ret.numrows = row_count ;
 
@@ -41,14 +43,17 @@ BEGIN
 END ;
 $$ ;
 
-ALTER FUNCTION task_dependency__clear_list (
+ALTER FUNCTION task_association__delete (
+    integer,
     integer,
     varchar ) OWNER TO tasker_owner ;
 
-GRANT ALL ON FUNCTION task_dependency__clear_list (
+GRANT ALL ON FUNCTION task_association__delete (
+    integer,
     integer,
     varchar ) TO tasker_user ;
 
-REVOKE ALL ON FUNCTION task_dependency__clear_list (
+REVOKE ALL ON FUNCTION task_association__delete (
+    integer,
     integer,
     varchar ) FROM public ;

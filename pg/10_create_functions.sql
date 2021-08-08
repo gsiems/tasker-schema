@@ -98,10 +98,8 @@
 \i tasker/function/task_comment__insert.sql
 \i tasker/function/task_comment__update.sql
 
-\i tasker/function/task_dependency__delete.sql
-\i tasker/function/task_dependency__insert.sql
-\i tasker/function/task_dependency__set_list.sql
-\i tasker/function/task_dependency__clear_list.sql
+\i tasker/function/task_association__delete.sql
+\i tasker/function/task_association__insert.sql
 
 \i tasker/function/task_file__delete.sql
 \i tasker/function/task_file__insert.sql
