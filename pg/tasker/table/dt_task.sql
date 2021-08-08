@@ -39,7 +39,7 @@ CREATE TABLE dt_task (
     description_markup text,
     description_html text,
     CONSTRAINT dt_task_pk PRIMARY KEY ( id ),
-    CONSTRAINT dt_task_ck1 CHECK ( ( id <> parent_id ) ) ;
+    CONSTRAINT dt_task_ck1 CHECK ( id <> parent_id ) ) ;
 
 ALTER TABLE dt_task OWNER TO tasker_owner ;
 
@@ -106,52 +106,41 @@ ALTER TABLE dt_task
 
 ALTER TABLE dt_task
     ADD CONSTRAINT dt_task_fk02
-    FOREIGN KEY ( parent_id, activity_id )
-    REFERENCES dt_task ( id, activity_id )
-    ON UPDATE CASCADE ;
-
-ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk03
-    FOREIGN KEY ( activity_id )
-    REFERENCES dt_task ( id ) ;
-
-ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk04
     FOREIGN KEY ( owner_id )
     REFERENCES dt_user ( id ) ;
 
 ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk05
+    ADD CONSTRAINT dt_task_fk03
     FOREIGN KEY ( task_type_id )
     REFERENCES rt_task_type ( id ) ;
 
 ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk06
+    ADD CONSTRAINT dt_task_fk04
     FOREIGN KEY ( visibility_id )
     REFERENCES st_visibility ( id ) ;
 
 ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk07
+    ADD CONSTRAINT dt_task_fk05
     FOREIGN KEY ( status_id )
     REFERENCES rt_task_status ( id ) ;
 
 ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk08
+    ADD CONSTRAINT dt_task_fk06
     FOREIGN KEY ( priority_id )
     REFERENCES st_ranking ( id ) ;
 
 ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk09
+    ADD CONSTRAINT dt_task_fk07
     FOREIGN KEY ( markup_type_id )
     REFERENCES st_markup_type ( id ) ;
 
 ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk10
+    ADD CONSTRAINT dt_task_fk08
     FOREIGN KEY ( desired_start_severity_id )
     REFERENCES st_date_severity ( id ) ;
 
 ALTER TABLE dt_task
-    ADD CONSTRAINT dt_task_fk11
+    ADD CONSTRAINT dt_task_fk09
     FOREIGN KEY ( desired_end_severity_id )
     REFERENCES st_date_severity ( id ) ;
 
