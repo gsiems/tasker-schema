@@ -5,9 +5,9 @@ CREATE TABLE dt_task_user (
     last_viewed_dt timestamp with time zone,
     task_id integer NOT NULL,
     user_id integer NOT NULL,
+    role_id integer,
     created_by integer,
     permission_id int2 NOT NULL,
-    -- TODO: role ?? ( PM, BA, Developer, Tester, etc. )
     CONSTRAINT dt_task_user_pk PRIMARY KEY ( task_id, user_id ) ) ;
 
 ALTER TABLE dt_task_user OWNER TO tasker_owner ;
@@ -38,6 +38,11 @@ ALTER TABLE dt_task_user
 
 ALTER TABLE dt_task_user
     ADD CONSTRAINT dt_task_user_fk03
+    FOREIGN KEY ( role_id )
+    REFERENCES rt_role ( id ) ;
+
+ALTER TABLE dt_task_user
+    ADD CONSTRAINT dt_task_user_fk04
     FOREIGN KEY ( permission_id )
     REFERENCES st_permission ( id ) ;
 
