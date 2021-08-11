@@ -4,11 +4,15 @@
 
  * Table name prefixes
    * dt_ : signifies a data table for containing user supplied data.
+   * ht_ : signifies a table used for tracking historicaldata.
+   * qt_ : signifies a table used for implementing/tracking a work queue.
    * rt_ : signifies a reference table that may be edited by the application administrator.
    * st_ : signifies a system table that is not to be edited.
 
  * View name prefixes
    * dv_ : signifies a view of the dt_-named data table for containing user supplied data.
+   * hv_ : signifies a view of the ht_-named table.
+   * qv_ : signifies a view of the qt_-named table.
    * rv_ : signifies a view of the rt_-named reference table that may be edited by the application administrator.
    * sv_ : signifies a view of the st_-named system table that is not to be edited.
 
