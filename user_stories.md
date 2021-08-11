@@ -17,6 +17,7 @@ The kinds of users that might interact with the task tracking application probab
 * **Manager**: The person that is somewhere above the supervisor or who is resposible for ensuring that the activity is performed.
 * **Sponsor**: The entity that is paying for/requesting the activity be performed.
 * **Community**: The external entity or entities that, while not a part of the activity, benefit from/are impacted by the activity.
+* **Activity members**: The individuals that are working on an activity.
 
 ### Worker
 
@@ -89,3 +90,12 @@ The kinds of users that might interact with the task tracking application probab
 * 5.4 - Wants to be notified when the status of an issue that they submitted changes.
 * 5.5 - Wants to know what to expect from an activity.
 * 5.6 - Wants to know what, if any, changes they need to be aware of.
+
+### Activity member
+
+* 6.1 - Wants to know who the sponsers of an activity are.
+* 6.2 - Wants to know who the customers, users, and beneficiaries of the result of an activity are.
+* 6.3 - Wants to know what the desired result of an activity is.
+* 6.4 - Wants to know why the activity exists.
+* 6.5 - Wants to know the nature, importance, and size of an activity.
+* 6.6 - Wants to know the priority of an activity.
