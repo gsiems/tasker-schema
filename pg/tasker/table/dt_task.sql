@@ -49,7 +49,7 @@ COMMENT ON COLUMN dt_task.id IS 'The unique ID for the task.' ;
 
 COMMENT ON COLUMN dt_task.parent_id IS 'The ID of the parent task (if any).' ;
 
-COMMENT ON COLUMN dt_task.activity_id IS 'The ID of the activity that the task belongs to.' ;
+COMMENT ON COLUMN dt_task.activity_id IS 'The ID of the activity that the task belongs to. For tasks that are activities, the activity ID equals the task ID.' ;
 
 COMMENT ON COLUMN dt_task.owner_id IS 'The ID of the user that owns the task.' ;
 
