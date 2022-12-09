@@ -1,93 +1,127 @@
 #!/usr/bin/env perl
 use warnings;
 use strict;
+#use Data::Dumper;
 
 =pod
 
-A quick and dirty script for the purpose of reconciling the files to
-run in the create scripts with the actual source files in the tasker
-subdirectory.
+A quick and dirty script for the purpose of reconciling the files to run in the
+create scripts with the actual source files in the schema subdirectories.
 
-The idea is to ensure that any files listed in the create scripts that
-do not exist in the tasker source files is commented out while any new
-source files get added.
+The idea is to ensure that any files listed in the create scripts that do not
+exist in the schema source files is commented out while any new source files
+get added.
 
 =cut
 
-my %obj_types = (
-    'type'     => '06_create_types.sql',
-    'sequence' => '07_create_sequences.sql',
-    'table'    => '08_create_tables.sql',
-    'view'     => '09_create_views.sql',
-    'function' => '10_create_functions.sql',
-    'procedure' => '11_create_procedures.sql',
-);
 
-foreach my $type ( sort keys %obj_types ) {
-    my $create_file = $obj_types{$type};
-    my $source      = "tasker/$type";
-    reconcile_type( $create_file, $source );
+my @create_files = `ls *create*.sql` ;
+chomp @create_files;
+my %create_schema_files;
+
+foreach my $file (@create_files) {
+    my (undef, $schema) = split /[-\.]/, $file;
+    next if ($schema eq 'sql');
+    $create_schema_files{$schema} = $file;
 }
 
-sub reconcile_type {
-    my ( $create_file, $source_dir ) = @_;
+my @schemas = get_schemas();
 
-    return unless ( -d $source_dir ) ;
+foreach my $schema ( @schemas ) {
+    reconcile_schema( $schema );
+}
 
+sub get_schemas {
+
+    my $source_dir = './';
     opendir(my $dh, $source_dir) || warn "Can't opendir $source_dir: $!\n";
     return unless ( $dh ) ;
 
-    my @source_files = map { "$source_dir/$_" } grep { /\.sql$/ && -f "$source_dir/$_" } readdir($dh);
+    my @listing = readdir($dh);
     closedir $dh;
 
-    my %avail = map { $_ => 'notseen' } @source_files;
+    my @source_files = grep { /^[^\.]/ && -d "$source_dir/$_" } @listing;
+    return @source_files;
+}
+
+sub get_source_list {
+    my ( $schema ) = @_;
+    my @source_files;
+
+    foreach my $type (qw(type sequence table view materialized_view function procedure)){
+
+        my $source_dir = "$schema/$type" ;
+
+        next unless ( -d $source_dir ) ;
+
+        opendir(my $dh, $source_dir) || warn "Can't opendir $source_dir: $!\n";
+        next unless ( $dh ) ;
+
+        my @files = map { "$schema/$type/$_" } grep { /\.sql$/ && -f "$source_dir/$_" } readdir($dh);
+        closedir $dh;
+
+        foreach my $file (@files) {
+            push @source_files, $file;
+        }
+    }
+
+    return @source_files ;
+}
+
+sub reconcile_schema {
+    my ( $schema ) = @_;
+
     my $fh;
-    my @lines;
-    my @orig;
+    my @new_lines;
+    my @orig_lines;
+    my @source_files = get_source_list ($schema);
+    my %avail = map { $_ => 'notseen' } @source_files;
 
-    open( $fh, '<:raw', $create_file )
-      || die "Could not open $create_file. $!\n";
+    my $create_file = $create_schema_files{$schema} ;
+    $create_file ||= "xx_create-${schema}.sql";
 
-    while ( my $line = <$fh> ) {
+    if ( -f $create_file ) {
 
-        chomp $line;
-        push @orig, $line;
+        if ( open( $fh, '<:raw', $create_file ) ) {
 
-        $line =~ s/^[ \t]+//;
+            @orig_lines = (<$fh>);
+            close $fh;
+            chomp @orig_lines;
+
+        } else {
+            warn "Could not open $create_file.\n";
+        }
+    }
+
+    foreach my $new_line (@orig_lines) {
+        my $chk = $new_line;
+        $chk =~ s/^[ \t]+//;
 
         # check included files
-        if ( $line =~ m/^\\i/ ) {
-            my @ary = split /([ \t]+)/, $line;
+        if ( $chk =~ m/^\\i/ ) {
+            my @ary = split /[ \t]+/, $chk;
 
-            if ( exists $avail{ $ary[2] } ) {
-                $avail{ $ary[2] } = 'seen';
+            if ( exists $avail{ $ary[1] } ) {
+                $avail{ $ary[1] } = 'seen 1';
                 shift @ary;
-                shift @ary;
-                push @lines, '\i ' . join( '', @ary );
+                $new_line = '\i ' . join( '', @ary );
             }
             else {
-                push @lines, '--' . $line;
+                $new_line = '--' . $new_line;
             }
         }
 
         # check comments for included files. assert that if they are
         # commented out then there is a reason for having done so
-        elsif ( $line =~ m/^\-\-/ ) {
-            my @ary = split /([ \t]+)/, $line;
-
-            if ( exists $avail{ $ary[2] } ) {
-                $avail{ $ary[2] } = 'seen';
+        elsif ( $chk =~ m/^\-\-\\i/ ) {
+            my @ary = split /[ \t]+/, $chk;
+            if ( exists $avail{ $ary[1] } ) {
+                $avail{ $ary[1] } = 'seen 2';
             }
-            push @lines, $line;
         }
 
-        # preserve all other lines
-        else {
-            push @lines, $line;
-        }
-
+        push @new_lines, $new_line;
     }
-    close $fh;
 
     my @missing;
     foreach my $file ( sort keys %avail ) {
@@ -96,23 +130,16 @@ sub reconcile_type {
         }
     }
 
-    my @final;
-    push @final, $_ for @lines;
     if (@missing) {
-        push @final, "\n-- NEW -------------------------------";
-        push @final, $_ for @missing;
-        push @final, '';
+        push @new_lines, "\n-- NEW -------------------------------";
+        push @new_lines, $_ for @missing;
+        push @new_lines, '';
     }
 
-    if ( join( "\n", @orig ) eq join( "\n", @final ) ) {
-
-        # Nothing changed
-        return;
-    }
-    else {
+    if ( join( "\n", @orig_lines ) ne join( "\n", @new_lines ) ) {
         open( $fh, '>:raw', $create_file )
           || die "Could not open $create_file. $!\n";
-        print $fh join( "\n", @final );
+        print $fh join( "\n", @new_lines );
         close $fh;
     }
 }
