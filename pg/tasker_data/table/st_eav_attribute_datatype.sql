@@ -1,7 +1,7 @@
 CREATE TABLE tasker_data.st_eav_attribute_datatype (
     id int2 NOT NULL,
-    name character varying ( 60 ) NOT NULL,
-    description character varying ( 200 ),
+    name text NOT NULL,
+    description text,
     CONSTRAINT st_eav_attribute_datatype_pk PRIMARY KEY ( id ),
     CONSTRAINT st_eav_attribute_datatype_nk UNIQUE ( name ) ) ;
 

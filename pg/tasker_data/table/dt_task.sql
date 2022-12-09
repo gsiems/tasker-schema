@@ -32,7 +32,7 @@ CREATE TABLE tasker_data.dt_task (
     priority_id int2,
     desired_start_severity_id int2,
     desired_end_severity_id int2,
-    task_name character varying ( 200 ) NOT NULL,
+    task_name text NOT NULL,
     description_markup text,
     description_html text,
     CONSTRAINT dt_task_pk PRIMARY KEY ( id ),

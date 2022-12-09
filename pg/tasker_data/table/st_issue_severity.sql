@@ -1,7 +1,7 @@
 CREATE TABLE tasker_data.st_issue_severity (
     id int2 NOT NULL,
     priority_id int2 NOT NULL,
-    name character varying ( 100 ) NOT NULL,
+    name text NOT NULL,
     CONSTRAINT st_issue_severity_pk PRIMARY KEY ( id ),
     CONSTRAINT st_issue_severity_nk UNIQUE ( name ) ) ;
 

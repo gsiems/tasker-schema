@@ -1,6 +1,6 @@
 CREATE TABLE tasker_data.dt_task_meeting (
     task_id integer NOT NULL,
-    meeting_location varchar ( 100 ),
+    meeting_location text,
     agenda_markup text,
     agenda_html text,
     minutes_markup text,

@@ -1,6 +1,6 @@
 CREATE TABLE tasker_data.st_ranking (
     id int2 NOT NULL,
-    name character varying ( 60 ) NOT NULL,
+    name text NOT NULL,
     CONSTRAINT st_ranking_pk PRIMARY KEY ( id ),
     CONSTRAINT st_ranking_nk UNIQUE ( name ) ) ;
 

@@ -16,9 +16,9 @@ CREATE TABLE tasker_data.dt_user (
     email_is_enabled boolean DEFAULT true NOT NULL,
     is_enabled boolean DEFAULT true NOT NULL,
     is_admin boolean DEFAULT false NOT NULL,
-    username character varying ( 32 ) NOT NULL,
-    full_name character varying ( 128 ) NOT NULL,
-    email_address character varying ( 320 ),
+    username text NOT NULL,
+    full_name text NOT NULL,
+    email_address text,
     CONSTRAINT dt_user_pk PRIMARY KEY ( id ),
     CONSTRAINT dt_user_nk UNIQUE ( username ) ) ;
 

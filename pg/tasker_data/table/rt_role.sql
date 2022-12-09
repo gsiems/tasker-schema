@@ -5,8 +5,8 @@ CREATE TABLE tasker_data.rt_role (
     created_by_id integer,
     updated_by_id integer,
     is_enabled boolean DEFAULT true NOT NULL,
-    name character varying ( 60 ) NOT NULL,
-    description character varying ( 200 ),
+    name text NOT NULL,
+    description text,
     CONSTRAINT rt_role_pk PRIMARY KEY ( id ),
     CONSTRAINT dt_task_role_nk UNIQUE ( name ) ) ;
 

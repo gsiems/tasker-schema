@@ -6,8 +6,8 @@ CREATE TABLE tasker_data.rt_task_status (
     updated_by_id integer,
     open_status int2 default 0,
     is_enabled boolean DEFAULT true NOT NULL,
-    name character varying ( 60 ) NOT NULL,
-    description character varying ( 200 ),
+    name text NOT NULL,
+    description text,
     CONSTRAINT rt_task_status_pk PRIMARY KEY ( id ),
     CONSTRAINT dt_task_status_nk UNIQUE ( name ),
     CONSTRAINT rt_task_status_ck1 CHECK ( ( open_status IN (0, 1, 2) ) ) ) ;

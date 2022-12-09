@@ -1,7 +1,7 @@
 CREATE TABLE tasker_data.st_issue_probability (
     id int2 NOT NULL,
     priority_id int2 NOT NULL,
-    name character varying ( 60 ) NOT NULL,
+    name text NOT NULL,
     CONSTRAINT st_issue_probability_pk PRIMARY KEY ( id ),
     CONSTRAINT st_issue_probability_nk UNIQUE ( name ) ) ;
 

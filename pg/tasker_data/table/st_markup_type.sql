@@ -9,8 +9,8 @@ equation rendering, diagramming, etc.?
 CREATE TABLE tasker_data.st_markup_type (
     id int2 NOT NULL,
     is_enabled boolean DEFAULT true NOT NULL,
-    name character varying ( 60 ) NOT NULL,
-    description character varying ( 200 ),
+    name text NOT NULL,
+    description text,
     CONSTRAINT st_markup_type_pk PRIMARY KEY ( id ),
     CONSTRAINT st_markup_type_nk UNIQUE ( name ) ) ;
 

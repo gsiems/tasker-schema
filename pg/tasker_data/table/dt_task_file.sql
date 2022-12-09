@@ -9,8 +9,8 @@ CREATE TABLE tasker_data.dt_task_file (
     filesize integer,
     created_by_id integer,
     updated_by_id integer,
-    filename character varying ( 100 ),
-    content_type character varying ( 100 ),
+    filename text,
+    content_type text,
     content bytea,
     CONSTRAINT dt_task_file_pk PRIMARY KEY ( id )
 );

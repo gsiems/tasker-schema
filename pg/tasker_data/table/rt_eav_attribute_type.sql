@@ -7,8 +7,8 @@ CREATE TABLE tasker_data.rt_eav_attribute_type (
     updated_by_id integer,
     -- TODO: array of valid values?
     is_enabled boolean DEFAULT true NOT NULL,
-    name character varying ( 60 ) NOT NULL,
-    description character varying ( 200 ),
+    name text NOT NULL,
+    description text,
     CONSTRAINT rt_eav_attribute_type_pk PRIMARY KEY ( id ),
     CONSTRAINT rt_eav_attribute_type_nk UNIQUE ( name ) ) ;
 

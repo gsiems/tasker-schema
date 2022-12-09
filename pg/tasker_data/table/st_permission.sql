@@ -2,8 +2,8 @@ CREATE TABLE tasker_data.st_permission (
     id int2 NOT NULL,
     can_create_task boolean DEFAULT false NOT NULL,
     can_update_task boolean DEFAULT false NOT NULL,
-    name character varying ( 60 ) NOT NULL,
-    description character varying ( 200 ),
+    name text NOT NULL,
+    description text,
     CONSTRAINT st_permission_pk PRIMARY KEY ( id ),
     CONSTRAINT st_permission_nk UNIQUE ( name ) ) ;
 

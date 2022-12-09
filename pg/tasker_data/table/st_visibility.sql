@@ -1,7 +1,7 @@
 CREATE TABLE tasker_data.st_visibility (
     id int2 NOT NULL,
-    name character varying ( 60 ) NOT NULL,
-    description character varying ( 200 ),
+    name text NOT NULL,
+    description text,
     CONSTRAINT st_visibility_pk PRIMARY KEY ( id ),
     CONSTRAINT st_visibility_nk UNIQUE ( name ) ) ;
 

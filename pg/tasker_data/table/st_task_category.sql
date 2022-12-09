@@ -1,7 +1,7 @@
 CREATE TABLE tasker_data.st_task_category (
     id int2 NOT NULL,
-    name character varying ( 60 ) NOT NULL,
-    description character varying ( 200 ),
+    name text NOT NULL,
+    description text,
     CONSTRAINT st_task_category_pk PRIMARY KEY ( id ),
     CONSTRAINT st_task_category_nk UNIQUE ( name ) ) ;
 
