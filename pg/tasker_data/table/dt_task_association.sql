@@ -2,7 +2,7 @@ CREATE TABLE tasker_data.dt_task_association (
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     task_id integer NOT NULL,
     associated_task_id integer NOT NULL,
-    created_by integer,
+    created_by_id integer,
     association_type_id int2 NOT NULL,
     CONSTRAINT dt_task_association_pk PRIMARY KEY ( task_id, associated_task_id ),
     CONSTRAINT dt_task_association_ck1 CHECK ( ( task_id <> associated_task_id ) ) ) ;
@@ -17,7 +17,7 @@ COMMENT ON COLUMN tasker_data.dt_task_association.associated_task_id IS 'The ID 
 
 COMMENT ON COLUMN tasker_data.dt_task_association.association_type_id IS 'The ID of the association type.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_association.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_association.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_association.created_dt IS 'The timestamp when the row was created.' ;
 

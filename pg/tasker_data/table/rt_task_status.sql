@@ -2,8 +2,8 @@ CREATE TABLE tasker_data.rt_task_status (
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     updated_dt timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-    created_by integer,
-    updated_by integer,
+    created_by_id integer,
+    updated_by_id integer,
     open_status int2 default 0,
     is_enabled boolean DEFAULT true NOT NULL,
     name character varying ( 60 ) NOT NULL,
@@ -26,11 +26,11 @@ COMMENT ON COLUMN tasker_data.rt_task_status.open_status IS 'Indicates whether o
 
 COMMENT ON COLUMN tasker_data.rt_task_status.is_enabled IS 'Indicates whether or not the status is available for use.' ;
 
-COMMENT ON COLUMN tasker_data.rt_task_status.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.rt_task_status.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.rt_task_status.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON COLUMN tasker_data.rt_task_status.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.rt_task_status.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.rt_task_status.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 

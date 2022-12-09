@@ -18,8 +18,8 @@ CREATE TABLE tasker_data.dt_task (
     edition integer DEFAULT 0 NOT NULL,
     parent_id integer,
     time_estimate integer,
-    created_by integer,
-    updated_by integer,
+    created_by_id integer,
+    updated_by_id integer,
     desired_start date,
     desired_end date,
     estimated_start date,
@@ -86,11 +86,11 @@ COMMENT ON COLUMN tasker_data.dt_task.description_markup IS 'A description of th
 
 COMMENT ON COLUMN tasker_data.dt_task.description_html IS 'The description in HTML format.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 

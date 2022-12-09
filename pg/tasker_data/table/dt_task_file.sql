@@ -7,8 +7,8 @@ CREATE TABLE tasker_data.dt_task_file (
     comment_id integer,
     journal_id integer,
     filesize integer,
-    created_by integer,
-    updated_by integer,
+    created_by_id integer,
+    updated_by_id integer,
     filename character varying ( 100 ),
     content_type character varying ( 100 ),
     content bytea,
@@ -37,11 +37,11 @@ COMMENT ON COLUMN tasker_data.dt_task_file.content_type IS 'The MIME Content-Typ
 
 COMMENT ON COLUMN tasker_data.dt_task_file.content IS 'The content of the file.';
 
-COMMENT ON COLUMN tasker_data.dt_task_file.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_file.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_file.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_file.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_file.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_file.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 

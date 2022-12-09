@@ -4,8 +4,8 @@ CREATE TABLE tasker_data.dt_task_attribute (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     task_id integer NOT NULL,
     attribute_type_id integer NOT NULL,
-    created_by integer,
-    updated_by integer,
+    created_by_id integer,
+    updated_by_id integer,
     attribute_text text,
     -- TODO: do we want attribute columns for other data types?
     CONSTRAINT dt_task_attribute_pk PRIMARY KEY ( id ) ) ;
@@ -22,11 +22,11 @@ COMMENT ON COLUMN tasker_data.dt_task_attribute.attribute_type_id IS 'The ID of 
 
 COMMENT ON COLUMN tasker_data.dt_task_attribute.attribute_text IS 'The text of the attribute.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_attribute.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_attribute.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_attribute.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_attribute.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_attribute.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_attribute.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 

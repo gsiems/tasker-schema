@@ -5,9 +5,9 @@ CREATE TABLE tasker_data.dt_task_meeting (
     agenda_html text,
     minutes_markup text,
     minutes_html text,
-    created_by integer,
+    created_by_id integer,
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_by integer,
+    updated_by_id integer,
     updated_dt timestamp with time zone,
     CONSTRAINT dt_task_meeting_pk PRIMARY KEY ( task_id ) ) ;
 
@@ -27,11 +27,11 @@ COMMENT ON COLUMN tasker_data.dt_task_meeting.minutes_markup IS 'The markup text
 
 COMMENT ON COLUMN tasker_data.dt_task_meeting.minutes_html IS 'The HTML form of the meeting minutes.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_meeting.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_meeting.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_meeting.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_meeting.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_meeting.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_meeting.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 

@@ -11,8 +11,8 @@ CREATE TABLE tasker_data.dt_task_issue (
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     updated_dt timestamp with time zone,
     task_id integer NOT NULL,
-    created_by integer,
-    updated_by integer,
+    created_by_id integer,
+    updated_by_id integer,
     probability_id int2,
     severity_id int2,
     workaround_id int2,
@@ -36,11 +36,11 @@ COMMENT ON COLUMN tasker_data.dt_task_issue.workaround_markup IS 'A description 
 
 COMMENT ON COLUMN tasker_data.dt_task_issue.workaround_html IS 'The workaround in HTML format.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_issue.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_issue.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_issue.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_issue.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_issue.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_issue.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 

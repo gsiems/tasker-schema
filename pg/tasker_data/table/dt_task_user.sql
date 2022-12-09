@@ -4,7 +4,7 @@ CREATE TABLE tasker_data.dt_task_user (
     task_id integer NOT NULL,
     user_id integer NOT NULL,
     role_id integer,
-    created_by integer,
+    created_by_id integer,
     permission_id int2 NOT NULL,
     CONSTRAINT dt_task_user_pk PRIMARY KEY ( task_id, user_id ) ) ;
 
@@ -20,7 +20,7 @@ COMMENT ON COLUMN tasker_data.dt_task_user.permission_id IS 'The ID of the permi
 
 COMMENT ON COLUMN tasker_data.dt_task_user.last_viewed_dt IS 'The timestamp when the task was last viewed by the user.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_user.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_user.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_user.created_dt IS 'The timestamp when the row was created.' ;
 

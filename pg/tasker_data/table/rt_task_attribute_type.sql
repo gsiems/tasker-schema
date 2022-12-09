@@ -2,8 +2,8 @@ CREATE TABLE tasker_data.rt_task_attribute_type (
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     updated_dt timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-    created_by integer,
-    updated_by integer,
+    created_by_id integer,
+    updated_by_id integer,
     eav_attribute_type_id integer NOT NULL,
     task_type_id integer,
     category_id int2 NOT NULL,
@@ -33,11 +33,11 @@ COMMENT ON COLUMN tasker_data.rt_task_attribute_type.is_required IS 'Indicates w
 
 COMMENT ON COLUMN tasker_data.rt_task_attribute_type.is_enabled IS 'Indicates whether or not the attribute is available for use.' ;
 
-COMMENT ON COLUMN tasker_data.rt_task_attribute_type.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.rt_task_attribute_type.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.rt_task_attribute_type.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON COLUMN tasker_data.rt_task_attribute_type.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.rt_task_attribute_type.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.rt_task_attribute_type.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 

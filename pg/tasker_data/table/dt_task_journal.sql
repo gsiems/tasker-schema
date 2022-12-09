@@ -7,8 +7,8 @@ CREATE TABLE tasker_data.dt_task_journal (
     owner_id integer NOT NULL,
     time_spent integer,
     journal_date date,
-    created_by integer,
-    updated_by integer,
+    created_by_id integer,
+    updated_by_id integer,
     markup_type_id int2 NOT NULL default 1,
     journal_markup text,
     journal_html text,
@@ -36,11 +36,11 @@ COMMENT ON COLUMN tasker_data.dt_task_journal.journal_markup IS 'The markup text
 
 COMMENT ON COLUMN tasker_data.dt_task_journal.journal_html IS 'The HTML form of a journal entry.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_journal.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_journal.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_journal.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task_journal.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_task_journal.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task_journal.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 

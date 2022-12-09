@@ -11,8 +11,8 @@ CREATE TABLE tasker_data.dt_user (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     edition integer DEFAULT 0 NOT NULL,
     reports_to integer,
-    created_by integer,
-    updated_by integer,
+    created_by_id integer,
+    updated_by_id integer,
     email_is_enabled boolean DEFAULT true NOT NULL,
     is_enabled boolean DEFAULT true NOT NULL,
     is_admin boolean DEFAULT false NOT NULL,
@@ -46,11 +46,11 @@ COMMENT ON COLUMN tasker_data.dt_user.is_admin IS 'Indicates if the account has 
 
 COMMENT ON COLUMN tasker_data.dt_user.last_login IS 'The most recent time that the user has logged in.' ;
 
-COMMENT ON COLUMN tasker_data.dt_user.created_by IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_user.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_user.created_dt IS 'The timestamp when the row was created.' ;
 
-COMMENT ON COLUMN tasker_data.dt_user.updated_by IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker_data.dt_user.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_user.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
