@@ -3,7 +3,7 @@ CREATE TABLE tasker_data.st_issue_severity (
     priority_id int2 NOT NULL,
     name character varying ( 100 ) NOT NULL,
     CONSTRAINT st_issue_severity_pk PRIMARY KEY ( id ),
-    CONSTRAINT st_issue_severity_ix1 UNIQUE ( name ) ) ;
+    CONSTRAINT st_issue_severity_nk UNIQUE ( name ) ) ;
 
 ALTER TABLE tasker_data.st_issue_severity OWNER TO tasker_owner ;
 

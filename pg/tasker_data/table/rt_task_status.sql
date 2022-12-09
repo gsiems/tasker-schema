@@ -9,7 +9,7 @@ CREATE TABLE tasker_data.rt_task_status (
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
     CONSTRAINT rt_task_status_pk PRIMARY KEY ( id ),
-    CONSTRAINT dt_task_status_ix1 UNIQUE ( name ),
+    CONSTRAINT dt_task_status_nk UNIQUE ( name ),
     CONSTRAINT rt_task_status_ck1 CHECK ( ( open_status IN (0, 1, 2) ) ) ) ;
 
 ALTER TABLE tasker_data.rt_task_status OWNER TO tasker_owner ;

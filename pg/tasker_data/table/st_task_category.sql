@@ -3,7 +3,7 @@ CREATE TABLE tasker_data.st_task_category (
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
     CONSTRAINT st_task_category_pk PRIMARY KEY ( id ),
-    CONSTRAINT st_task_category_ix1 UNIQUE ( name ) ) ;
+    CONSTRAINT st_task_category_nk UNIQUE ( name ) ) ;
 
 ALTER TABLE tasker_data.st_task_category OWNER TO tasker_owner ;
 

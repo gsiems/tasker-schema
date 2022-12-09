@@ -10,7 +10,7 @@ CREATE TABLE tasker_data.rt_eav_attribute_type (
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
     CONSTRAINT rt_eav_attribute_type_pk PRIMARY KEY ( id ),
-    CONSTRAINT rt_eav_attribute_type_ix1 UNIQUE ( name ) ) ;
+    CONSTRAINT rt_eav_attribute_type_nk UNIQUE ( name ) ) ;
 
 ALTER TABLE tasker_data.rt_eav_attribute_type OWNER TO tasker_owner ;
 

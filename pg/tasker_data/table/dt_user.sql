@@ -20,7 +20,7 @@ CREATE TABLE tasker_data.dt_user (
     full_name character varying ( 128 ) NOT NULL,
     email_address character varying ( 320 ),
     CONSTRAINT dt_user_pk PRIMARY KEY ( id ),
-    CONSTRAINT dt_user_ux01 UNIQUE ( username ) ) ;
+    CONSTRAINT dt_user_nk UNIQUE ( username ) ) ;
 
 ALTER TABLE tasker_data.dt_user OWNER TO tasker_owner ;
 

@@ -5,7 +5,7 @@ CREATE TABLE tasker_data.st_permission (
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
     CONSTRAINT st_permission_pk PRIMARY KEY ( id ),
-    CONSTRAINT st_permission_ix1 UNIQUE ( name ) ) ;
+    CONSTRAINT st_permission_nk UNIQUE ( name ) ) ;
 
 ALTER TABLE tasker_data.st_permission OWNER TO tasker_owner ;
 

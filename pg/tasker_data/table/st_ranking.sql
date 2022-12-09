@@ -2,7 +2,7 @@ CREATE TABLE tasker_data.st_ranking (
     id int2 NOT NULL,
     name character varying ( 60 ) NOT NULL,
     CONSTRAINT st_ranking_pk PRIMARY KEY ( id ),
-    CONSTRAINT st_ranking_ix1 UNIQUE ( name ) ) ;
+    CONSTRAINT st_ranking_nk UNIQUE ( name ) ) ;
 
 ALTER TABLE tasker_data.st_ranking OWNER TO tasker_owner ;
 

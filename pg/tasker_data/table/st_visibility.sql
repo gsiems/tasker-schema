@@ -3,7 +3,7 @@ CREATE TABLE tasker_data.st_visibility (
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
     CONSTRAINT st_visibility_pk PRIMARY KEY ( id ),
-    CONSTRAINT st_visibility_ix1 UNIQUE ( name ) ) ;
+    CONSTRAINT st_visibility_nk UNIQUE ( name ) ) ;
 
 ALTER TABLE tasker_data.st_visibility OWNER TO tasker_owner ;
 

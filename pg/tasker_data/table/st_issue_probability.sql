@@ -3,7 +3,7 @@ CREATE TABLE tasker_data.st_issue_probability (
     priority_id int2 NOT NULL,
     name character varying ( 60 ) NOT NULL,
     CONSTRAINT st_issue_probability_pk PRIMARY KEY ( id ),
-    CONSTRAINT st_issue_probability_ix1 UNIQUE ( name ) ) ;
+    CONSTRAINT st_issue_probability_nk UNIQUE ( name ) ) ;
 
 ALTER TABLE tasker_data.st_issue_probability OWNER TO tasker_owner ;
 

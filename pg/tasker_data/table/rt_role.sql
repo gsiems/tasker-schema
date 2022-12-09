@@ -8,7 +8,7 @@ CREATE TABLE tasker_data.rt_role (
     name character varying ( 60 ) NOT NULL,
     description character varying ( 200 ),
     CONSTRAINT rt_role_pk PRIMARY KEY ( id ),
-    CONSTRAINT dt_task_role_ix1 UNIQUE ( name ) ) ;
+    CONSTRAINT dt_task_role_nk UNIQUE ( name ) ) ;
 
 ALTER TABLE tasker_data.rt_role OWNER TO tasker_owner ;
 

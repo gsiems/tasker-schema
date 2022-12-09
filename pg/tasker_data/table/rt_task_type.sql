@@ -12,7 +12,7 @@ CREATE TABLE tasker_data.rt_task_type (
     template_markup text,
     template_html text,
     CONSTRAINT rt_task_type_pk PRIMARY KEY ( id ),
-    CONSTRAINT rt_task_type_ix1 UNIQUE ( category_id, name ) ) ;
+    CONSTRAINT rt_task_type_nk UNIQUE ( category_id, name ) ) ;
 
 ALTER TABLE tasker_data.rt_task_type OWNER TO tasker_owner ;
 
