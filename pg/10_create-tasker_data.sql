@@ -57,3 +57,7 @@ GRANT USAGE ON SCHEMA tasker_data TO tasker_user;
 -- task specialization tables
 \i tasker_data/table/dt_task_issue.sql
 \i tasker_data/table/dt_task_meeting.sql
+
+--------------------------------------------------------------------------------
+REVOKE ALL ON ALL TABLES IN SCHEMA tasker_data FROM public ;
+REVOKE ALL ON SCHEMA tasker_data FROM public ;
