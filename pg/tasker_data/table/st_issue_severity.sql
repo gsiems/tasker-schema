@@ -8,6 +8,11 @@ CREATE TABLE tasker_data.st_issue_severity (
     CONSTRAINT st_issue_severity_pk PRIMARY KEY ( id ),
     CONSTRAINT st_issue_severity_nk UNIQUE ( name ) ) ;
 
+ALTER TABLE tasker_data.st_issue_severity
+    ADD CONSTRAINT st_issue_severity_fk01
+    FOREIGN KEY ( ranking_id )
+    REFERENCES tasker_data.st_ranking ( id ) ;
+
 ALTER TABLE tasker_data.st_issue_severity OWNER TO tasker_owner ;
 
 COMMENT ON TABLE tasker_data.st_issue_severity IS 'Reference table. Indicates how bad/severe an issue is.' ;
