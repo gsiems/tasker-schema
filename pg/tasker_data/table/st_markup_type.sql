@@ -8,9 +8,10 @@ equation rendering, diagramming, etc.?
 
 CREATE TABLE tasker_data.st_markup_type (
     id int2 NOT NULL,
-    is_enabled boolean DEFAULT true NOT NULL,
     name text NOT NULL,
     description text,
+    is_default boolean NOT NULL default false,
+    is_enabled boolean NOT NULL default true,
     CONSTRAINT st_markup_type_pk PRIMARY KEY ( id ),
     CONSTRAINT st_markup_type_nk UNIQUE ( name ) ) ;
 
@@ -24,10 +25,12 @@ COMMENT ON COLUMN tasker_data.st_markup_type.name IS 'Display name for the marku
 
 COMMENT ON COLUMN tasker_data.st_markup_type.description IS 'Optional description for a markup type.' ;
 
-COMMENT ON COLUMN tasker_data.st_markup_type.is_enabled IS 'Indicates whether or not the markup type is available for use.' ;
+COMMENT ON COLUMN tasker_data.st_markup_type.is_default IS 'Indicates whether or not the row is the default row.' ;
 
-REVOKE ALL ON TABLE tasker_data.st_markup_type FROM public ;
+COMMENT ON COLUMN tasker_data.st_markup_type.is_enabled IS 'Indicates whether or not the row is available for new use.' ;
 
-INSERT INTO tasker_data.st_markup_type (id, name, description, is_enabled) VALUES (1, 'Plaintext', NULL, true) ;
-INSERT INTO tasker_data.st_markup_type (id, name, description, is_enabled) VALUES (2, 'Markdown', NULL, true) ;
---INSERT INTO tasker_data.st_markup_type (id, name, description, is_enabled) VALUES (3, 'Creole', NULL, true) ;
+INSERT INTO tasker_data.st_markup_type (
+        name )
+    VALUES
+        ( 'Plaintext' ),
+        ( 'Markdown' ) ;
