@@ -2,6 +2,8 @@ CREATE TABLE tasker_data.st_visibility (
     id int2 NOT NULL,
     name text NOT NULL,
     description text,
+    is_default boolean NOT NULL default false,
+    is_enabled boolean NOT NULL default true,
     CONSTRAINT st_visibility_pk PRIMARY KEY ( id ),
     CONSTRAINT st_visibility_nk UNIQUE ( name ) ) ;
 
@@ -15,8 +17,14 @@ COMMENT ON COLUMN tasker_data.st_visibility.name IS 'The name for the visibility
 
 COMMENT ON COLUMN tasker_data.st_visibility.description IS 'The description of the visibility level.' ;
 
-REVOKE ALL ON TABLE tasker_data.tasker_data.st_visibility FROM public ;
+COMMENT ON COLUMN tasker_data.st_visibility.is_default IS 'Indicates whether or not the row is the default row.' ;
 
-INSERT INTO tasker_data.tasker_data.st_visibility (id, name, description) VALUES (1, 'Public', 'The task is visible to anyone that can access the application.') ;
-INSERT INTO tasker_data.tasker_data.st_visibility (id, name, description) VALUES (2, 'Protected', 'The task is only visible to users that are logged in.') ;
-INSERT INTO tasker_data.tasker_data.st_visibility (id, name, description) VALUES (3, 'Private', 'The task is only visible to task team members.') ;
+COMMENT ON COLUMN tasker_data.st_visibility.is_enabled IS 'Indicates whether or not the row is available for new use.' ;
+
+INSERT INTO tasker_data.st_task_category (
+        name,
+        description )
+    VALUES
+        ( 'Public', 'The task is visible to anyone that can access the application.' ),
+        ( 'Protected', 'The task is only visible to users that are logged in.' ),
+        ( 'Private', 'The task is only visible to task team members.' ) ;
