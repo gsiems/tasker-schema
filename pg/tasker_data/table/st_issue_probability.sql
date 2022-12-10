@@ -19,7 +19,7 @@ COMMENT ON TABLE tasker_data.st_issue_probability IS 'Reference table. Probabili
 
 COMMENT ON COLUMN tasker_data.st_issue_probability.id IS 'Unique ID/value for the probability.' ;
 
-COMMENT ON COLUMN tasker_data.st_issue_probability.ranking_id IS 'The priority ranking associated with the severity.' ;
+COMMENT ON COLUMN tasker_data.st_issue_probability.ranking_id IS 'The priority ranking associated with the probability.' ;
 
 COMMENT ON COLUMN tasker_data.st_issue_probability.name IS 'Display name for the probability.' ;
 
