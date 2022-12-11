@@ -9,13 +9,15 @@ CREATE TABLE tasker_data.st_ranking (
 
 ALTER TABLE tasker_data.st_ranking OWNER TO tasker_owner ;
 
-COMMENT ON TABLE tasker_data.st_ranking IS 'Reference table. Ranking values for attributes such as priority, urgency, reversibility, etc.' ;
+COMMENT ON TABLE tasker_data.st_ranking IS 'Reference table. Ranking values for attributes such as priority, severity, workarounds, etc.' ;
 
 COMMENT ON COLUMN tasker_data.st_ranking.id IS 'Unique ID/value for the ranking.' ;
 
 COMMENT ON COLUMN tasker_data.st_ranking.name IS 'Display name for the ranking.' ;
 
-COMMENT ON COLUMN tasker_data.st_ranking.is_default IS 'Indicates whether or not the row is the default row.' ;
+COMMENT ON COLUMN tasker_data.st_ranking.is_default IS 'Indicates whether or not the ranking is the default ranking.' ;
+
+COMMENT ON COLUMN tasker_data.st_ranking.is_enabled IS 'Indicates whether or not the ranking is available for new use.' ;
 
 INSERT INTO tasker_data.st_ranking (
         id,
