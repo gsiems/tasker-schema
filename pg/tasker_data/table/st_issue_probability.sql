@@ -15,7 +15,7 @@ ALTER TABLE tasker_data.st_issue_probability
 
 ALTER TABLE tasker_data.st_issue_probability OWNER TO tasker_owner ;
 
-COMMENT ON TABLE tasker_data.st_issue_probability IS 'Reference table. Probability/repeatability of triggering the issue.' ;
+COMMENT ON TABLE tasker_data.st_issue_probability IS 'Reference table. Probability/repeatability of triggering an issue.' ;
 
 COMMENT ON COLUMN tasker_data.st_issue_probability.id IS 'Unique ID/value for the probability.' ;
 
