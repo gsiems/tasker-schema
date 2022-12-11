@@ -17,14 +17,16 @@ COMMENT ON COLUMN tasker_data.st_visibility.name IS 'The name for the visibility
 
 COMMENT ON COLUMN tasker_data.st_visibility.description IS 'The description of the visibility level.' ;
 
-COMMENT ON COLUMN tasker_data.st_visibility.is_default IS 'Indicates whether or not the row is the default row.' ;
+COMMENT ON COLUMN tasker_data.st_visibility.is_default IS 'Indicates whether or not the visibility level is the default visibility level.' ;
 
-COMMENT ON COLUMN tasker_data.st_visibility.is_enabled IS 'Indicates whether or not the row is available for new use.' ;
+COMMENT ON COLUMN tasker_data.st_visibility.is_enabled IS 'Indicates whether or not the visibility level is available for new use.' ;
 
 INSERT INTO tasker_data.st_task_category (
+        id,
         name,
-        description )
+        description,
+        is_default )
     VALUES
-        ( 'Public', 'The task is visible to anyone that can access the application.' ),
-        ( 'Protected', 'The task is only visible to users that are logged in.' ),
-        ( 'Private', 'The task is only visible to task team members.' ) ;
+        ( 1, 'Public', 'The activity is visible to anyone that can access the application.', false ),
+        ( 2, 'Protected', 'The activity is only visible to users that are logged in.', false ),
+        ( 3, 'Private', 'The activity is only visible to activity members.', true ) ;
