@@ -31,6 +31,7 @@ COMMENT ON COLUMN tasker_data.st_issue_severity.is_enabled IS 'Indicates whether
 
 INSERT INTO tasker_data.st_issue_severity (
         id,
+        ranking_id,
         name,
         description,
         is_default )
