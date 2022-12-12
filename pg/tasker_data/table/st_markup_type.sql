@@ -30,7 +30,8 @@ COMMENT ON COLUMN tasker_data.st_markup_type.is_default IS 'Indicates whether or
 COMMENT ON COLUMN tasker_data.st_markup_type.is_enabled IS 'Indicates whether or not the row is available for new use.' ;
 
 INSERT INTO tasker_data.st_markup_type (
+        id,
         name )
     VALUES
-        ( 'Plaintext' ),
-        ( 'Markdown' ) ;
+        ( 1, 'Plaintext' ),
+        ( 2, 'Markdown' ) ;
