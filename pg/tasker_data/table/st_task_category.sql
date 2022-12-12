@@ -22,6 +22,7 @@ COMMENT ON COLUMN tasker_data.st_task_category.is_default IS 'Indicates whether 
 COMMENT ON COLUMN tasker_data.st_task_category.is_enabled IS 'Indicates whether or not the row is available for new use.' ;
 
 INSERT INTO tasker_data.st_task_category (
+        id,
         name,
         description,
         is_default )
