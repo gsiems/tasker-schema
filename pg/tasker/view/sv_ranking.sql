@@ -9,7 +9,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_ranking OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_ranking TO tasker_user ;
+GRANT SELECT ON tasker.sv_ranking TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_ranking IS 'View of: Reference table. Ranking values for attributes such as priority, severity, workarounds, etc.' ;
 COMMENT ON COLUMN tasker.sv_ranking.id IS 'Unique ID/value for the ranking.' ;

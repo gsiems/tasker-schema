@@ -8,7 +8,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_object_type OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_object_type TO tasker_user ;
+GRANT SELECT ON tasker.sv_object_type TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_object_type IS 'View of: Reference table. Objects (tasks, comments, journals) that can have assigned permissions.' ;
 COMMENT ON COLUMN tasker.sv_object_type.id IS 'Unique ID for the object.' ;

@@ -10,7 +10,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_role OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_role TO tasker_user ;
+GRANT SELECT ON tasker.sv_role TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_role IS 'View of: Reference table. Roles that may be assigned to users.' ;
 COMMENT ON COLUMN tasker.sv_role.id IS 'Unique ID for the role.' ;

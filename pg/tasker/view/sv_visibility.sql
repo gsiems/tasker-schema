@@ -9,7 +9,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_visibility OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_visibility TO tasker_user ;
+GRANT SELECT ON tasker.sv_visibility TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_visibility IS 'View of: System reference table. Visibility levels for activities.' ;
 COMMENT ON COLUMN tasker.sv_visibility.id IS 'Unique ID for a visibility level.' ;

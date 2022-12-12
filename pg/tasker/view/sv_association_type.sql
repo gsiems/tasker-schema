@@ -9,7 +9,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_association_type OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_association_type TO tasker_user ;
+GRANT SELECT ON tasker.sv_association_type TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_association_type IS 'View of: Reference table. Types of associations between tasks.' ;
 COMMENT ON COLUMN tasker.sv_association_type.id IS 'Unique ID for a type of task association.' ;

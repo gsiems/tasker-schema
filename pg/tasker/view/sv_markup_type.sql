@@ -9,7 +9,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_markup_type OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_markup_type TO tasker_user ;
+GRANT SELECT ON tasker.sv_markup_type TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_markup_type IS 'View of: Reference table. Types of markup schemes that are supported.' ;
 COMMENT ON COLUMN tasker.sv_markup_type.id IS 'Unique ID for a markup type.' ;

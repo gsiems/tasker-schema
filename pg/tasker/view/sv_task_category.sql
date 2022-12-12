@@ -9,7 +9,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_task_category OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_task_category TO tasker_user ;
+GRANT SELECT ON tasker.sv_task_category TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_task_category IS 'View of: Reference table. Broad categories that tasks fall into.' ;
 COMMENT ON COLUMN tasker.sv_task_category.id IS 'Unique ID for a task category.' ;

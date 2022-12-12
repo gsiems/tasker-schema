@@ -9,7 +9,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_open_category OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_open_category TO tasker_user ;
+GRANT SELECT ON tasker.sv_open_category TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_open_category IS 'View of: Reference table. Categories for the open statuses.' ;
 COMMENT ON COLUMN tasker.sv_open_category.id IS 'Unique ID for an open category.' ;

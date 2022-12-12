@@ -13,7 +13,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_issue_workaround OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_issue_workaround TO tasker_user ;
+GRANT SELECT ON tasker.sv_issue_workaround TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_issue_workaround IS 'View of: Reference table. The type of workarounds available for an issue.' ;
 COMMENT ON COLUMN tasker.sv_issue_workaround.id IS 'Unique ID/value for the workaround.' ;

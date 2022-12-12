@@ -13,7 +13,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_issue_severity OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_issue_severity TO tasker_user ;
+GRANT SELECT ON tasker.sv_issue_severity TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_issue_severity IS 'View of: Reference table. Indicates how bad/severe an issue is.' ;
 COMMENT ON COLUMN tasker.sv_issue_severity.id IS 'Unique ID/value for the severity.' ;

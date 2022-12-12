@@ -9,7 +9,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_object_action OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_object_action TO tasker_user ;
+GRANT SELECT ON tasker.sv_object_action TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_object_action IS 'View of: Reference table. Actions that may be performed on objects.' ;
 COMMENT ON COLUMN tasker.sv_object_action.id IS 'Unique ID for an action.' ;

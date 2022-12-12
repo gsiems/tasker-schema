@@ -17,7 +17,7 @@ SELECT base.object_type_id,
 
 ALTER VIEW tasker.sv_object_permission OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_object_permission TO tasker_user ;
+GRANT SELECT ON tasker.sv_object_permission TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_object_permission IS 'View of: Reference table. Permitted actions for objects.' ;
 COMMENT ON COLUMN tasker.sv_object_permission.object_type_id IS 'The object type that the permission is for.' ;

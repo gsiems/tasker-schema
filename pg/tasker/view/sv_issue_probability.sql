@@ -13,7 +13,7 @@ SELECT base.id,
 
 ALTER VIEW tasker.sv_issue_probability OWNER TO tasker_owner ;
 
-GRANT SELECT ON VIEW tasker.sv_issue_probability TO tasker_user ;
+GRANT SELECT ON tasker.sv_issue_probability TO tasker_user ;
 
 COMMENT ON VIEW tasker.sv_issue_probability IS 'View of: Reference table. Probability/repeatability of triggering an issue.' ;
 COMMENT ON COLUMN tasker.sv_issue_probability.id IS 'Unique ID/value for the probability.' ;
