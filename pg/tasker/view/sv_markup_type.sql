@@ -1,20 +1,19 @@
-SET search_path = tasker, pg_catalog ;
-
-CREATE VIEW sv_markup_type
+CREATE OR REPLACE VIEW tasker.sv_markup_type
 AS
-SELECT id AS markup_type_id,
-        name,
-        description,
-        is_enabled
-    FROM tasker.st_markup_type
-    ORDER BY id ;
+SELECT base.id,
+        base.name,
+        base.description,
+        base.is_default,
+        base.is_enabled
+    FROM tasker_data.st_markup_type base ;
 
-ALTER TABLE sv_markup_type OWNER TO tasker_owner ;
+ALTER VIEW tasker.sv_markup_type OWNER TO tasker_owner ;
 
-COMMENT ON VIEW sv_markup_type IS 'System view for supported markup types.' ;
+GRANT SELECT ON VIEW tasker.sv_markup_type TO tasker_user ;
 
-REVOKE ALL ON TABLE sv_markup_type FROM public ;
-
-GRANT SELECT ON table sv_markup_type TO tasker_owner ;
-
-GRANT SELECT ON table sv_markup_type TO tasker_user ;
+COMMENT ON VIEW tasker.sv_markup_type IS 'View of: Reference table. Types of markup schemes that are supported.' ;
+COMMENT ON COLUMN tasker.sv_markup_type.id IS 'Unique ID for a markup type.' ;
+COMMENT ON COLUMN tasker.sv_markup_type.name IS 'Display name for the markup type.' ;
+COMMENT ON COLUMN tasker.sv_markup_type.description IS 'Optional description for a markup type.' ;
+COMMENT ON COLUMN tasker.sv_markup_type.is_default IS 'Indicates whether or not the row is the default row.' ;
+COMMENT ON COLUMN tasker.sv_markup_type.is_enabled IS 'Indicates whether or not the row is available for new use.' ;
