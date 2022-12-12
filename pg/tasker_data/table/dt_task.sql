@@ -30,8 +30,8 @@ CREATE TABLE tasker_data.dt_task (
     markup_type_id int2 NOT NULL default 1,
     status_id int2,
     priority_id int2,
-    desired_start_severity_id int2,
-    desired_end_severity_id int2,
+    desired_start_importance_id int2,
+    desired_end_importance_id int2,
     task_name text NOT NULL,
     description_markup text,
     description_html text,
@@ -62,9 +62,9 @@ COMMENT ON COLUMN tasker_data.dt_task.priority_id IS 'The priority of the task.'
 
 COMMENT ON COLUMN tasker_data.dt_task.markup_type_id IS 'The ID of the markup format used for the description_markup column.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task.desired_start_severity_id IS 'The severity of not making the desired start date.' ;
+COMMENT ON COLUMN tasker_data.dt_task.desired_start_importance_id IS 'The importance of not making the desired start date.' ;
 
-COMMENT ON COLUMN tasker_data.dt_task.desired_end_severity_id IS 'The severity of not making the desired end date.' ;
+COMMENT ON COLUMN tasker_data.dt_task.desired_end_importance_id IS 'The importance of not making the desired end date.' ;
 
 COMMENT ON COLUMN tasker_data.dt_task.task_name IS 'The name for the task.' ;
 
@@ -94,7 +94,7 @@ COMMENT ON COLUMN tasker_data.dt_task.updated_by_id IS 'The ID of the individual
 
 COMMENT ON COLUMN tasker_data.dt_task.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
-CREATE INDEX dt_task_idx1 ON dt_task ( parent_id ) ;
+CREATE INDEX dt_task_idx1 ON tasker_data.dt_task ( parent_id ) ;
 
 ALTER TABLE tasker_data.dt_task
     ADD CONSTRAINT dt_task_fk01
@@ -133,12 +133,12 @@ ALTER TABLE tasker_data.dt_task
 
 ALTER TABLE tasker_data.dt_task
     ADD CONSTRAINT dt_task_fk08
-    FOREIGN KEY ( desired_start_severity_id )
-    REFERENCES tasker_data.st_date_severity ( id ) ;
+    FOREIGN KEY ( desired_start_importance_id )
+    REFERENCES tasker_data.st_date_importance ( id ) ;
 
 ALTER TABLE tasker_data.dt_task
     ADD CONSTRAINT dt_task_fk09
-    FOREIGN KEY ( desired_end_severity_id )
-    REFERENCES tasker_data.st_date_severity ( id ) ;
+    FOREIGN KEY ( desired_end_importance_id )
+    REFERENCES tasker_data.st_date_importance ( id ) ;
 
 REVOKE ALL ON TABLE tasker_data.dt_task FROM public ;
