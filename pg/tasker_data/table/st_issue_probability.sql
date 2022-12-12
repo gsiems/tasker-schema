@@ -31,6 +31,7 @@ COMMENT ON COLUMN tasker_data.st_issue_probability.is_enabled IS 'Indicates whet
 
 INSERT INTO tasker_data.st_issue_probability (
         id,
+        ranking_id,
         name,
         description,
         is_default )
