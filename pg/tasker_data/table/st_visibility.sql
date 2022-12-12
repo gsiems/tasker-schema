@@ -21,7 +21,7 @@ COMMENT ON COLUMN tasker_data.st_visibility.is_default IS 'Indicates whether or 
 
 COMMENT ON COLUMN tasker_data.st_visibility.is_enabled IS 'Indicates whether or not the visibility level is available for new use.' ;
 
-INSERT INTO tasker_data.st_task_category (
+INSERT INTO tasker_data.st_visibility (
         id,
         name,
         description,
