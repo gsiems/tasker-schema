@@ -6,7 +6,7 @@ SELECT base.object_type_id,
         t002.name AS action,
         base.minimum_role_id,
         t003.name AS minimum_role,
-        base.is_enabled
+        base.is_enabled AND t001.is_enabled AND t002.is_enabled AND t003.is_enabled AS is_enabled
     FROM tasker_data.st_object_permission base
     JOIN tasker_data.st_object_type t001
         ON ( t001.id = base.object_type_id )
