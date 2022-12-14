@@ -43,3 +43,5 @@ END ;
 $$ ;
 
 ALTER FUNCTION tasker.is_system_admin ( integer, text ) OWNER TO tasker_owner ;
+
+COMMENT ON FUNCTION tasker.is_system_admin ( integer, text ) IS 'Determines if the specified user is a system administrator' ;
