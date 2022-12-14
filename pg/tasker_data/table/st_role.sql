@@ -37,4 +37,4 @@ INSERT INTO tasker_data.st_role (
         ( 40, 'Analyst',            'Activity role for (business) analysts', true, false ),
         ( 50, 'Manager',            'Activity role for managing activities', true, false ),
         ( 60, 'Administrator',      'Activity role for administering activities', true, false ),
-        ( 70, 'Site Administrator', 'Role for administering top level activities, users, and reference data', false, false ) ;
+        ( 70, 'System Administrator', 'Role for administering top level activities, users, and reference data', false, false ) ;

@@ -107,13 +107,13 @@ INSERT INTO tasker_data.st_object_permission (
         action_id,
         object_type_id )
     VALUES
-        ( 70, 2, 1 ), -- Site Administrator, Insert, Activity
-        ( 70, 2, 9 ), -- Site Administrator, Insert, Ref data
-        ( 70, 2, 10 ), -- Site Administrator, Insert, User
-        ( 70, 3, 1 ), -- Site Administrator, Update, Activity
-        ( 70, 3, 9 ), -- Site Administrator, Update, Ref data
-        ( 70, 3, 10 ), -- Site Administrator, Update, User
-        ( 70, 5, 1 ), -- Site Administrator, Assign, Activity
-        ( 70, 6, 1 ), -- Site Administrator, Delete, Activity
-        ( 70, 6, 9 ), -- Site Administrator, Delete, Ref data
-        ( 70, 6, 10 ) ; -- Site Administrator, Delete, User
+        ( 70, 2, 1 ), -- System Administrator, Insert, Activity
+        ( 70, 2, 9 ), -- System Administrator, Insert, Ref data
+        ( 70, 2, 10 ), -- System Administrator, Insert, User
+        ( 70, 3, 1 ), -- System Administrator, Update, Activity
+        ( 70, 3, 9 ), -- System Administrator, Update, Ref data
+        ( 70, 3, 10 ), -- System Administrator, Update, User
+        ( 70, 5, 1 ), -- System Administrator, Assign, Activity
+        ( 70, 6, 1 ), -- System Administrator, Delete, Activity
+        ( 70, 6, 9 ), -- System Administrator, Delete, Ref data
+        ( 70, 6, 10 ) ; -- System Administrator, Delete, User
