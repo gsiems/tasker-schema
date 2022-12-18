@@ -2,7 +2,7 @@ SET search_path = tasker, pg_catalog ;
 
 CREATE OR REPLACE FUNCTION user__move (
     a_username varchar,
-    a_reports_to varchar,
+    a_supervisor_id varchar,
     a_session_username varchar )
 RETURNS dml_ret
 SECURITY DEFINER
@@ -12,7 +12,7 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
     l_user_id integer ;
-    l_reports_to integer ;
+    l_supervisor_id integer ;
     l_session_user_id integer ;
     ret dml_ret ;
     l_count integer ;
@@ -26,23 +26,23 @@ BEGIN
         IF user_is_admin ( a_session_username ) THEN
 
             l_user_id := user_id ( a_username ) ;
-            l_reports_to := user_id ( a_reports_to ) ;
+            l_supervisor_id := user_id ( a_supervisor_id ) ;
             l_session_user_id := user_id ( a_session_username ) ;
 
-            IF l_reports_to IS NULL THEN
+            IF l_supervisor_id IS NULL THEN
 
                 UPDATE tasker.dt_user
-                    SET reports_to = NULL,
+                    SET supervisor_id = NULL,
                         updated_by = l_session_user_id,
                         updated_dt = now () AT TIME ZONE 'UTC'
                     WHERE id = l_user_id
-                        AND reports_to IS DISTINCT FROM l_reports_to ;
+                        AND supervisor_id IS DISTINCT FROM l_supervisor_id ;
 
                 get diagnostics ret.numrows = row_count ;
 
             ELSE
 
-                IF l_user_id IS NOT DISTINCT FROM l_reports_to THEN
+                IF l_user_id IS NOT DISTINCT FROM l_supervisor_id THEN
 
                     ret.err := 'A user may not report to themself' ;
                     RETURN ret ;
@@ -50,7 +50,7 @@ BEGIN
                 END IF ;
 
                 -- Prevent circular references... a person cannot report to an underling
-                IF user_is_boss_of ( l_reports_to, l_user_id ) THEN
+                IF user_is_boss_of ( l_supervisor_id, l_user_id ) THEN
 
                     ret.err := 'A user may not report to an underling' ;
                     RETURN ret ;
@@ -58,11 +58,11 @@ BEGIN
                 END IF ;
 
                 UPDATE tasker.dt_user
-                    SET reports_to = l_reports_to,
+                    SET supervisor_id = l_supervisor_id,
                         updated_by = l_session_user_id,
                         updated_dt = now () AT TIME ZONE 'UTC'
                     WHERE id = l_user_id
-                        AND reports_to IS DISTINCT FROM l_reports_to ;
+                        AND supervisor_id IS DISTINCT FROM l_supervisor_id ;
 
                 get diagnostics ret.numrows = row_count ;
 

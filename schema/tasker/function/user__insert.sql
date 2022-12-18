@@ -1,7 +1,7 @@
 SET search_path = tasker, pg_catalog ;
 
 CREATE OR REPLACE FUNCTION user__insert (
-    a_reports_to integer,
+    a_supervisor_id integer,
     a_username varchar,
     a_full_name varchar,
     a_email_address varchar,
@@ -50,7 +50,7 @@ BEGIN
             WITH a AS (
                 INSERT INTO tasker.dt_user (
                         id,
-                        reports_to,
+                        supervisor_id,
                         username,
                         full_name,
                         email_address,
@@ -61,8 +61,8 @@ BEGIN
                         created_dt )
                     SELECT nextval ( 'dt_user_id_seq' ),
                             CASE
-                                WHEN a_reports_to <= 0 THEN NULL
-                                ELSE a_reports_to
+                                WHEN a_supervisor_id <= 0 THEN NULL
+                                ELSE a_supervisor_id
                                 END,
                             trim ( a_username ),
                             trim ( a_full_name ),
@@ -126,7 +126,7 @@ REVOKE ALL ON function user__insert (
     varchar ) FROM public ;
 
 CREATE OR REPLACE FUNCTION user__insert (
-    a_reports_to integer,
+    a_supervisor_id integer,
     a_username varchar,
     a_full_name varchar,
     a_email_address varchar,
@@ -148,7 +148,7 @@ DECLARE
 BEGIN
 
     ret := user__insert (
-        a_reports_to,
+        a_supervisor_id,
         a_username,
         a_full_name,
         a_email_address,

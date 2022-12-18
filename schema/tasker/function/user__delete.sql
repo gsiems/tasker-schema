@@ -42,7 +42,7 @@ BEGIN
             FOR l_rec IN
                 SELECT id
                     FROM tasker.dt_user
-                    WHERE reports_to = l_user_id
+                    WHERE supervisor_id = l_user_id
                     LIMIT 1
                 LOOP
 

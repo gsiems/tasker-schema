@@ -1,11 +1,9 @@
 CREATE TABLE tasker_data.dt_task_user (
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    last_viewed_dt timestamp with time zone,
     task_id integer NOT NULL,
     user_id integer NOT NULL,
-    role_id integer,
+    last_viewed_dt timestamp with time zone,
     created_by_id integer,
-    permission_id int2 NOT NULL,
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     CONSTRAINT dt_task_user_pk PRIMARY KEY ( task_id, user_id ) ) ;
 
 ALTER TABLE tasker_data.dt_task_user OWNER TO tasker_owner ;

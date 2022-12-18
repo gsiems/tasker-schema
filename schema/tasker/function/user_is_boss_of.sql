@@ -25,9 +25,9 @@ BEGIN
 
     FOR l_rec IN
         SELECT 1
-            FROM tasker.dv_user_cc cc
+            FROM tasker.dv_user_reporting_chain cc
             WHERE cc.user_id = a_user_id
-                AND a_boss_id = ANY ( cc.bosses )
+                AND a_boss_id = ANY ( cc.reporting_chain )
             LIMIT 1
         LOOP
 

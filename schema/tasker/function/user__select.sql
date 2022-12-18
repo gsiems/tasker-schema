@@ -6,8 +6,8 @@ CREATE OR REPLACE FUNCTION user__select (
 RETURNS TABLE (
         edition integer,
         user_id integer,
-        reports_to integer,
-        bosses text,
+        supervisor_id integer,
+        reporting_chain text,
         user_depth integer,
         user_outln text,
         username varchar,
@@ -44,8 +44,8 @@ BEGIN
     RETURN QUERY
     SELECT du.edition,
             du.user_id,
-            du.reports_to,
-            array_to_string ( du.bosses, ',' ) AS bosses,
+            du.supervisor_id,
+            array_to_string ( du.reporting_chain, ',' ) AS reporting_chain,
             du.user_depth,
             du.user_outln,
             du.username,
@@ -67,7 +67,7 @@ BEGIN
         WHERE du.user_id = l_user_id
             AND ( l_is_admin
                 OR l_session_user_id = l_user_id
-                OR l_session_user_id = ANY ( du.bosses ) ) ;
+                OR l_session_user_id = ANY ( du.reporting_chain ) ) ;
 
 END ;
 $$ ;
