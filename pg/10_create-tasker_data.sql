@@ -24,29 +24,29 @@ GRANT USAGE ON SCHEMA tasker_data TO tasker_user;
 \set ON_ERROR_STOP
 
 -- Tables ----------------------------------------------------------------------
--- system tables
----- for setting priorities
+
+-- system reference data tables for setting priorities
 \i tasker_data/table/st_ranking.sql
 \i tasker_data/table/st_date_importance.sql
 \i tasker_data/table/st_issue_probability.sql
 \i tasker_data/table/st_issue_severity.sql
 \i tasker_data/table/st_issue_workaround.sql
 
----- for managing access/permissions
+-- system reference data tables for managing access/permissions
 \i tasker_data/table/st_visibility.sql
 \i tasker_data/table/st_role.sql
 \i tasker_data/table/st_object_type.sql
 \i tasker_data/table/st_object_action.sql
 \i tasker_data/table/st_object_permission.sql
 
----- other
+-- system reference data tables for other
 \i tasker_data/table/st_markup_type.sql
---\i tasker_data/table/st_eav_attribute_datatype.sql
---\i tasker_data/table/st_permission.sql
 \i tasker_data/table/st_association_type.sql
 \i tasker_data/table/st_task_category.sql
 \i tasker_data/table/st_open_category.sql
 
+--\i tasker_data/table/st_eav_attribute_datatype.sql
+--\i tasker_data/table/st_permission.sql
 
 
 -- reference tables
@@ -59,6 +59,8 @@ GRANT USAGE ON SCHEMA tasker_data TO tasker_user;
 
 -- user data tables
 \i tasker_data/table/dt_user.sql
+\i tasker_data/table/dt_user_profile.sql
+
 \i tasker_data/table/dt_user_password.sql
 \i tasker_data/table/dt_user_token.sql
 
