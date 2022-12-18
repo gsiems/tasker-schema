@@ -1,6 +1,4 @@
-SET search_path = tasker, pg_catalog ;
-
-CREATE VIEW dv_task_tree
+CREATE VIEW tasker.dv_task_tree
 AS
 WITH RECURSIVE toc AS (
     SELECT base.id,
@@ -13,8 +11,8 @@ WITH RECURSIVE toc AS (
                 PARTITION BY base.activity_id
                 ORDER BY base.id ) ] AS outln,
             ARRAY[base.id] AS task_path
-        FROM tasker.dt_task base
-        JOIN tasker.dt_task p -- only tasks that have an activity for the parent
+        FROM tasker_data.dt_task base
+        JOIN tasker_data.dt_task p -- only tasks that have an activity for the parent
             ON ( p.id = base.parent_id
                 AND p.id = p.activity_id )
         WHERE base.activity_id <> base.id -- that are not activities
@@ -29,31 +27,40 @@ WITH RECURSIVE toc AS (
                     PARTITION BY base.activity_id, base.parent_id
                     ORDER BY base.id ) ) AS outln,
             q.task_path || base.id
-        FROM tasker.dt_task base
+        FROM tasker_data.dt_task base
         JOIN toc q
             ON ( base.parent_id = q.id
                 AND base.activity_id <> base.id -- not activities
                 AND NOT base.id = ANY ( q.parents ) ) -- avoid cyclic references
 )
-SELECT toc.id AS task_id,
+SELECT toc.id,
         toc.parent_id,
         toc.activity_id,
-        tt.category_id,
-        tc.name AS category,
+        rtt.id AS task_type_id,
+        rtt.name AS task_type,
+        rtt.category_id AS task_category_id,
+        rtt.category AS task_category,
         toc.parents,
         toc.task_depth,
         toc.task_path,
-        array_to_string ( toc.outln, '.'::text ) AS task_outln
+        array_to_string ( toc.outln, '.'::text ) AS outline_label
     FROM toc
-    JOIN tasker.rt_task_type tt
-        ON ( tt.id = toc.task_type_id )
-    JOIN tasker.st_task_category tc
-        ON ( tc.id = tt.category_id ) ;
+    JOIN tasker.rv_task_type rtt
+        ON ( rtt.id = toc.task_type_id ) ;
 
-ALTER TABLE dv_task_tree OWNER TO tasker_owner ;
+ALTER TABLE tasker.dv_task_tree OWNER TO tasker_owner ;
 
-COMMENT ON VIEW dv_task_tree IS 'View of the hierarchy of all tasks (by activity).' ;
+GRANT SELECT ON tasker.dv_task_tree TO tasker_owner ;
 
-REVOKE ALL ON TABLE dv_task_tree FROM public ;
-
-GRANT SELECT ON table dv_task_tree TO tasker_owner ;
+COMMENT ON VIEW tasker.dv_task_tree IS 'View of the hierarchy of all tasks (by activity).' ;
+COMMENT ON COLUMN tasker.dv_task_tree.id IS 'The unique ID for the task.' ;
+COMMENT ON COLUMN tasker.dv_task_tree.parent_id IS 'The ID for the parent task.' ;
+COMMENT ON COLUMN tasker.dv_task_tree.activity_id IS 'The ID of the activity that the task belongs to.' ;
+COMMENT ON COLUMN tasker.dv_task_tree.task_type_id IS 'The ID of the task type' ;
+COMMENT ON COLUMN tasker.dv_task_tree.task_type IS 'The name of the task type' ;
+COMMENT ON COLUMN tasker.dv_task_tree.task_category_id IS 'The category id for the task type' ;
+COMMENT ON COLUMN tasker.dv_task_tree.task_category IS 'The category name for the task type' ;
+COMMENT ON COLUMN tasker.dv_task_tree.parents IS 'The array of parent task IDs.' ;
+COMMENT ON COLUMN tasker.dv_task_tree.task_depth IS 'Indicates how far the task is from the tree root' ;
+COMMENT ON COLUMN tasker.dv_task_tree.task_path IS 'The array of node indexes in the tree (mostly for sorting purposes)' ;
+COMMENT ON COLUMN tasker.dv_task_tree.outline_label IS 'The (decimal dotted notation) label for the activity hierarchy outline.' ;
