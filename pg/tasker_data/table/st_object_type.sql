@@ -20,15 +20,17 @@ COMMENT ON COLUMN tasker_data.st_object_type.is_enabled IS 'Indicates whether or
 
 INSERT INTO tasker_data.st_object_type (
         id,
-        name )
+        name,
+        description )
     VALUES
-        ( 1, 'activity' ),
-        ( 2, 'issue' ),
-        ( 3, 'meeting' ),
-        ( 4, 'pip' ),
-        ( 5, 'requirement' ),
-        ( 6, 'task' ),
-        ( 7, 'comment' ),
-        ( 8, 'journal' ),
-        ( 9, 'ref_data' ),
-        ( 10, 'user' ) ;
+        ( 1, 'activity', 'Activity tasks' ),
+        ( 2, 'issue', 'Issue tasks' ),
+        ( 3, 'meeting', 'Meeting tasks' ),
+        ( 4, 'pip', 'PIP tasks' ),
+        ( 5, 'requirement', 'Requirement tasks' ),
+        ( 6, 'task', 'Regular, nothing special, tasks' ),
+        ( 7, 'comment', 'Comments on tasks' ),
+        ( 8, 'journal', 'Journal entries for tasks' ),
+        ( 9, 'reference', 'Reference data' ),
+        ( 10, 'user', 'Users' ),
+        ( 11, 'profile', 'User profiles' ) ;
