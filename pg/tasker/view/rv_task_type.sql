@@ -1,42 +1,51 @@
-SET search_path = tasker, pg_catalog ;
-
-CREATE VIEW rv_task_type
+CREATE OR REPLACE VIEW tasker.rv_task_type
 AS
-SELECT rtt.id AS task_type_id,
-        rtt.category_id AS task_category_id,
-        tc.name AS task_category,
-        rtt.name,
-        rtt.description,
-        rtt.markup_type_id AS template_markup_type_id,
-        smt.name AS template_markup_type,
-        rtt.template_markup,
-        rtt.template_html,
-        rtt.is_enabled,
-        rtt.created_by,
-        rtt.created_dt,
-        rtt.updated_by,
-        rtt.updated_dt,
-        cu.username AS created_username,
-        cu.full_name AS created_full_name,
-        uu.username AS updated_username,
-        uu.full_name AS updated_full_name
-    FROM tasker.rt_task_type rtt
-    JOIN tasker.st_task_category tc
-        ON ( tc.id = rtt.category_id )
-    LEFT JOIN tasker.st_markup_type smt
-        ON ( smt.id = rtt.markup_type_id )
-    LEFT JOIN tasker.dt_user cu
-        ON ( cu.id = rtt.created_by )
-    LEFT JOIN tasker.dt_user uu
-        ON ( uu.id = rtt.updated_by )
-    ORDER BY rtt.id ;
+SELECT base.id,
+        base.category_id,
+        t002.name AS category,
+        base.markup_type_id,
+        t003.name AS markup_type,
+        base.name,
+        base.description,
+        base.template_markup,
+        base.template_html,
+        base.is_default,
+        base.is_enabled,
+        base.created_by_id,
+        cu.username AS created_by,
+        base.updated_by_id,
+        uu.username AS updated_by,
+        base.created_dt,
+        base.updated_dt
+    FROM tasker_data.rt_task_type base
+    JOIN tasker_data.st_task_category t002
+        ON ( t002.id = base.category_id )
+    JOIN tasker_data.st_markup_type t003
+        ON ( t003.id = base.markup_type_id )
+    LEFT JOIN tasker_data.dt_user cu
+        ON ( cu.id = base.created_by_id )
+    LEFT JOIN tasker_data.dt_user uu
+        ON ( uu.id = base.updated_by_id ) ;
 
-ALTER TABLE rv_task_type OWNER TO tasker_owner ;
+ALTER VIEW tasker.rv_task_type OWNER TO tasker_owner ;
 
-COMMENT ON VIEW rv_task_type IS 'Reference view for task types.' ;
+GRANT SELECT ON tasker.rv_task_type TO tasker_user ;
 
-REVOKE ALL ON table rv_task_type FROM public ;
-
-GRANT SELECT ON table rv_task_type TO tasker_owner ;
-
-GRANT SELECT ON table rv_task_type TO tasker_user ;
+COMMENT ON VIEW tasker.rv_task_type IS 'View of: Reference table. Types of tasks.' ;
+COMMENT ON COLUMN tasker.rv_task_type.id IS 'Unique ID for a task type' ;
+COMMENT ON COLUMN tasker.rv_task_type.category_id IS 'The category that the task type belongs to.' ;
+COMMENT ON COLUMN tasker.rv_task_type.category IS 'The name for the category' ;
+COMMENT ON COLUMN tasker.rv_task_type.markup_type_id IS 'The ID of the markup format used for the template_markup column.' ;
+COMMENT ON COLUMN tasker.rv_task_type.markup_type IS 'The name for the markup type' ;
+COMMENT ON COLUMN tasker.rv_task_type.name IS 'The name for a task type.' ;
+COMMENT ON COLUMN tasker.rv_task_type.description IS 'The description of a task type.' ;
+COMMENT ON COLUMN tasker.rv_task_type.template_markup IS 'The optional template to use when creating a new task.' ;
+COMMENT ON COLUMN tasker.rv_task_type.template_html IS 'The template in HTML format.' ;
+COMMENT ON COLUMN tasker.rv_task_type.is_default IS 'TBD' ;
+COMMENT ON COLUMN tasker.rv_task_type.is_enabled IS 'Indicates whether or not the task type is available for use.' ;
+COMMENT ON COLUMN tasker.rv_task_type.created_by_id IS 'The ID of the individual that created the row (ref pt_user).' ;
+COMMENT ON COLUMN tasker.rv_task_type.created_by IS 'The username of the individual that created the row (ref pt_user).' ;
+COMMENT ON COLUMN tasker.rv_task_type.updated_by_id IS 'The ID of the individual that most recently updated the row (ref pt_user).' ;
+COMMENT ON COLUMN tasker.rv_task_type.updated_by IS 'The username of the individual that most recently updated the row (ref pt_user).' ;
+COMMENT ON COLUMN tasker.rv_task_type.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN tasker.rv_task_type.updated_dt IS 'The timestamp when the row was most recently updated.' ;
