@@ -27,7 +27,7 @@ INSERT INTO tasker_data.st_task_category (
         description,
         is_default )
     VALUES
-        ( 1, 'Other', 'Task category for tasks that do not fall in any other category.', true ),
+        ( 1, 'Task', 'Task category for tasks that do not fall in any other category.', true ),
         ( 2, 'Requirement', 'Special task category for requirements.', false ),
         ( 3, 'Issue', 'Special task category for issues.', false ),
         ( 4, 'Meeting', 'Special task category for meetings.', false ),
