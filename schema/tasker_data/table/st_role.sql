@@ -3,7 +3,7 @@ CREATE TABLE tasker_data.st_role (
     name text NOT NULL,
     description text,
     is_default boolean NOT NULL default false,
-    is_enabled boolean NOT NULL default
+    is_enabled boolean NOT NULL default true,
     CONSTRAINT st_role_pk PRIMARY KEY ( id ),
     CONSTRAINT st_role_nk UNIQUE ( name ) ) ;
 
@@ -16,8 +16,6 @@ COMMENT ON COLUMN tasker_data.st_role.id IS 'Unique ID for the role.' ;
 COMMENT ON COLUMN tasker_data.st_role.name IS 'The name for the role.' ;
 
 COMMENT ON COLUMN tasker_data.st_role.description IS 'The description of the role.' ;
-
-COMMENT ON COLUMN tasker_data.st_role.is_activity_role IS 'Indicates whether or not the role is for activities.' ;
 
 COMMENT ON COLUMN tasker_data.st_role.is_default IS 'Indicates whether or not the role is the default role.' ;
 
