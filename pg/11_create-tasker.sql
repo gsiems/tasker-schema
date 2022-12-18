@@ -96,9 +96,6 @@ GRANT USAGE ON SCHEMA tasker TO tasker_user;
 \i tasker/function/get_minimum_required_role.sql
 \i tasker/function/has_permission.sql
 \i tasker/function/is_system_admin.sql
---\i tasker/function/who_can.sql
-
-\i tasker/function/is_public_user.sql
 
 \i tasker/function/can_do.sql
 
