@@ -9,34 +9,87 @@ activity_id is required
 */
 
 CREATE TABLE tasker_data.dt_task (
-    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
-    updated_dt timestamp with time zone,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-    activity_id integer NOT NULL,
-    owner_id integer NOT NULL,
-    task_type_id integer NOT NULL,
-    edition integer DEFAULT 0 NOT NULL,
     parent_id integer,
+    edition integer DEFAULT 0 NOT NULL,
+    activity_id integer NOT NULL,
+    task_name text NOT NULL,
+    owner_id integer,
+    assignee_id integer,
+    task_type_id integer NOT NULL,
     time_estimate integer,
-    created_by_id integer,
-    updated_by_id integer,
-    desired_start date,
-    desired_end date,
-    estimated_start date,
-    estimated_end date,
-    actual_start date,
-    actual_end date,
     visibility_id int2 NOT NULL,
     markup_type_id int2 NOT NULL default 1,
     status_id int2,
     priority_id int2,
     desired_start_importance_id int2,
     desired_end_importance_id int2,
-    task_name text NOT NULL,
+    desired_start date,
+    desired_end date,
+    estimated_start date,
+    estimated_end date,
+    actual_start date,
+    actual_end date,
     description_markup text,
     description_html text,
+    created_by_id integer,
+    updated_by_id integer,
+    created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
+    updated_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     CONSTRAINT dt_task_pk PRIMARY KEY ( id ),
     CONSTRAINT dt_task_ck1 CHECK ( id <> parent_id ) ) ;
+
+CREATE INDEX dt_task_idx1 ON tasker_data.dt_task ( parent_id ) ;
+
+ALTER TABLE tasker_data.dt_task
+    ADD CONSTRAINT dt_task_fk01
+    FOREIGN KEY ( parent_id )
+    REFERENCES tasker_data.dt_task ( id ) ;
+
+ALTER TABLE tasker_data.dt_task
+    ADD CONSTRAINT dt_task_fk02
+    FOREIGN KEY ( owner_id )
+    REFERENCES tasker_data.dt_user ( id ) ;
+
+ALTER TABLE tasker_data.dt_task
+    ADD CONSTRAINT dt_task_fk03
+    FOREIGN KEY ( assignee_id )
+    REFERENCES tasker_data.dt_user ( id ) ;
+
+ALTER TABLE tasker_data.dt_task
+    ADD CONSTRAINT dt_task_fk04
+    FOREIGN KEY ( task_type_id )
+    REFERENCES tasker_data.rt_task_type ( id ) ;
+
+ALTER TABLE tasker_data.dt_task
+    ADD CONSTRAINT dt_task_fk05
+    FOREIGN KEY ( visibility_id )
+    REFERENCES tasker_data.st_visibility ( id ) ;
+
+ALTER TABLE tasker_data.dt_task
+    ADD CONSTRAINT dt_task_fk06
+    FOREIGN KEY ( status_id )
+    REFERENCES tasker_data.rt_task_status ( id ) ;
+
+ALTER TABLE tasker_data.dt_task
+    ADD CONSTRAINT dt_task_fk07
+    FOREIGN KEY ( priority_id )
+    REFERENCES tasker_data.st_ranking ( id ) ;
+
+ALTER TABLE tasker_data.dt_task
+    ADD CONSTRAINT dt_task_fk08
+    FOREIGN KEY ( markup_type_id )
+    REFERENCES tasker_data.st_markup_type ( id ) ;
+
+ALTER TABLE tasker_data.dt_task
+    ADD CONSTRAINT dt_task_fk09
+    FOREIGN KEY ( desired_start_importance_id )
+    REFERENCES tasker_data.st_date_importance ( id ) ;
+
+ALTER TABLE tasker_data.dt_task
+    ADD CONSTRAINT dt_task_fk10
+    FOREIGN KEY ( desired_end_importance_id )
+    REFERENCES tasker_data.st_date_importance ( id ) ;
 
 ALTER TABLE tasker_data.dt_task OWNER TO tasker_owner ;
 
@@ -49,6 +102,8 @@ COMMENT ON COLUMN tasker_data.dt_task.parent_id IS 'The ID of the parent task (i
 COMMENT ON COLUMN tasker_data.dt_task.activity_id IS 'The ID of the activity that the task belongs to. For tasks that are activities, the activity ID equals the task ID.' ;
 
 COMMENT ON COLUMN tasker_data.dt_task.owner_id IS 'The ID of the user that owns the task.' ;
+
+COMMENT ON COLUMN tasker_data.dt_task.assignee_id IS 'The ID of the user that the task is assigned to.' ;
 
 COMMENT ON COLUMN tasker_data.dt_task.edition IS 'Indicates the number of edits made to the task. Intended for use in determining if a task has been edited between select and update.' ;
 
@@ -93,52 +148,3 @@ COMMENT ON COLUMN tasker_data.dt_task.created_dt IS 'The timestamp when the row 
 COMMENT ON COLUMN tasker_data.dt_task.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
 
 COMMENT ON COLUMN tasker_data.dt_task.updated_dt IS 'The timestamp when the row was most recently updated.' ;
-
-CREATE INDEX dt_task_idx1 ON tasker_data.dt_task ( parent_id ) ;
-
-ALTER TABLE tasker_data.dt_task
-    ADD CONSTRAINT dt_task_fk01
-    FOREIGN KEY ( parent_id )
-    REFERENCES tasker_data.dt_task ( id ) ;
-
-ALTER TABLE tasker_data.dt_task
-    ADD CONSTRAINT dt_task_fk02
-    FOREIGN KEY ( owner_id )
-    REFERENCES tasker_data.dt_user ( id ) ;
-
-ALTER TABLE tasker_data.dt_task
-    ADD CONSTRAINT dt_task_fk03
-    FOREIGN KEY ( task_type_id )
-    REFERENCES tasker_data.rt_task_type ( id ) ;
-
-ALTER TABLE tasker_data.dt_task
-    ADD CONSTRAINT dt_task_fk04
-    FOREIGN KEY ( visibility_id )
-    REFERENCES tasker_data.st_visibility ( id ) ;
-
-ALTER TABLE tasker_data.dt_task
-    ADD CONSTRAINT dt_task_fk05
-    FOREIGN KEY ( status_id )
-    REFERENCES tasker_data.rt_task_status ( id ) ;
-
-ALTER TABLE tasker_data.dt_task
-    ADD CONSTRAINT dt_task_fk06
-    FOREIGN KEY ( priority_id )
-    REFERENCES tasker_data.st_ranking ( id ) ;
-
-ALTER TABLE tasker_data.dt_task
-    ADD CONSTRAINT dt_task_fk07
-    FOREIGN KEY ( markup_type_id )
-    REFERENCES tasker_data.st_markup_type ( id ) ;
-
-ALTER TABLE tasker_data.dt_task
-    ADD CONSTRAINT dt_task_fk08
-    FOREIGN KEY ( desired_start_importance_id )
-    REFERENCES tasker_data.st_date_importance ( id ) ;
-
-ALTER TABLE tasker_data.dt_task
-    ADD CONSTRAINT dt_task_fk09
-    FOREIGN KEY ( desired_end_importance_id )
-    REFERENCES tasker_data.st_date_importance ( id ) ;
-
-REVOKE ALL ON TABLE tasker_data.dt_task FROM public ;
