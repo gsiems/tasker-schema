@@ -34,14 +34,18 @@ DECLARE
 
     l_connected_can_validate boolean := false ;
 
-    l_active_user tasker.ut_user_stats ;
-    l_connected_user tasker.ut_user_stats ;
+    l_acting_user tasker.ut_user_stats ;
+    l_session_user tasker.ut_user_stats ;
     l_object tasker.ut_object_stats ;
 
     l_action text ;
     l_minimum_role integer ;
 
 BEGIN
+
+
+--RAISE NOTICE E'\n\ncan_do ( %, %, %, %, %, % )', a_user, a_action, a_object_type, a_id, a_parent_object_type, a_parent_id ;
+
 
     ----------------------------------------------------------------------------
     ----------------------------------------------------------------------------
@@ -54,7 +58,11 @@ BEGIN
         a_parent_object_type => a_parent_object_type,
         a_parent_id => a_parent_id ) ;
 
+--RAISE NOTICE E'l_object ( % )', l_object ;
+
     IF l_object.object_type IS NULL THEN
+--RAISE NOTICE 'Fail 01' ;
+
         RETURN false ;
     END IF ;
 
@@ -72,7 +80,7 @@ BEGIN
             WHERE EXISTS (
                     SELECT 1
                         FROM tasker.sv_object_permission sop
-                        WHERE sop.action = actual.action
+                        WHERE lower ( sop.action ) = actual.action
                             AND sop.object_type_id = l_object.object_type_id )
         ) LOOP
 
@@ -80,7 +88,10 @@ BEGIN
 
     END LOOP ;
 
+--RAISE NOTICE E'l_action ( % )', l_action ;
+
     IF l_action IS NULL THEN
+--RAISE NOTICE 'Fail 02' ;
         RETURN false ;
     END IF ;
 
@@ -89,6 +100,7 @@ BEGIN
     IF l_object.object_type <> 'reference' AND l_object.object_id IS NULL THEN
 
         IF l_action IN ( 'update', 'update status', 'delete' ) THEN
+--RAISE NOTICE 'Fail 03' ;
             RETURN false ;
         END IF ;
 
@@ -102,29 +114,36 @@ BEGIN
         AND l_action <> 'select'
         AND l_object.open_category <> 'Open' THEN
 
+--RAISE NOTICE 'Fail 04' ;
         RETURN false ;
 
     END IF ;
 
     ----------------------------------------------------------------------------
     -- Ensure that there is an acting user and that they are enabled
-    l_active_user := tasker.get_user_stats ( a_user => a_user ) ;
-    IF NOT ( l_active_user.id IS NOT NULL AND l_active_user.is_enabled ) THEN
+    l_acting_user := tasker.get_user_stats ( a_user => a_user ) ;
+--RAISE NOTICE E'l_acting_user ( % )', l_acting_user ;
+    IF NOT ( l_acting_user.user_id IS NOT NULL AND l_acting_user.is_enabled ) THEN
+--RAISE NOTICE 'Fail 05' ;
         RETURN false ;
     END IF ;
 
     -- Ensure that there is a connected user, they are enabled, and that they are not, somehow, a "public" user
-    l_connected_user := tasker.get_user_stats ( a_user => connected_user::text ) ;
-    IF NOT ( l_active_user.id IS NOT NULL AND l_active_user.is_enabled ) THEN
+    l_session_user := tasker.get_user_stats ( a_user => session_user::text ) ;
+--RAISE NOTICE E'l_session_user ( % )', l_session_user ;
+    IF NOT ( l_session_user.user_id IS NOT NULL AND l_session_user.is_enabled ) THEN
+--RAISE NOTICE 'Fail 06' ;
         RETURN false ;
-    ELSIF l_connected_user.is_public THEN
+    ELSIF l_session_user.is_public THEN
+--RAISE NOTICE 'Fail 07' ;
         RETURN false ;
     END IF ;
 
     -- Determine if the connected user is sufficient for validating actions for
     -- the acting user-- which means that either the acting user is the connected
-    -- user or that the connected user is an administrator
-    l_connected_can_validate := l_acting_user.user_id = l_connected_user.user_id OR l_connected_user.is_admin ;
+    -- (database session) user or that the connected user is an administrator
+    l_connected_can_validate := l_session_user.is_admin OR l_acting_user.user_id = l_session_user.user_id ;
+--RAISE NOTICE E'l_connected_can_validate ( % )', l_connected_can_validate ;
 
     ----------------------------------------------------------------------------
     ----------------------------------------------------------------------------
