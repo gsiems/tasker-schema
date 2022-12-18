@@ -101,19 +101,3 @@ INSERT INTO tasker_data.st_object_permission (
         ( 60, 6, 5 ), -- Administrator, Delete, Requirement
         ( 60, 6, 6 ), -- Administrator, Delete, Task
         ( 60, 6, 7 ) ; -- Administrator, Delete, Comment
-
-INSERT INTO tasker_data.st_object_permission (
-        minimum_role_id,
-        action_id,
-        object_type_id )
-    VALUES
-        ( 70, 2, 1 ), -- System Administrator, Insert, Activity
-        ( 70, 2, 9 ), -- System Administrator, Insert, Ref data
-        ( 70, 2, 10 ), -- System Administrator, Insert, User
-        ( 70, 3, 1 ), -- System Administrator, Update, Activity
-        ( 70, 3, 9 ), -- System Administrator, Update, Ref data
-        ( 70, 3, 10 ), -- System Administrator, Update, User
-        ( 70, 5, 1 ), -- System Administrator, Assign, Activity
-        ( 70, 6, 1 ), -- System Administrator, Delete, Activity
-        ( 70, 6, 9 ), -- System Administrator, Delete, Ref data
-        ( 70, 6, 10 ) ; -- System Administrator, Delete, User
