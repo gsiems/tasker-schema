@@ -1,46 +1,45 @@
-SET search_path = tasker, pg_catalog ;
-
-CREATE VIEW dv_user
+CREATE OR REPLACE VIEW tasker.dv_user
 AS
-SELECT du.id AS user_id,
-        du.reports_to,
-        du.edition,
-        cc.bosses,
-        cc.user_depth,
-        cc.user_outln,
-        rpts2.username AS reports_to_username,
-        rpts2.full_name AS reports_to_full_name,
-        du.username,
-        du.full_name,
-        du.email_address,
-        du.email_is_enabled,
-        du.is_enabled,
-        du.is_admin,
-        du.last_login,
-        du.created_by,
-        du.created_dt,
-        du.updated_by,
-        du.updated_dt,
-        cu.username AS created_username,
-        cu.full_name AS created_full_name,
-        uu.username AS updated_username,
-        uu.full_name AS updated_full_name
-    FROM tasker.dt_user du
-    LEFT JOIN tasker.dv_user_cc cc
-        ON ( cc.user_id = du.id )
-    LEFT JOIN tasker.dt_user rpts2
-        ON ( rpts2.id = du.reports_to )
-    LEFT JOIN tasker.dt_user cu
-        ON ( cu.id = du.created_by )
-    LEFT JOIN tasker.dt_user uu
-        ON ( uu.id = du.updated_by ) ;
+SELECT base.id,
+        base.supervisor_id,
+        t002.username AS supervisor,
+        durc.reporting_chain,
+        --durc.user_depth,
+        --durc.user_outln,
+        base.edition,
+        base.username,
+        base.is_enabled,
+        base.last_login,
+        base.is_admin,
+        base.can_create_activities,
+        base.created_by_id,
+        base.updated_by_id,
+        base.created_dt,
+        base.updated_dt
+    FROM tasker_data.dt_user base
+    LEFT JOIN tasker_data.dt_user t002
+        ON ( t002.id = base.supervisor_id )
+    LEFT JOIN tasker.dv_user_reporting_chain durc
+        ON ( durc.user_id = base.id ) ;
 
-ALTER TABLE dv_user OWNER TO tasker_owner ;
+ALTER VIEW tasker.dv_user OWNER TO tasker_owner ;
 
-COMMENT ON VIEW dv_user IS 'Data view for users.' ;
+GRANT SELECT ON tasker.dv_user TO tasker_user ;
 
-REVOKE ALL ON table dv_user FROM public ;
-
-GRANT SELECT ON table dv_user TO tasker_owner ;
-
-GRANT SELECT ON table dv_user TO tasker_user ;
+COMMENT ON VIEW tasker.dv_user IS 'View of: Tasker user accounts.' ;
+COMMENT ON COLUMN tasker.dv_user.id IS 'Unique ID for the user account.' ;
+COMMENT ON COLUMN tasker.dv_user.supervisor_id IS 'The ID of the supervisor user (if any). If the user has multiple reporting chains then choose the best one.' ;
+COMMENT ON COLUMN tasker.dv_user.supervisor IS 'The username for the supervisor' ;
+COMMENT ON COLUMN tasker.dv_user.reporting_chain IS 'The array of user IDs in the users reporting chain' ;
+--COMMENT ON COLUMN tasker.dv_user.user_depth IS '' ;
+--COMMENT ON COLUMN tasker.dv_user.user_outln IS '' ;
+COMMENT ON COLUMN tasker.dv_user.edition IS 'Indicates the number of edits made to the user record. Intended for use in determining if a user has been edited between select and update.' ;
+COMMENT ON COLUMN tasker.dv_user.username IS 'The username associated with the account.' ;
+COMMENT ON COLUMN tasker.dv_user.is_enabled IS 'Indicates if the account is enabled (may log in) or not.' ;
+COMMENT ON COLUMN tasker.dv_user.last_login IS 'The most recent time that the user has logged in.' ;
+COMMENT ON COLUMN tasker.dv_user.is_admin IS 'Indicates if the account has admin privileges or not.' ;
+COMMENT ON COLUMN tasker.dv_user.can_create_activities IS 'TBD' ;
+COMMENT ON COLUMN tasker.dv_user.created_by_id IS 'The ID of the individual that created the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker.dv_user.updated_by_id IS 'The ID of the individual that most recently updated the row (ref dt_user).' ;
+COMMENT ON COLUMN tasker.dv_user.created_dt IS 'The timestamp when the row was created.' ;
+COMMENT ON COLUMN tasker.dv_user.updated_dt IS 'The timestamp when the row was most recently updated.' ;
