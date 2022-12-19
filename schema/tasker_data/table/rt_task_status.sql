@@ -1,6 +1,6 @@
 CREATE TABLE tasker_data.rt_task_status (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-    open_category_id int2 NOT NULL,
+    status_category_id int2 NOT NULL,
     name text NOT NULL,
     description text,
     is_default boolean NOT NULL default false,
@@ -14,8 +14,8 @@ CREATE TABLE tasker_data.rt_task_status (
 
 ALTER TABLE tasker_data.rt_task_status
     ADD CONSTRAINT rt_task_status_fk01
-    FOREIGN KEY ( open_category_id )
-    REFERENCES tasker_data.st_open_category ( id ) ;
+    FOREIGN KEY ( status_category_id )
+    REFERENCES tasker_data.st_status_category ( id ) ;
 
 ALTER TABLE tasker_data.rt_task_status OWNER TO tasker_owner ;
 
@@ -23,7 +23,7 @@ COMMENT ON TABLE tasker_data.rt_task_status IS 'Reference table. Statuses for ta
 
 COMMENT ON COLUMN tasker_data.rt_task_status.id IS 'Unique ID for the status' ;
 
-COMMENT ON COLUMN tasker_data.rt_task_status.open_category_id IS 'The ID of the category indicating if the status is open, closed, or not open.' ;
+COMMENT ON COLUMN tasker_data.rt_task_status.status_category_id IS 'The ID of the category indicating if the status is open, closed, or not open.' ;
 
 COMMENT ON COLUMN tasker_data.rt_task_status.name IS 'The name of the status.' ;
 
@@ -42,13 +42,13 @@ COMMENT ON COLUMN tasker_data.rt_task_status.updated_by_id IS 'The ID of the ind
 COMMENT ON COLUMN tasker_data.rt_task_status.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 INSERT INTO tasker_data.rt_task_status (
-        open_category_id,
+        status_category_id,
         name,
         description )
-    SELECT soc.id AS open_category_id,
+    SELECT soc.id AS status_category_id,
             dat.name,
             dat.description
-        FROM tasker_data.st_open_category soc
+        FROM tasker_data.st_status_category soc
         JOIN (
             VALUES
                 ( 'Not Open', 'New', '' ),
@@ -57,38 +57,38 @@ INSERT INTO tasker_data.rt_task_status (
                 ( 'Not Open', 'Draft - Review for opening', '' ),
                 ( 'Not Open', 'On Hold', '' ),
                 ( 'Not Open', 'Pending', '' )
-            ) AS dat ( open_category, name, description )
-            ON ( dat.open_category = soc.name ) ;
+            ) AS dat ( status_category, name, description )
+            ON ( dat.status_category = soc.name ) ;
 
 UPDATE tasker_data.rt_task_status
     SET is_default = true
     WHERE name = 'New' ;
 
 INSERT INTO tasker_data.rt_task_status (
-        open_category_id,
+        status_category_id,
         name,
         description )
-    SELECT soc.id AS open_category_id,
+    SELECT soc.id AS status_category_id,
             dat.name,
             dat.description
-        FROM tasker_data.st_open_category soc
+        FROM tasker_data.st_status_category soc
         JOIN (
             VALUES
                 ( 'Open', 'In process', '' ),
                 ( 'Open', 'In QA', '' ),
                 ( 'Open', 'In testing', '' ),
                 ( 'Open', 'Review for closure', '' )
-            ) AS dat ( open_category, name, description )
-            ON ( dat.open_category = soc.name ) ;
+            ) AS dat ( status_category, name, description )
+            ON ( dat.status_category = soc.name ) ;
 
 INSERT INTO tasker_data.rt_task_status (
-        open_category_id,
+        status_category_id,
         name,
         description )
-    SELECT soc.id AS open_category_id,
+    SELECT soc.id AS status_category_id,
             dat.name,
             dat.description
-        FROM tasker_data.st_open_category soc
+        FROM tasker_data.st_status_category soc
         JOIN (
             VALUES
                 ( 'Closed', 'Canceled', '' ),
@@ -101,5 +101,5 @@ INSERT INTO tasker_data.rt_task_status (
                 ( 'Closed', 'Other', '' ),
                 ( 'Closed', 'Out of scope', '' ),
                 ( 'Closed', 'Will not fix', '' )
-            ) AS dat ( open_category, name, description )
-            ON ( dat.open_category = soc.name ) ;
+            ) AS dat ( status_category, name, description )
+            ON ( dat.status_category = soc.name ) ;

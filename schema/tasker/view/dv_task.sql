@@ -24,8 +24,8 @@ SELECT base.id,
         t011.name AS markup_type,
         base.status_id,
         t012.name AS status,
-        t012.open_category_id,
-        t012.open_category,
+        t012.status_category_id,
+        t012.status_category,
         base.priority_id,
         t013.name AS priority,
         base.desired_start_importance_id,
@@ -103,8 +103,8 @@ COMMENT ON COLUMN tasker.dv_task.markup_type_id IS 'The ID of the markup format 
 COMMENT ON COLUMN tasker.dv_task.markup_type IS 'The name for the markup type' ;
 COMMENT ON COLUMN tasker.dv_task.status_id IS 'The status of the task.' ;
 COMMENT ON COLUMN tasker.dv_task.status IS 'The name of the status.' ;
-COMMENT ON COLUMN tasker.dv_task.open_category_id IS 'The ID of the category indicating if the status is open, closed, or not open.' ;
-COMMENT ON COLUMN tasker.dv_task.open_category IS 'The name for the open category' ;
+COMMENT ON COLUMN tasker.dv_task.status_category_id IS 'The ID of the category indicating if the status is open, closed, or not open.' ;
+COMMENT ON COLUMN tasker.dv_task.status_category IS 'The name for the status category' ;
 COMMENT ON COLUMN tasker.dv_task.priority_id IS 'The priority of the task.' ;
 COMMENT ON COLUMN tasker.dv_task.priority IS 'The name for the priority' ;
 COMMENT ON COLUMN tasker.dv_task.desired_start_importance_id IS 'The importance of not making the desired start date.' ;

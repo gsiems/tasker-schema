@@ -41,6 +41,8 @@ DECLARE
     l_action text ;
     l_minimum_role integer ;
 
+    l_return boolean ;
+
 BEGIN
 
 
@@ -68,6 +70,7 @@ BEGIN
 
     ----------------------------------------------------------------------------
     -- Ensure that the action specified is valid for the object type.
+/*
     FOR r IN (
         WITH actual AS (
             SELECT lower ( soa.name ) AS action
@@ -82,6 +85,19 @@ BEGIN
                         FROM tasker.sv_object_permission sop
                         WHERE lower ( sop.action ) = actual.action
                             AND sop.object_type_id = l_object.object_type_id )
+        ) LOOP
+
+        l_action := r.action ;
+
+    END LOOP ;
+*/
+
+
+    FOR r IN (
+        SELECT lower ( soa.name ) AS action
+            FROM tasker_data.st_object_action soa
+            WHERE soa.is_enabled
+                AND lower ( soa.name ) = lower ( trim ( a_action ) )
         ) LOOP
 
         l_action := r.action ;
@@ -112,7 +128,7 @@ BEGIN
     IF l_object.activity_id IS NOT NULL
         AND l_object.object_type <> 'activity'
         AND l_action <> 'select'
-        AND l_object.open_category <> 'Open' THEN
+        AND l_object.status_category <> 'Open' THEN
 
 --RAISE NOTICE 'Fail 04' ;
         RETURN false ;
@@ -122,7 +138,7 @@ BEGIN
     ----------------------------------------------------------------------------
     -- Ensure that there is an acting user and that they are enabled
     l_acting_user := tasker.get_user_stats ( a_user => a_user ) ;
---RAISE NOTICE E'l_acting_user ( % )', l_acting_user ;
+--RAISE NOTICE E'l_acting_user ( user_id: %, username: %, is_enabled: %, is_admin: %, is_public: %, can_create_activities: %  )', l_acting_user.user_id, l_acting_user.username, l_acting_user.is_enabled, l_acting_user.is_admin, l_acting_user.is_public, l_acting_user.can_create_activities ;
     IF NOT ( l_acting_user.user_id IS NOT NULL AND l_acting_user.is_enabled ) THEN
 --RAISE NOTICE 'Fail 05' ;
         RETURN false ;
@@ -130,7 +146,7 @@ BEGIN
 
     -- Ensure that there is a connected user, they are enabled, and that they are not, somehow, a "public" user
     l_session_user := tasker.get_user_stats ( a_user => session_user::text ) ;
---RAISE NOTICE E'l_session_user ( % )', l_session_user ;
+--RAISE NOTICE E'l_session_user ( user_id: %, username: %, is_enabled: %, is_admin: %, is_public: %, can_create_activities: %  )', l_session_user.user_id, l_session_user.username, l_session_user.is_enabled, l_session_user.is_admin, l_session_user.is_public, l_session_user.can_create_activities ;
     IF NOT ( l_session_user.user_id IS NOT NULL AND l_session_user.is_enabled ) THEN
 --RAISE NOTICE 'Fail 06' ;
         RETURN false ;
@@ -152,24 +168,33 @@ BEGIN
 
         -- admins can do whatever and known users can select
         IF l_action = 'select' THEN
-            RETURN l_connected_can_validate AND NOT l_acting_user.is_public ;
+            l_return := l_connected_can_validate AND NOT l_acting_user.is_public ;
+--RAISE NOTICE E'l_return 01 ( % )', l_return ;
+            RETURN l_return ;
         ELSE
-            RETURN l_acting_user.is_admin AND l_connected_can_validate ;
+            l_return := l_acting_user.is_admin AND l_connected_can_validate ;
+--RAISE NOTICE E'l_return 02 ( % )', l_return ;
+            RETURN l_return ;
         END IF ;
 
     END IF ;
 
     IF l_object.object_type = 'user' THEN
 
-       RETURN l_acting_user.is_admin AND l_connected_can_validate ;
+       l_return := l_acting_user.is_admin AND l_connected_can_validate ;
+--RAISE NOTICE E'l_return 03 ( % )', l_return ;
+        RETURN l_return ;
 
     END IF ;
 
     IF l_object.object_type = 'profile' THEN
 
-        RETURN l_acting_user.user_id = a_id
+        l_return := l_acting_user.user_id = a_id
             AND l_action IN ( 'select', 'insert', 'update' )
             AND l_connected_can_validate ;
+
+--RAISE NOTICE E'l_return 04 ( % )', l_return ;
+        RETURN l_return ;
 
     END IF ;
 
@@ -362,7 +387,7 @@ BEGIN
 
         RETURN false ;
 
-    ELSIF l_object.open_category = 'Open' THEN
+    ELSIF l_object.status_category = 'Open' THEN
 
         IF l_action = 'insert' THEN
 

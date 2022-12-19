@@ -1,8 +1,8 @@
 CREATE OR REPLACE VIEW tasker.rv_task_status
 AS
 SELECT base.id,
-        base.open_category_id,
-        t002.name AS open_category,
+        base.status_category_id,
+        t002.name AS status_category,
         base.name,
         base.description,
         base.is_default,
@@ -14,8 +14,8 @@ SELECT base.id,
         base.created_dt,
         base.updated_dt
     FROM tasker_data.rt_task_status base
-    JOIN tasker_data.st_open_category t002
-        ON ( t002.id = base.open_category_id )
+    JOIN tasker_data.st_status_category t002
+        ON ( t002.id = base.status_category_id )
     LEFT JOIN tasker_data.dt_user cu
         ON ( cu.id = base.created_by_id )
     LEFT JOIN tasker_data.dt_user uu
@@ -27,8 +27,8 @@ GRANT SELECT ON tasker.rv_task_status TO tasker_user ;
 
 COMMENT ON VIEW tasker.rv_task_status IS 'View of: Reference table. Statuses for tasks.' ;
 COMMENT ON COLUMN tasker.rv_task_status.id IS 'Unique ID for the status' ;
-COMMENT ON COLUMN tasker.rv_task_status.open_category_id IS 'The ID of the category indicating if the status is open, closed, or not open.' ;
-COMMENT ON COLUMN tasker.rv_task_status.open_category IS 'The name for the open category' ;
+COMMENT ON COLUMN tasker.rv_task_status.status_category_id IS 'The ID of the category indicating if the status is open, closed, or not open.' ;
+COMMENT ON COLUMN tasker.rv_task_status.status_category IS 'The name for the status category' ;
 COMMENT ON COLUMN tasker.rv_task_status.name IS 'The name of the status.' ;
 COMMENT ON COLUMN tasker.rv_task_status.description IS 'The description of the status.' ;
 COMMENT ON COLUMN tasker.rv_task_status.is_default IS 'Indicates whether or not the row is the default row.' ;

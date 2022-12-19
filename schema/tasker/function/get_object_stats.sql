@@ -204,14 +204,14 @@ BEGIN
         FOR r IN (
             SELECT visibility_id,
                     visibility,
-                    open_category,
+                    status_category,
                     owner_id
                 FROM tasker.dv_activity
                 WHERE dv_activity.id = l_stats.activity_id ) LOOP
 
             l_stats.activity_visibility_id := r.visibility_id ;
             l_stats.activity_visibility := r.visibility ;
-            l_stats.open_category := r.open_category ;
+            l_stats.status_category := r.status_category ;
             l_stats.activity_owner_id := r.owner_id ;
 
         END LOOP ;

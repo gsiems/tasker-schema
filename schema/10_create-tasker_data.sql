@@ -43,7 +43,7 @@ GRANT USAGE ON SCHEMA tasker_data TO tasker_user;
 \i tasker_data/table/st_markup_type.sql
 \i tasker_data/table/st_association_type.sql
 \i tasker_data/table/st_task_category.sql
-\i tasker_data/table/st_open_category.sql
+\i tasker_data/table/st_status_category.sql
 
 --\i tasker_data/table/st_eav_attribute_datatype.sql
 --\i tasker_data/table/st_permission.sql

@@ -47,7 +47,7 @@ GRANT USAGE ON SCHEMA tasker TO tasker_user;
 -- system reference data views for other
 \i tasker/view/sv_association_type.sql
 \i tasker/view/sv_markup_type.sql
-\i tasker/view/sv_open_category.sql
+\i tasker/view/sv_status_category.sql
 \i tasker/view/sv_task_category.sql
 
 -- reference views

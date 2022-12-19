@@ -3,7 +3,7 @@ CREATE TYPE tasker.ut_object_stats AS (
     activity_visibility_id smallint,
     activity_visibility text,
     activity_owner_id integer,
-    open_category text,
+    status_category text,
     ----
     object_type text,
     object_type_id integer,
