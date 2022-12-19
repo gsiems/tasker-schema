@@ -48,7 +48,7 @@ BEGIN
         l_stats.is_admin := r.is_admin ;
         l_stats.can_create_activities := r.can_create_activities ;
 
-        IF r.is_admin AND r.id > 0 AND r.username <> 'public' THEN
+        IF r.id > 0 AND r.username <> 'public' THEN
             l_stats.is_public := false ;
         END IF ;
 
