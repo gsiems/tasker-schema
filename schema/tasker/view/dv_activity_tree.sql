@@ -6,7 +6,6 @@ WITH RECURSIVE toc AS (
             base.parent_id,
             0 AS activity_depth,
             ARRAY [ dense_rank () OVER (
-                PARTITION BY base.activity_id
                 ORDER BY base.id ) ] AS outln,
             ARRAY[base.id] AS activity_path
         FROM tasker_data.dt_task base
@@ -18,7 +17,7 @@ WITH RECURSIVE toc AS (
             base.parent_id,
             ( q.activity_depth + 1 ) AS activity_depth,
             ( q.outln || dense_rank () OVER (
-                    PARTITION BY base.activity_id, base.parent_id
+                    PARTITION BY base.parent_id
                     ORDER BY base.id ) ) AS outln,
             q.activity_path || base.id
         FROM tasker_data.dt_task base
