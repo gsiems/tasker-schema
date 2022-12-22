@@ -121,7 +121,7 @@ BEGIN
         ELSE
 
             FOR r IN (
-                SELECT base.id AS object_id,
+                SELECT task.id AS object_id,
                         task.activity_id,
                         CASE
                             WHEN parent.id IS NULL THEN null::text
@@ -138,7 +138,7 @@ BEGIN
                         ON ( task.parent_id = parent.id )
                     LEFT JOIN tasker_data.st_task_category ptc
                         ON ( ptc.id = parent.task_type_id )
-                    WHERE dt.id = a_id ) LOOP
+                    WHERE task.id = a_id ) LOOP
 
                 l_stats.activity_id := r.activity_id ;
                 l_stats.object_assignee_id := r.object_assignee_id ;
@@ -169,7 +169,7 @@ BEGIN
                 FROM tasker_data.dt_task task
                 LEFT JOIN tasker_data.st_task_category ptc
                     ON ( ptc.id = task.task_type_id )
-                WHERE dt.id = a_parent_id ) LOOP
+                WHERE task.id = a_parent_id ) LOOP
 
             l_stats.activity_id := r.activity_id ;
             l_stats.parent_id := r.parent_id ;
