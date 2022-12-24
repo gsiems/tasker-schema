@@ -26,7 +26,6 @@ BEGIN
     l_stats.is_public := true ;
     l_stats.is_enabled := false ;
     l_stats.is_admin := false ;
-    l_stats.can_create_activities := false ;
 
     l_user_id := a_id ;
     IF l_user_id IS NULL THEN
@@ -37,8 +36,7 @@ BEGIN
         SELECT id,
                 username,
                 is_enabled,
-                is_admin,
-                can_create_activities
+                is_admin
             FROM tasker_data.dt_user
             WHERE id = l_user_id ) LOOP
 
@@ -46,7 +44,6 @@ BEGIN
         l_stats.username := r.username ;
         l_stats.is_enabled := r.is_enabled ;
         l_stats.is_admin := r.is_admin ;
-        l_stats.can_create_activities := r.can_create_activities ;
 
         IF r.id > 0 AND r.username <> 'public' THEN
             l_stats.is_public := false ;

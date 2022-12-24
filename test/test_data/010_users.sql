@@ -176,15 +176,3 @@ UPDATE tasker_data.dt_user o
 UPDATE tasker_data.dt_user
     SET is_admin = true
     WHERE substr ( username, 1, 1 ) = 'A' ;
-
--- can_create_activities
--- we'll let the PMs supervisor have all the fun...
-WITH n AS (
-    SELECT supervisor_id AS id
-        FROM tasker_data.dt_user
-        WHERE substr ( username, 1, 1 ) = 'P'
-)
-UPDATE tasker_data.dt_user o
-    SET can_create_activities = true
-    FROM n
-    WHERE o.id = n.id ;

@@ -12,7 +12,6 @@ CREATE TABLE tasker_data.dt_user (
     is_enabled boolean DEFAULT true NOT NULL,
     last_login timestamp with time zone,
     is_admin boolean DEFAULT false NOT NULL,
-    can_create_activities boolean default false,
     created_by_id integer,
     updated_by_id integer,
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
