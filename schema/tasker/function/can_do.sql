@@ -32,22 +32,18 @@ DECLARE
 
     r record ;
 
+    l_action text ;
+    l_can_do boolean ;
     l_connected_can_validate boolean := false ;
+    l_user_activity_role text ;
 
     l_acting_user tasker.ut_user_stats ;
     l_session_user tasker.ut_user_stats ;
     l_object tasker.ut_object_stats ;
 
-    l_action text ;
-    l_minimum_role integer ;
-
-    l_return boolean ;
-
 BEGIN
 
-
 --RAISE NOTICE E'\n\ncan_do ( %, %, %, %, %, % )', a_user, a_action, a_object_type, a_id, a_parent_object_type, a_parent_id ;
-
 
     ----------------------------------------------------------------------------
     ----------------------------------------------------------------------------
@@ -63,8 +59,6 @@ BEGIN
 --RAISE NOTICE E'l_object ( % )', l_object ;
 
     IF l_object.object_type IS NULL THEN
---RAISE NOTICE 'Fail 01' ;
-
         RETURN false ;
     END IF ;
 
@@ -107,7 +101,6 @@ BEGIN
 --RAISE NOTICE E'l_action ( % )', l_action ;
 
     IF l_action IS NULL THEN
---RAISE NOTICE 'Fail 02' ;
         RETURN false ;
     END IF ;
 
@@ -116,7 +109,6 @@ BEGIN
     IF l_object.object_type <> 'reference' AND l_object.object_id IS NULL THEN
 
         IF l_action IN ( 'update', 'update status', 'delete' ) THEN
---RAISE NOTICE 'Fail 03' ;
             RETURN false ;
         END IF ;
 
@@ -130,7 +122,6 @@ BEGIN
         AND l_action <> 'select'
         AND l_object.status_category <> 'Open' THEN
 
---RAISE NOTICE 'Fail 04' ;
         RETURN false ;
 
     END IF ;
@@ -138,20 +129,17 @@ BEGIN
     ----------------------------------------------------------------------------
     -- Ensure that there is an acting user and that they are enabled
     l_acting_user := tasker.get_user_stats ( a_user => a_user ) ;
---RAISE NOTICE E'l_acting_user ( user_id: %, username: %, is_enabled: %, is_admin: %, is_public: %, can_create_activities: %  )', l_acting_user.user_id, l_acting_user.username, l_acting_user.is_enabled, l_acting_user.is_admin, l_acting_user.is_public, l_acting_user.can_create_activities ;
-    IF NOT ( l_acting_user.user_id IS NOT NULL AND l_acting_user.is_enabled ) THEN
---RAISE NOTICE 'Fail 05' ;
-        RETURN false ;
+    IF l_action <> 'select' THEN
+        IF NOT ( l_acting_user.user_id IS NOT NULL AND l_acting_user.is_enabled ) THEN
+            RETURN false ;
+        END IF ;
     END IF ;
 
     -- Ensure that there is a connected user, they are enabled, and that they are not, somehow, a "public" user
     l_session_user := tasker.get_user_stats ( a_user => session_user::text ) ;
---RAISE NOTICE E'l_session_user ( user_id: %, username: %, is_enabled: %, is_admin: %, is_public: %, can_create_activities: %  )', l_session_user.user_id, l_session_user.username, l_session_user.is_enabled, l_session_user.is_admin, l_session_user.is_public, l_session_user.can_create_activities ;
     IF NOT ( l_session_user.user_id IS NOT NULL AND l_session_user.is_enabled ) THEN
---RAISE NOTICE 'Fail 06' ;
         RETURN false ;
     ELSIF l_session_user.is_public THEN
---RAISE NOTICE 'Fail 07' ;
         RETURN false ;
     END IF ;
 
@@ -159,43 +147,111 @@ BEGIN
     -- the acting user-- which means that either the acting user is the connected
     -- (database session) user or that the connected user is an administrator
     l_connected_can_validate := l_session_user.is_admin OR l_acting_user.user_id = l_session_user.user_id ;
---RAISE NOTICE E'l_connected_can_validate ( % )', l_connected_can_validate ;
+
+    IF NOT l_connected_can_validate THEN
+        RETURN false ;
+    END IF ;
 
     ----------------------------------------------------------------------------
     ----------------------------------------------------------------------------
-    --
-    IF l_object.object_type = 'reference' THEN
+    -- Since most actions will probably be SELECT, and since SELECT is the
+    -- simplest case we will deal with it first
+    IF l_action = 'select' THEN
 
-        -- admins can do whatever and known users can select
-        IF l_action = 'select' THEN
-            l_return := l_connected_can_validate AND NOT l_acting_user.is_public ;
---RAISE NOTICE E'l_return 01 ( % )', l_return ;
-            RETURN l_return ;
+        l_can_do := false ;
+
+        IF l_object.object_type = 'reference' THEN
+           l_can_do := NOT l_acting_user.is_public ;
+
+        ELSIF l_object.object_type = 'user' THEN
+            l_can_do :=  l_acting_user.is_admin ;
+
+        ELSIF l_object.object_type = 'profile' THEN
+            l_can_do :=  l_acting_user.user_id = a_id ;
+
+        ELSIF l_object.object_type = 'journal' THEN
+
+            -- Users may select from their journal entries
+            IF l_object.object_owner_id = l_acting_user.user_id THEN
+
+                l_can_do := true ;
+
+            ELSE
+
+                -- Supervisors/managers may select from the journal entries of their reports
+                FOR r IN (
+                    SELECT 1
+                        FROM tasker.dv_user_reporting_chain
+                        WHERE user_id = l_object.object_owner_id
+                            AND l_acting_user.user_id = ANY ( reporting_chain )
+                    ) LOOP
+
+                    l_can_do := true ;
+                    EXIT ;
+
+                END LOOP ;
+
+            END IF ;
+
         ELSE
-            l_return := l_acting_user.is_admin AND l_connected_can_validate ;
---RAISE NOTICE E'l_return 02 ( % )', l_return ;
-            RETURN l_return ;
+            --------------------------------------------------------------------
+            -- Assert: the only thing left to check are comments and the various
+            -- task type objects
+            --
+            -- data for public activities may be selected
+            -- data for protected activities may be selected by known users
+            -- data for private activities may only be selected by activity members
+            IF l_object.activity_visibility = 'Public' THEN
+                l_can_do := true ;
+
+            ELSEIF l_object.activity_visibility = 'Protected' THEN
+                l_can_do := NOT l_acting_user.is_public ;
+
+            ELSIF l_object.activity_visibility = 'Private' THEN
+
+                IF l_acting_user.is_enabled AND l_acting_user.is_admin THEN
+                    l_can_do := true ;
+
+                ELSE
+
+                    FOR r IN (
+                        SELECT user_id
+                            FROM tasker_data.dt_activity_member
+                            WHERE activity_id = l_object.activity_id
+                                AND user_id = l_acting_user.user_id ) LOOP
+
+                        l_can_do := true ;
+
+                    END LOOP ;
+
+                END IF ;
+
+            END IF ;
+
         END IF ;
+
+        RETURN l_can_do ;
 
     END IF ;
 
-    IF l_object.object_type = 'user' THEN
+    ----------------------------------------------------------------------------
+    -- With SELECT dealt with, public users are done
+    -- TODO: will need something for dealing with new account requests at some point
+    IF l_acting_user.is_public THEN
+        RETURN false ;
+    END IF ;
 
-       l_return := l_acting_user.is_admin AND l_connected_can_validate ;
---RAISE NOTICE E'l_return 03 ( % )', l_return ;
-        RETURN l_return ;
+    ----------------------------------------------------------------------------
+    ----------------------------------------------------------------------------
+    IF l_object.object_type IN ( 'reference', 'user' ) THEN
+
+        -- select is already dealt with and only administrators can do otherwise
+        RETURN l_acting_user.is_admin ;
 
     END IF ;
 
     IF l_object.object_type = 'profile' THEN
-
-        l_return := l_acting_user.user_id = a_id
-            AND l_action IN ( 'select', 'insert', 'update' )
-            AND l_connected_can_validate ;
-
---RAISE NOTICE E'l_return 04 ( % )', l_return ;
-        RETURN l_return ;
-
+        RETURN l_acting_user.user_id = a_id AND l_action IN ( 'insert', 'update' ) ;
     END IF ;
 
     ----------------------------------------------------------------------------
@@ -216,74 +272,41 @@ BEGIN
     END IF ;
 
     ----------------------------------------------------------------------------
-    l_minimum_role := tasker.get_minimum_required_role (
-        a_action => l_action,
-        a_object_type => l_object.object_type ) ;
+    -- Get the activity role for the user
+    FOR r IN (
+        SELECT role
+            FROM tasker.dv_activity_member
+            WHERE activity_id = l_object.activity_id
+                AND user_id = l_acting_user.user_id ) LOOP
+
+        l_user_activity_role := r.role ;
+
+    END LOOP ;
 
     ----------------------------------------------------------------------------
     IF l_object.object_type = 'journal' THEN
 
-        IF l_action NOT IN ( 'select', 'insert', 'update', 'delete' ) THEN
-            RETURN false ;
-        ELSIF l_acting_user.is_public THEN
-            RETURN false ;
-        END IF ;
+         -- select is already dealt with
+        IF l_action IN ( 'update', 'delete' ) THEN
 
-
-        IF l_action = 'select' THEN
-
-            -- Users may select from their journal entries
-            IF l_object.object_owner_id = l_acting_user.user_id
-                AND l_connected_can_validate THEN
-
-                RETURN true ;
-
-            ELSE
-
-                -- Supervisors/managers may select from the journal entries of their reports
-                FOR r IN (
-                    SELECT 1
-                        FROM tasker.dv_user_reporting_chain
-                        WHERE user_id = l_object.object_owner_id
-                            AND l_acting_user.user_id = ANY ( reporting_chain )
-                            AND l_connected_can_validate
-                    ) LOOP
-
-                    RETURN true ;
-
-                END LOOP ;
-
-            END IF ;
-
-        ELSIF l_action IN ( 'update', 'delete' ) THEN
-
-            RETURN l_object.object_owner_id = l_acting_user.user_id
-                AND l_connected_can_validate ;
+            RETURN l_object.object_owner_id = l_acting_user.user_id ;
 
         ELSIF l_action = 'insert' THEN
+
+            IF l_object.status_category = 'Closed' THEN
+                RETURN false ;
+            END IF ;
 
             -- must be assigned to the parent object
             -- OR be owner of the parent object
             -- OR be a member of the activity with a role >= Member
-
-            IF l_acting_user.user_id IN ( l_object.parent_owner_id, l_object.parent_assignee_id )
-                AND l_connected_can_validate THEN
+            IF l_acting_user.user_id IN ( l_object.parent_owner_id, l_object.parent_assignee_id ) THEN
 
                 RETURN true ;
 
             END IF ;
 
-            FOR r IN (
-                SELECT user_id
-                    FROM tasker.dv_activity_member
-                    WHERE activity_id = l_object.activity_id
-                        AND role_id >= l_minimum_role
-                        AND user_id = l_acting_user.user_id
-                        AND l_connected_can_validate ) LOOP
-
-                RETURN true ;
-
-            END LOOP ;
+            RETURN l_user_activity_role IS NOT NULL AND l_user_activity_role NOT IN ( 'Observer', 'Reporter' ) ;
 
         END IF ;
 
@@ -293,6 +316,31 @@ BEGIN
 
     IF l_object.object_type = 'comment' THEN
 
+        -- updates and deletes by the comment owner
+        -- deletes also by the system administrator
+        IF l_action IN ( 'update', 'delete' ) THEN
+
+            FOR r IN (
+                SELECT id
+                    FROM tasker_data.dt_task_comment
+                    WHERE owner_id = l_acting_user.user_id ) LOOP
+
+                RETURN true ;
+
+            END LOOP ;
+
+            RETURN l_acting_user.is_admin AND l_action = 'delete' ;
+
+        ELSIF l_action = 'insert' THEN
+
+            IF l_object.status_category = 'Closed' THEN
+                RETURN false ;
+            END IF ;
+
+            -- inserts only by activity members
+            RETURN l_user_activity_role IS NOT NULL AND l_user_activity_role NOT IN ( 'Observer', 'Reporter' ) ;
+
+        END IF ;
 
         RETURN false ;
 
@@ -301,37 +349,65 @@ BEGIN
     ----------------------------------------------------------------------------
     -- Assert: the only thing left to check are the various task type objects
     --
-    IF l_action = 'select' THEN
+    IF l_object.object_type = 'activity' THEN
 
-        -- data for public activities may be selected
-        -- data for protected activities may be selected by known users
-        -- data for private activities may only be selected by activity members
-        IF l_object.activity_visibility = 'Public' THEN
-            RETURN true ;
-        END IF ;
+        IF l_action = 'insert' THEN
 
-        IF l_object.activity_visibility = 'Protected' THEN
-
-            IF l_acting_user.is_public THEN
+            IF l_object.status_category IN ( 'Closed', 'Not Open' ) THEN
                 RETURN false ;
-            ELSE
-                RETURN l_connected_can_validate ;
             END IF ;
 
-        END IF ;
+            -- If the user is a system administrator
+            -- OR the user is the owner of the parent activity (if any)
+            RETURN l_acting_user.is_admin
+                OR l_acting_user.user_id IS NOT DISTINCT FROM l_object.parent_owner_id ;
 
-        IF l_object.activity_visibility = 'Private' THEN
+        ELSIF l_action IN ( 'update', 'update status', 'assign' ) THEN
 
+            -- If the user is a system administrator
+            -- OR the user is the activity owner
+            -- OR the user is the owner of the object
+            RETURN l_acting_user.is_admin OR l_acting_user.user_id IN ( l_object.object_owner_id, l_object.activity_owner_id ) ;
+
+        ELSIF l_action = 'delete' THEN
+
+            --------------------------------------------------------------------
+            -- Check for time logged/sub-tasks
             FOR r IN (
-                SELECT user_id
-                    FROM tasker_data.dt_activity_member
-                    WHERE activity_id = l_object.activity_id
-                        AND user_id = l_acting_user.user_id
-                        AND l_connected_can_validate ) LOOP
+                SELECT dt.id
+                    FROM tasker_data.dt_task dt
+                    WHERE dt.id = l_object.activity_id
+                        AND (
+                            EXISTS (
+                                SELECT 1
+                                    FROM tasker_data.dt_task sdt
+                                    WHERE sdt.parent_id = dt.id
+                            )
+                            OR
+                            EXISTS (
+                                SELECT 1
+                                    FROM tasker_data.dt_task_journal dtj
+                                    WHERE dtj.task_id = dt.id
+                                        AND coalesce ( dtj.time_spent, 0 ) > 0
+                            )
+                        ) ) LOOP
 
-                RETURN true ;
+                RETURN false ;
 
             END LOOP ;
+
+            -- If the user is a system administrator
+            -- OR the user is owner of the activity
+            -- OR the user is owner of the parent activity
+            IF  l_acting_user.is_admin OR l_acting_user.user_id = l_object.activity_owner_id THEN
+                RETURN true ;
+            END IF ;
+
+            IF l_object.parent_object_type IS NOT NULL THEN
+
+                RETURN coalesce ( ( l_object.parent_object_type = 'activity' AND l_acting_user.user_id = l_object.parent_owner_id ), false ) ;
+
+            END IF ;
 
         END IF ;
 
@@ -340,54 +416,8 @@ BEGIN
     END IF ;
 
     ----------------------------------------------------------------------------
-    IF NOT l_connected_can_validate THEN
-        RETURN false ;
-    END IF ;
-
-    IF l_object.object_type = 'activity' THEN
-
-        IF l_action = 'insert' THEN
-
-            -- If the user is a system administrator
-            -- OR the user has create activity permission
-            -- OR the user is the owner of the parent activity
-            IF l_acting_user.is_admin THEN
-                RETURN true ;
-            ELSIF l_object.parent_object_type IS NULL THEN
-                RETURN l_acting_user.can_create_activities ;
-            ELSE
-                RETURN l_object.parent_owner_id = l_acting_user.user_id ;
-            END IF ;
-
-        ELSIF l_action IN ( 'update', 'update status', 'assign' ) THEN
-
-            -- If the user is a system administrator
-            -- OR the user is the activity owner
-            -- OR the user is the owner of the object
-            IF l_acting_user.is_admin THEN
-                RETURN true ;
-            ELSE
-                RETURN l_acting_user.user_id IN ( l_object.owner_id, l_object.activity_owner_id ) ;
-            END IF ;
-
-        ELSIF l_action = 'delete' THEN
-
-            -- TODO
-            -- check for sub-objects/time logged
-
-            -- If the user is a system administrator
-            -- OR the user is owner of the parent activity
-            IF l_acting_user.is_admin THEN
-                RETURN true ;
-            ELSIF l_object.parent_object_type = 'activity' THEN
-                RETURN l_acting_user.user_id = l_object.parent_owner_id ;
-            END IF ;
-
-        END IF ;
-
-        RETURN false ;
-
-    ELSIF l_object.status_category = 'Open' THEN
+    -- All task object types other than 'activity'
+    IF l_object.status_category = 'Open' THEN
 
         IF l_action = 'insert' THEN
 
@@ -398,20 +428,12 @@ BEGIN
                 RETURN true ;
             ELSIF l_acting_user.user_id IN ( l_object.parent_owner_id, l_object.parent_assignee_id, l_object.activity_owner_id ) THEN
                 RETURN true ;
+            ELSIF l_object.object_type IN ( 'pip' ) THEN
+                RETURN l_user_activity_role IN ( 'Manager' ) ;
+            ELSIF l_object.object_type IN ( 'requirement' ) THEN
+                RETURN l_user_activity_role IN ( 'Analyst', 'Manager' ) ;
             ELSE
-
-                FOR r IN (
-                    SELECT user_id
-                        FROM tasker.dv_activity_member
-                        WHERE activity_id = l_object.activity_id
-                            AND role_id >= l_minimum_role
-                            AND user_id = l_acting_user.user_id
-                            AND l_connected_can_validate ) LOOP
-
-                    RETURN true ;
-
-                END LOOP ;
-
+                RETURN l_user_activity_role IN ( 'Analyst', 'Manager', 'Member' ) ;
             END IF ;
 
         ELSIF l_action IN ( 'update status', 'assign' ) THEN
@@ -422,7 +444,7 @@ BEGIN
             IF l_acting_user.is_admin THEN
                 RETURN true ;
             ELSE
-                RETURN l_acting_user.user_id IN ( l_object.owner_id, l_object.object_assignee_id, l_object.activity_owner_id ) ;
+                RETURN l_acting_user.user_id IN ( l_object.object_owner_id, l_object.object_assignee_id, l_object.activity_owner_id ) ;
             END IF ;
 
         ELSIF l_action = 'update' THEN
@@ -433,12 +455,49 @@ BEGIN
             IF l_acting_user.is_admin THEN
                 RETURN true ;
             ELSE
-                RETURN l_acting_user.user_id IN ( l_object.owner_id, l_object.activity_owner_id ) ;
+                RETURN l_acting_user.user_id IN ( l_object.object_owner_id, l_object.activity_owner_id ) ;
             END IF ;
 
         ELSIF l_action = 'delete' THEN
 
-            -- TODO: check for sub-objects/time logged
+            --------------------------------------------------------------------
+            -- Check for time logged/sub-tasks
+            FOR r IN (
+                SELECT dt.id
+                    FROM tasker_data.dt_task dt
+                    WHERE dt.id = l_object.object_id
+                        AND (
+                            EXISTS (
+                                SELECT 1
+                                    FROM tasker_data.dt_task sdt
+                                    WHERE sdt.parent_id = dt.id
+                            )
+                            OR
+                            EXISTS (
+                                SELECT 1
+                                    FROM tasker_data.dt_task_journal dtj
+                                    WHERE dtj.task_id = dt.id
+                                        AND coalesce ( dtj.time_spent, 0 ) > 0
+                            )
+                        )
+                ) LOOP
+
+                RETURN false ;
+
+            END LOOP ;
+
+            FOR r IN (
+                SELECT dt.activity_id,
+                        dtj.time_spent
+                    FROM tasker_data.dt_task dt
+                    JOIN tasker_data.dt_task sdt
+                        ON ( sdt.parent_id = dt.id )
+                    WHERE dt.activity_id = l_object.activity_id
+                ) LOOP
+
+                RETURN false ;
+
+            END LOOP ;
 
             -- If the user is a system administrator
             -- OR the user is the activity owner
@@ -446,7 +505,7 @@ BEGIN
             IF l_acting_user.is_admin THEN
                 RETURN true ;
             ELSE
-                RETURN l_acting_user.user_id IN ( l_object.owner_id, l_object.activity_owner_id ) ;
+                RETURN l_acting_user.user_id IN ( l_object.object_owner_id, l_object.activity_owner_id ) ;
             END IF ;
 
         END IF ;
