@@ -53,7 +53,7 @@ GRANT USAGE ON SCHEMA tasker_data TO tasker_user;
 --\i tasker_data/table/rt_role.sql
 \i tasker_data/table/rt_task_status.sql
 \i tasker_data/table/rt_task_type.sql
-\i tasker_data/table/rt_task_category_status.sql
+\i tasker_data/table/rt_available_task_status.sql
 --\i tasker_data/table/rt_eav_attribute_type.sql
 --\i tasker_data/table/rt_task_attribute_type.sql
 
