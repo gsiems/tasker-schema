@@ -10,7 +10,7 @@ CREATE TABLE tasker_data.rt_task_status (
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     updated_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     CONSTRAINT rt_task_status_pk PRIMARY KEY ( id ),
-    CONSTRAINT dt_task_status_nk UNIQUE ( name ) ) ;
+    CONSTRAINT rt_task_status_nk UNIQUE ( name ) ) ;
 
 ALTER TABLE tasker_data.rt_task_status
     ADD CONSTRAINT rt_task_status_fk01
