@@ -81,6 +81,10 @@ INSERT INTO tasker_data.rt_task_status (
             ) AS dat ( status_category, name, description )
             ON ( dat.status_category = soc.name ) ;
 
+UPDATE tasker_data.rt_task_status
+    SET is_default = true
+    WHERE name = 'In process' ;
+
 INSERT INTO tasker_data.rt_task_status (
         status_category_id,
         name,
