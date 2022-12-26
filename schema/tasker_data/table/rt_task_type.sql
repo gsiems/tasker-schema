@@ -1,6 +1,6 @@
 CREATE TABLE tasker_data.rt_task_type (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-    category_id int2 NOT NULL,
+    task_category_id int2 NOT NULL,
     markup_type_id int2 NOT NULL default 1,
     name text NOT NULL,
     description text,
@@ -13,11 +13,11 @@ CREATE TABLE tasker_data.rt_task_type (
     created_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     updated_dt timestamp with time zone DEFAULT ( now () AT TIME ZONE 'UTC' ),
     CONSTRAINT rt_task_type_pk PRIMARY KEY ( id ),
-    CONSTRAINT rt_task_type_nk UNIQUE ( category_id, name ) ) ;
+    CONSTRAINT rt_task_type_nk UNIQUE ( task_category_id, name ) ) ;
 
 ALTER TABLE tasker_data.rt_task_type
     ADD CONSTRAINT rt_task_type_fk01
-    FOREIGN KEY ( category_id )
+    FOREIGN KEY ( task_category_id )
     REFERENCES tasker_data.st_task_category ( id ) ;
 
 ALTER TABLE tasker_data.rt_task_type
@@ -31,7 +31,7 @@ COMMENT ON TABLE tasker_data.rt_task_type IS 'Reference table. Types of tasks.' 
 
 COMMENT ON COLUMN tasker_data.rt_task_type.id IS 'Unique ID for a task type' ;
 
-COMMENT ON COLUMN tasker_data.rt_task_type.category_id IS 'The category that the task type belongs to.' ;
+COMMENT ON COLUMN tasker_data.rt_task_type.task_category_id IS 'The category that the task type belongs to.' ;
 
 COMMENT ON COLUMN tasker_data.rt_task_type.markup_type_id IS 'The ID of the markup format used for the template_markup column.' ;
 
@@ -54,10 +54,10 @@ COMMENT ON COLUMN tasker_data.rt_task_type.updated_by_id IS 'The ID of the indiv
 COMMENT ON COLUMN tasker_data.rt_task_type.updated_dt IS 'The timestamp when the row was most recently updated.' ;
 
 INSERT INTO tasker_data.rt_task_type (
-        category_id,
+        task_category_id,
         name,
         description )
-    SELECT stc.id AS category_id,
+    SELECT stc.id AS task_category_id,
             dat.name,
             dat.description
         FROM tasker_data.st_task_category stc
@@ -83,10 +83,10 @@ INSERT INTO tasker_data.rt_task_type (
             ON ( dat.category_name = stc.name ) ;
 
 INSERT INTO tasker_data.rt_task_type (
-        category_id,
+        task_category_id,
         name,
         description )
-    SELECT stc.id AS category_id,
+    SELECT stc.id AS task_category_id,
             dat.name,
             dat.description
         FROM tasker_data.st_task_category stc
@@ -102,10 +102,10 @@ INSERT INTO tasker_data.rt_task_type (
             ON ( dat.category_name = stc.name ) ;
 
 INSERT INTO tasker_data.rt_task_type (
-        category_id,
+        task_category_id,
         name,
         description )
-    SELECT stc.id AS category_id,
+    SELECT stc.id AS task_category_id,
             dat.name,
             dat.description
         FROM tasker_data.st_task_category stc
@@ -121,10 +121,10 @@ INSERT INTO tasker_data.rt_task_type (
             ON ( dat.category_name = stc.name ) ;
 
 INSERT INTO tasker_data.rt_task_type (
-        category_id,
+        task_category_id,
         name,
         description )
-    SELECT stc.id AS category_id,
+    SELECT stc.id AS task_category_id,
             dat.name,
             dat.description
         FROM tasker_data.st_task_category stc
@@ -146,10 +146,10 @@ INSERT INTO tasker_data.rt_task_type (
             ON ( dat.category_name = stc.name ) ;
 
 INSERT INTO tasker_data.rt_task_type (
-        category_id,
+        task_category_id,
         name,
         description )
-    SELECT stc.id AS category_id,
+    SELECT stc.id AS task_category_id,
             dat.name,
             dat.description
         FROM tasker_data.st_task_category stc
@@ -163,10 +163,10 @@ INSERT INTO tasker_data.rt_task_type (
             ON ( dat.category_name = stc.name ) ;
 
 INSERT INTO tasker_data.rt_task_type (
-        category_id,
+        task_category_id,
         name,
         description )
-    SELECT stc.id AS category_id,
+    SELECT stc.id AS task_category_id,
             dat.name,
             dat.description
         FROM tasker_data.st_task_category stc

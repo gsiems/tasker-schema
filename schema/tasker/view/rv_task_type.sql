@@ -1,10 +1,11 @@
 CREATE OR REPLACE VIEW tasker.rv_task_type
 AS
 SELECT base.id,
-        base.category_id,
-        t002.name AS category,
+        base.task_category_id,
+        t002.name AS task_category,
         base.markup_type_id,
         t003.name AS markup_type,
+        t002.name || ': ' || base.name AS full_label,
         base.name,
         base.description,
         base.template_markup,
@@ -19,7 +20,7 @@ SELECT base.id,
         base.updated_dt
     FROM tasker_data.rt_task_type base
     JOIN tasker_data.st_task_category t002
-        ON ( t002.id = base.category_id )
+        ON ( t002.id = base.task_category_id )
     JOIN tasker_data.st_markup_type t003
         ON ( t003.id = base.markup_type_id )
     LEFT JOIN tasker_data.dt_user cu
@@ -33,8 +34,8 @@ GRANT SELECT ON tasker.rv_task_type TO tasker_user ;
 
 COMMENT ON VIEW tasker.rv_task_type IS 'View of: Reference table. Types of tasks.' ;
 COMMENT ON COLUMN tasker.rv_task_type.id IS 'Unique ID for a task type' ;
-COMMENT ON COLUMN tasker.rv_task_type.category_id IS 'The category that the task type belongs to.' ;
-COMMENT ON COLUMN tasker.rv_task_type.category IS 'The name for the category' ;
+COMMENT ON COLUMN tasker.rv_task_type.task_category_id IS 'The category that the task type belongs to.' ;
+COMMENT ON COLUMN tasker.rv_task_type.task_category IS 'The name for the category' ;
 COMMENT ON COLUMN tasker.rv_task_type.markup_type_id IS 'The ID of the markup format used for the template_markup column.' ;
 COMMENT ON COLUMN tasker.rv_task_type.markup_type IS 'The name for the markup type' ;
 COMMENT ON COLUMN tasker.rv_task_type.name IS 'The name for a task type.' ;

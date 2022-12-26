@@ -15,7 +15,7 @@ SELECT base.id,
         t007.username AS assignee,
         base.task_type_id,
         t008.name AS task_type,
-        t008.category_id AS task_category_id,
+        t008.task_category_id,
         t008a.name AS task_category,
         base.time_estimate,
         base.visibility_id,
@@ -56,7 +56,7 @@ SELECT base.id,
     JOIN tasker_data.rt_task_type t008
         ON ( t008.id = base.task_type_id )
     JOIN tasker_data.st_task_category t008a
-        ON ( t008a.id = t008.category_id )
+        ON ( t008a.id = t008.task_category_id )
     JOIN tasker_data.st_visibility t010
         ON ( t010.id = base.visibility_id )
     JOIN tasker_data.st_markup_type t011
