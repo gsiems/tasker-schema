@@ -2,7 +2,7 @@
 \i 20_pre_tap.sql
 
 -- Plan count should be the number of tests
-SELECT plan ( 60 ) ;
+SELECT plan ( 58 ) ;
 --SELECT * FROM no_plan ( ) ;
 
 SELECT ok (
@@ -310,51 +310,27 @@ SELECT ok (
 SELECT ok (
     1::integer = tasker.resolve_task_status_id (
         a_id => 1::integer,
-        a_name => null::text,
-        a_status_category_id => null::smallint,
-        a_status_category => null::text ),
+        a_name => null::text ),
     'Lookup task status ID by ID (49)'
     ) ;
 SELECT ok (
     1::integer = tasker.resolve_task_status_id (
         a_id => null::integer,
-        a_name => 1::text,
-        a_status_category_id => null::smallint,
-        a_status_category => null::text ),
+        a_name => 1::text ),
     'Lookup task status ID by ID as name (50)'
     ) ;
 SELECT ok (
     1::integer = tasker.resolve_task_status_id (
         a_id => null::integer,
-        a_name => 'Pending',
-        a_status_category_id => 1::smallint,
-        a_status_category => null::text ),
-    'Lookup task status ID by name and category ID (51)'
+        a_name => 'Pending' ),
+    'Lookup task status ID by name (51)'
     ) ;
 SELECT ok (
     1::integer = tasker.resolve_task_status_id (
         a_id => null::integer,
-        a_name => 'Pending',
-        a_status_category_id => null::smallint,
-        a_status_category => 'Not Open' ),
-    'Lookup task status ID by name and category name (52)'
-    ) ;
-SELECT ok (
-    1::integer = tasker.resolve_task_status_id (
-        a_id => null::integer,
-        a_name => 'Pending',
-        a_status_category_id => null::smallint,
-        a_status_category => null::text ),
-    'Lookup task status ID by name (53)'
-    ) ;
-SELECT ok (
-    1::integer = tasker.resolve_task_status_id (
-        a_id => null::integer,
-        a_name => 'no such value',
-        a_status_category_id => null::smallint,
-        a_status_category => null::text )
+        a_name => 'no such value' )
      IS NULL,
-    'Lookup task status ID for non-existent name fails (54)'
+    'Lookup task status ID for non-existent name fails (52)'
     ) ;
 
 SELECT ok (
@@ -363,7 +339,7 @@ SELECT ok (
         a_name => null::text,
         a_type_category_id => null::smallint,
         a_type_category => null::text ),
-    'Lookup task type ID by ID (55)'
+    'Lookup task type ID by ID (53)'
     ) ;
 SELECT ok (
     1::integer = tasker.resolve_task_type_id (
@@ -371,7 +347,7 @@ SELECT ok (
         a_name => 1::text,
         a_type_category_id => 1::smallint,
         a_type_category => null::text ),
-    'Lookup task type ID by ID as name (56)'
+    'Lookup task type ID by ID as name (54)'
     ) ;
 SELECT ok (
     1::integer = tasker.resolve_task_type_id (
@@ -379,7 +355,7 @@ SELECT ok (
         a_name => 'Testing',
         a_type_category_id => 1::smallint,
         a_type_category => null::text ),
-    'Lookup task type ID by name and category ID (57)'
+    'Lookup task type ID by name and category ID (55)'
     ) ;
 SELECT ok (
     1::integer = tasker.resolve_task_type_id (
@@ -387,7 +363,7 @@ SELECT ok (
         a_name => 'Testing',
         a_type_category_id => null::smallint,
         a_type_category => 'Task' ),
-    'Lookup task type ID by name and category name (58)'
+    'Lookup task type ID by name and category name (56)'
     ) ;
 SELECT ok (
     1::integer = tasker.resolve_task_type_id (
@@ -395,7 +371,7 @@ SELECT ok (
         a_name => 'Testing',
         a_type_category_id => null::smallint,
         a_type_category => null::text ),
-    'Lookup task type ID by name (59)'
+    'Lookup task type ID by name (57)'
     ) ;
 SELECT ok (
     1::integer = tasker.resolve_task_type_id (
@@ -404,7 +380,7 @@ SELECT ok (
         a_type_category_id => null::smallint,
         a_type_category => null::text )
      IS NULL,
-    'Lookup task type ID for non-existent name fails (60)'
+    'Lookup task type ID for non-existent name fails (58)'
     ) ;
 
 \i 30_post_tap.sql
