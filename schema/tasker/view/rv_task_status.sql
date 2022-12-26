@@ -1,9 +1,10 @@
 CREATE OR REPLACE VIEW tasker.rv_task_status
 AS
 SELECT base.id,
+        base.name,
         base.status_category_id,
         t002.name AS status_category,
-        base.name,
+        t002.name || ': ' || base.name AS full_label,
         base.description,
         base.is_default,
         base.is_enabled,
@@ -27,9 +28,9 @@ GRANT SELECT ON tasker.rv_task_status TO tasker_user ;
 
 COMMENT ON VIEW tasker.rv_task_status IS 'View of: Reference table. Statuses for tasks.' ;
 COMMENT ON COLUMN tasker.rv_task_status.id IS 'Unique ID for the status' ;
-COMMENT ON COLUMN tasker.rv_task_status.status_category_id IS 'The ID of the category indicating if the status is open, closed, or not open.' ;
-COMMENT ON COLUMN tasker.rv_task_status.status_category IS 'The name for the status category' ;
 COMMENT ON COLUMN tasker.rv_task_status.name IS 'The name of the status.' ;
+COMMENT ON COLUMN tasker.rv_task_status.status_category_id IS 'The ID of the status category indicating if the status is open, closed, or not open.' ;
+COMMENT ON COLUMN tasker.rv_task_status.status_category IS 'The name for the status category' ;
 COMMENT ON COLUMN tasker.rv_task_status.description IS 'The description of the status.' ;
 COMMENT ON COLUMN tasker.rv_task_status.is_default IS 'Indicates whether or not the row is the default row.' ;
 COMMENT ON COLUMN tasker.rv_task_status.is_enabled IS 'Indicates whether or not the status is available for use.' ;
