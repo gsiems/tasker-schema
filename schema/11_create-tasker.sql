@@ -54,7 +54,7 @@ GRANT USAGE ON SCHEMA tasker TO tasker_user;
 --\i tasker/view/rv_role.sql
 \i tasker/view/rv_task_status.sql
 \i tasker/view/rv_task_type.sql
-\i tasker/view/rv_task_category_status.sql
+\i tasker/view/rv_available_task_status.sql
 --\i tasker/view/rv_eav_attribute_type.sql
 --\i tasker/view/rv_task_attribute_type.sql
 
@@ -90,6 +90,21 @@ GRANT USAGE ON SCHEMA tasker TO tasker_user;
 
 \i tasker/function/resolve_role_id.sql
 \i tasker/function/resolve_user_id.sql
+
+\i tasker/function/resolve_task_category_id.sql
+\i tasker/function/resolve_ranking_id.sql
+\i tasker/function/resolve_date_importance_id.sql
+\i tasker/function/resolve_issue_probability_id.sql
+\i tasker/function/resolve_issue_severity_id.sql
+\i tasker/function/resolve_issue_workaround_id.sql
+\i tasker/function/resolve_markup_type_id.sql
+\i tasker/function/resolve_object_action_id.sql
+\i tasker/function/resolve_object_type_id.sql
+\i tasker/function/resolve_status_category_id.sql
+\i tasker/function/resolve_task_status_id.sql
+\i tasker/function/resolve_task_type_id.sql
+\i tasker/function/resolve_visibility_id.sql
+
 \i tasker/function/get_object_stats.sql
 \i tasker/function/get_user_stats.sql
 
