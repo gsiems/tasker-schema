@@ -44,7 +44,7 @@ BEGIN
 
     ELSE
 
-        -- If no status category specified then try for a distinct name
+        -- If no task category specified then try for a distinct name
         FOR r IN (
             SELECT id
                 FROM tasker_data.rt_task_type
