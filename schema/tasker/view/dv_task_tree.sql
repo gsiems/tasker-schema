@@ -2,7 +2,7 @@ CREATE VIEW tasker.dv_task_tree
 AS
 WITH RECURSIVE toc AS (
     SELECT base.id,
-            '{}'::int[] AS parents,
+            ARRAY [ base.parent_id ] AS parents,
             base.parent_id,
             base.activity_id,
             base.task_type_id,
@@ -12,10 +12,7 @@ WITH RECURSIVE toc AS (
                 ORDER BY base.id ) ] AS outln,
             ARRAY[base.id] AS task_path
         FROM tasker_data.dt_task base
-        JOIN tasker_data.dt_task p -- only tasks that have an activity for the parent
-            ON ( p.id = base.parent_id
-                AND p.id = p.activity_id )
-        WHERE base.activity_id <> base.id -- that are not activities
+        WHERE base.activity_id = base.parent_id -- only tasks that have an activity for the parent
     UNION ALL
     SELECT base.id,
             parents || base.parent_id,
