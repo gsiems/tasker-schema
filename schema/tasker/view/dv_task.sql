@@ -47,7 +47,7 @@ SELECT base.id,
         base.created_dt,
         base.updated_dt
     FROM tasker_data.dt_task base
-    JOIN tasker.dv_task_tree tree
+    LEFT JOIN tasker.dv_task_tree tree
         ON ( tree.id = base.id )
     LEFT JOIN tasker_data.dt_user t006
         ON ( t006.id = base.owner_id )
